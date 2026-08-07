@@ -286,3 +286,47 @@ tr:hover{
 background:#222;
 
 }
+.treinos{
+
+display:flex;
+
+justify-content:center;
+
+gap:30px;
+
+flex-wrap:wrap;
+
+}
+
+
+.turma{
+
+background:#1c1c1c;
+
+padding:30px;
+
+width:300px;
+
+border-radius:15px;
+
+text-align:center;
+
+border:1px solid #d4af37;
+
+}
+
+
+.turma h3{
+
+color:#d4af37;
+
+font-size:28px;
+
+}
+
+
+.turma p{
+
+font-size:20px;
+
+}
