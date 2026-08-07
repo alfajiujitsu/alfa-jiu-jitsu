@@ -698,3 +698,78 @@ line-height:1.8;
 margin-bottom:35px;
 
 }
+/* ===== NÚMEROS ===== */
+
+.numeros{
+
+padding:90px 20px;
+
+text-align:center;
+
+background:#111;
+
+}
+
+.numeros h2{
+
+font-size:40px;
+
+color:#d4af37;
+
+margin-bottom:50px;
+
+}
+
+.contador{
+
+display:flex;
+
+justify-content:center;
+
+flex-wrap:wrap;
+
+gap:40px;
+
+}
+
+.numero{
+
+background:#1b1b1b;
+
+width:220px;
+
+padding:30px;
+
+border-radius:20px;
+
+border:1px solid #333;
+
+transition:.3s;
+
+}
+
+.numero:hover{
+
+transform:translateY(-8px);
+
+border-color:#d4af37;
+
+}
+
+.numero h3{
+
+font-size:55px;
+
+color:#d4af37;
+
+margin:0;
+
+}
+
+.numero p{
+
+font-size:20px;
+
+margin-top:15px;
+
+}
