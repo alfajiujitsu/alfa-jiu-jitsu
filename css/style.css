@@ -531,3 +531,33 @@ margin-top:25px;
 color:white;
 
 }
+.botao{
+
+margin-top:35px;
+
+background:#d4af37;
+
+color:black;
+
+padding:18px 40px;
+
+border-radius:50px;
+
+font-size:20px;
+
+font-weight:bold;
+
+text-decoration:none;
+
+transition:.3s;
+
+}
+
+
+.botao:hover{
+
+background:white;
+
+transform:scale(1.05);
+
+}
