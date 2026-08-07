@@ -561,3 +561,72 @@ background:white;
 transform:scale(1.05);
 
 }
+/* ===== VANTAGENS ===== */
+
+.vantagens{
+
+padding:80px 20px;
+
+text-align:center;
+
+}
+
+.vantagens h2{
+
+font-size:38px;
+
+color:#d4af37;
+
+margin-bottom:50px;
+
+}
+
+.cards{
+
+display:flex;
+
+justify-content:center;
+
+gap:30px;
+
+flex-wrap:wrap;
+
+}
+
+.card{
+
+background:#1b1b1b;
+
+width:320px;
+
+padding:30px;
+
+border-radius:15px;
+
+border:1px solid #333;
+
+transition:.3s;
+
+}
+
+.card:hover{
+
+transform:translateY(-10px);
+
+border-color:#d4af37;
+
+}
+
+.card h3{
+
+color:#d4af37;
+
+margin-bottom:15px;
+
+}
+
+.card p{
+
+line-height:1.6;
+
+}
