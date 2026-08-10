@@ -890,3 +890,54 @@ footer p{
 margin:8px;
 
 }
+/* ===== FILTROS DA GALERIA ===== */
+
+.filtros{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+gap:15px;
+
+flex-wrap:wrap;
+
+margin:40px auto;
+
+}
+
+
+.filtros button{
+
+background:#1c1c1c;
+
+color:white;
+
+border:1px solid #d4af37;
+
+padding:12px 22px;
+
+border-radius:30px;
+
+font-size:16px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+
+.filtros button:hover{
+
+background:#d4af37;
+
+color:#000;
+
+transform:translateY(-3px);
+
+}
