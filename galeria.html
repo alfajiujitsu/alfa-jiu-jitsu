@@ -82,28 +82,36 @@ Momentos da nossa equipe dentro e fora do tatame.
 
 <div class="foto" data-categoria="kids">
 
-<img src="imagens/kids1.jpg" alt="Turma Kids Alfa Jiu Jitsu">
+<img src="imagens/kids1.jpg"
+     alt="Turma Kids Alfa Jiu Jitsu"
+     onclick="abrirFoto(this)">
 
 </div>
 
 
 <div class="foto" data-categoria="adultos">
 
-<img src="imagens/adultos1.jpg" alt="Turma Adultos Alfa Jiu Jitsu">
+<img src="imagens/adultos1.jpg"
+     alt="Turma Adultos Alfa Jiu Jitsu"
+     onclick="abrirFoto(this)">
 
 </div>
 
 
 <div class="foto" data-categoria="eventos">
 
-<img src="imagens/evento1.jpg" alt="Evento Alfa Jiu Jitsu">
+<img src="imagens/evento1.jpg"
+     alt="Evento Alfa Jiu Jitsu"
+     onclick="abrirFoto(this)">
 
 </div>
 
 
 <div class="foto" data-categoria="graduacoes">
 
-<img src="imagens/graduacao1.jpg" alt="Graduação Alfa Jiu Jitsu">
+<img src="imagens/graduacao1.jpg"
+     alt="Graduação Alfa Jiu Jitsu"
+     onclick="abrirFoto(this)">
 
 </div>
 
@@ -126,6 +134,14 @@ Momentos da nossa equipe dentro e fora do tatame.
 
 </footer>
 
+<div id="visualizador" class="visualizador">
+
+<span class="fechar" onclick="fecharFoto()">×</span>
+
+<img id="fotoGrande" src="" alt="">
+
+</div>
+    
 <script>
 
 function filtrarGaleria(categoria) {
@@ -150,7 +166,25 @@ function filtrarGaleria(categoria) {
     });
 
 }
+function abrirFoto(imagem) {
 
+    const visualizador = document.getElementById("visualizador");
+
+    const fotoGrande = document.getElementById("fotoGrande");
+
+    visualizador.style.display = "flex";
+
+    fotoGrande.src = imagem.src;
+
+    fotoGrande.alt = imagem.alt;
+
+}
+    function fecharFoto() {
+
+    document.getElementById("visualizador").style.display = "none";
+
+}
+    
 </script>
 
 </body>
