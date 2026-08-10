@@ -138,7 +138,11 @@ Momentos da nossa equipe dentro e fora do tatame.
 
 <span class="fechar" onclick="fecharFoto()">×</span>
 
+<button class="anterior" onclick="fotoAnterior()">❮</button>
+
 <img id="fotoGrande" src="" alt="">
+
+<button class="proxima" onclick="proximaFoto()">❯</button>
 
 </div>
     
@@ -166,20 +170,92 @@ function filtrarGaleria(categoria) {
     });
 
 }
+let fotosVisiveis = [];
+
+let fotoAtual = 0;
+
+
 function abrirFoto(imagem) {
 
-    const visualizador = document.getElementById("visualizador");
+    const fotos = document.querySelectorAll(".foto");
 
-    const fotoGrande = document.getElementById("fotoGrande");
+    fotosVisiveis = Array.from(fotos).filter(function(foto) {
 
-    visualizador.style.display = "flex";
+        return foto.style.display !== "none";
 
-    fotoGrande.src = imagem.src;
+    });
 
-    fotoGrande.alt = imagem.alt;
+
+    fotoAtual = fotosVisiveis.findIndex(function(foto) {
+
+        return foto.querySelector("img") === imagem;
+
+    });
+
+
+    mostrarFoto();
+
+    document.getElementById("visualizador").style.display = "flex";
 
 }
-    function fecharFoto() {
+
+
+function mostrarFoto() {
+
+    if (fotosVisiveis.length === 0) return;
+
+
+    const imagem = fotosVisiveis[fotoAtual].querySelector("img");
+
+
+    document.getElementById("fotoGrande").src = imagem.src;
+
+    document.getElementById("fotoGrande").alt = imagem.alt;
+
+}
+
+
+function fotoAnterior() {
+
+    if (fotosVisiveis.length === 0) return;
+
+
+    fotoAtual--;
+
+
+    if (fotoAtual < 0) {
+
+        fotoAtual = fotosVisiveis.length - 1;
+
+    }
+
+
+    mostrarFoto();
+
+}
+
+
+function proximaFoto() {
+
+    if (fotosVisiveis.length === 0) return;
+
+
+    fotoAtual++;
+
+
+    if (fotoAtual >= fotosVisiveis.length) {
+
+        fotoAtual = 0;
+
+    }
+
+
+    mostrarFoto();
+
+}
+
+
+function fecharFoto() {
 
     document.getElementById("visualizador").style.display = "none";
 
