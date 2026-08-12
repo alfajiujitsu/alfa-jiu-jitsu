@@ -1,133 +1,106 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos - Alfa Jiu Jitsu Academy</title>
+    <link rel="stylesheet" href="css/style.css">
 
-<meta charset="UTF-8">
+    <style>
+        .eventos {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        .evento-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
 
-<title>Eventos - Alfa Jiu Jitsu Academy</title>
+        .evento {
+            background: #222;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 25px;
+            width: 280px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            cursor: pointer;
+            height: 100%;
+            box-sizing: border-box;
+        }
 
-<link rel="stylesheet" href="css/style.css">
+        .evento:hover {
+            transform: translateY(-5px);
+            border-color: #d4af37;
+        }
 
+        .evento h3 {
+            color: #d4af37;
+            margin-top: 0;
+        }
+    </style>
 </head>
-
 
 <body>
 
+    <header>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="historia.html">Nossa História</a>
+            <a href="professores.html">Professores</a>
+            <a href="horarios.html">Horários</a>
+            <a href="eventos.html">Eventos</a>
+            <a href="galeria.html">Galeria</a>
+            <a href="admin.html">Admin</a>
+        </nav>
 
-<header>
+        <h1>ALFA JIU JITSU ACADEMY</h1>
+        <p>Disciplina • Respeito • Evolução</p>
+    </header>
 
+    <main>
+        <section>
+            <h2>Eventos e Competições</h2>
 
-<nav>
+            <div class="eventos">
 
-<a href="index.html">Início</a>
+                <!-- CARD CAMPEONATO (Abre a página de notícias/campeonatos) -->
+                <a href="campeonatos.html" class="evento-link">
+                    <div class="evento">
+                        <h3>🏆 Campeonato</h3>
+                        <p>Participação dos atletas da Alfa Jiu Jitsu Academy em competições regionais.</p>
+                    </div>
+                </a>
 
-<a href="historia.html">Nossa História</a>
+                <!-- CARD GRADUAÇÕES (Direciona para a Galeria filtrada) -->
+                <a href="galeria.html?categoria=graduacoes" class="evento-link">
+                    <div class="evento">
+                        <h3>🥋 Graduações</h3>
+                        <p>Momentos de evolução dos alunos através das graduações de faixa.</p>
+                    </div>
+                </a>
 
-<a href="professores.html">Professores</a>
+                <!-- CARD SEMINÁRIOS (Direciona para a Galeria filtrada) -->
+                <a href="galeria.html?categoria=eventos" class="evento-link">
+                    <div class="evento">
+                        <h3>🔥 Seminários</h3>
+                        <p>Treinos especiais com professores convidados e grandes experiências.</p>
+                    </div>
+                </a>
 
-<a href="horarios.html">Horários</a>
+            </div>
+        </section>
+    </main>
 
-<a href="eventos.html">Eventos</a>
-
-<a href="galeria.html">Galeria</a>
-
-</nav>
-
-
-<h1>
-ALFA JIU JITSU ACADEMY
-</h1>
-
-
-<p>
-Disciplina • Respeito • Evolução
-</p>
-
-
-</header>
-
-
-
-<main>
-
-
-<section>
-
-
-<h2>
-Eventos e Competições
-</h2>
-
-
-
-<div class="eventos">
-
-
-
-<div class="evento">
-
-<h3>
-🏆 Campeonato
-</h3>
-
-<p>
-Participação dos atletas da Alfa Jiu Jitsu Academy em competições regionais.
-</p>
-
-</div>
-
-
-
-<div class="evento">
-
-<h3>
-🥋 Graduações
-</h3>
-
-<p>
-Momentos de evolução dos alunos através das graduações de faixa.
-</p>
-
-</div>
-
-
-
-<div class="evento">
-
-<h3>
-🔥 Seminários
-</h3>
-
-<p>
-Treinos especiais com professores convidados e grandes experiências.
-</p>
-
-</div>
-
-
-
-</div>
-
-
-</section>
-
-
-</main>
-
-
-
-<footer>
-
-<p>
-© 2026 Alfa Jiu Jitsu Academy
-</p>
-
-</footer>
-
+    <footer>
+        <p>© 2026 Alfa Jiu Jitsu Academy</p>
+    </footer>
 
 </body>
 
