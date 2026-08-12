@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administração - Alfa Jiu Jitsu</title>
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .admin-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .admin-box {
+            background: #111;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            color: #fff;
+        }
+
+        .admin-box h2 {
+            margin-bottom: 20px;
+        }
+
+        .campo {
+            margin-bottom: 20px;
+        }
+
+        .campo label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .campo input,
+        .campo select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #444;
+            background: #222;
+            color: #fff;
+            box-sizing: border-box;
+        }
+
+        .admin-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            background-color: #d32f2f;
+            color: #fff;
+        }
+
+        .admin-btn:hover {
+            background-color: #b71c1c;
+        }
+
+        #mensagemLogin,
+        #mensagemUpload {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        #painel {
+            display: none;
+        }
+
+        #login {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="historia.html">Nossa História</a>
+            <a href="professores.html">Professores</a>
+            <a href="horarios.html">Horários</a>
+            <a href="eventos.html">Eventos</a>
+            <a href="galeria.html">Galeria</a>
+        </nav>
+
+        <h1>ALFA JIU JITSU ACADEMY</h1>
+        <p>Disciplina • Respeito • Evolução</p>
+    </header>
+
+    <main class="admin-container">
+
+        <!-- =========================
+             LOGIN
+        ========================== -->
+        <section id="login" class="admin-box">
+            <h2>Área Administrativa</h2>
+
+            <div class="campo">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" placeholder="Digite seu e-mail">
+            </div>
+
+            <div class="campo">
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" placeholder="Digite sua senha">
+            </div>
+
+            <button class="admin-btn" onclick="entrar()">ENTRAR</button>
+
+            <p id="mensagemLogin"></p>
+        </section>
+
+        <!-- =========================
+             PAINEL
+        ========================== -->
+        <section id="painel" class="admin-box">
+            <h2>Painel Administrativo</h2>
+            <p>Você está logado.</p>
+
+            <hr style="border-color: #333; margin: 20px 0;">
+
+            <h3>Adicionar nova foto</h3>
+
+            <div class="campo">
+                <label for="categoria">Categoria</label>
+                <select id="categoria">
+                    <option value="kids">Kids</option>
+                    <option value="adultos">Adultos</option>
+                    <option value="eventos">Eventos</option>
+                    <option value="graduacoes">Graduações</option>
+                    <option value="campeonatos">Campeonatos</option>
+                </select>
+            </div>
+
+            <div class="campo">
+                <label for="arquivo">Escolha a foto</label>
+                <input type="file" id="arquivo" accept="image/jpeg,image/png,image/webp">
+            </div>
+
+            <button class="admin-btn" onclick="enviarFoto()">ENVIAR FOTO</button>
+
+            <p id="mensagemUpload"></p>
+
+            <br><br>
+
+            <button class="admin-btn" style="background-color: #555;" onclick="sair()">SAIR</button>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>ALFA JIU JITSU ACADEMY</p>
+        <p>Disciplina • Respeito • Evolução</p>
+        <p>© 2026 Alfa Jiu Jitsu Academy</p>
+    </footer>
+
+    <script type="module">
+        import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+        /* ======================================
+           CONFIGURAÇÃO SUPABASE
+        ====================================== */
+        const SUPABASE_URL = "https://zlfcnqjcxflcecrcfhyc.supabase.co";
+        
+        // Usando a chave anon JWT Válida para a SDK
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpsZmNucWpjeGZsY2VjcmNmaHljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzODY1MjUsImV4cCI6MjEwMTk2MjUyNX0.YtNYhsM_ctV2HpsGJJOlSzLS_v_4vGp-82aFTaqibaI";
+
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        /* ======================================
+           ELEMENTOS
+        ====================================== */
+        const login = document.getElementById("login");
+        const painel = document.getElementById("painel");
+        const mensagemLogin = document.getElementById("mensagemLogin");
+        const mensagemUpload = document.getElementById("mensagemUpload");
+
+        /* ======================================
+           VERIFICAR LOGIN
+        ====================================== */
+        async function verificarUsuario() {
+            const { data: { user } } = await supabase.auth.getUser();
+
+            if (user) {
+                login.style.display = "none";
+                painel.style.display = "block";
+            } else {
+                login.style.display = "block";
+                painel.style.display = "none";
+            }
+        }
+
+        /* ======================================
+           LOGIN
+        ====================================== */
+        window.entrar = async function() {
+            const email = document.getElementById("email").value;
+            const senha = document.getElementById("senha").value;
+
+            if (!email || !senha) {
+                mensagemLogin.textContent = "Preencha e-mail e senha.";
+                return;
+            }
+
+            mensagemLogin.textContent = "Entrando...";
+
+            const { error } = await supabase.auth.signInWithPassword({
+                email: email,
+                password: senha
+            });
+
+            if (error) {
+                mensagemLogin.textContent = "E-mail ou senha incorretos.";
+                console.error(error);
+                return;
+            }
+
+            mensagemLogin.textContent = "Login realizado!";
+            login.style.display = "none";
+            painel.style.display = "block";
+        };
+
+        /* ======================================
+           LOGOUT
+        ====================================== */
+        window.sair = async function() {
+            await supabase.auth.signOut();
+            mensagemLogin.textContent = "";
+            mensagemUpload.textContent = "";
+            painel.style.display = "none";
+            login.style.display = "block";
+        };
+
+        /* ======================================
+           ENVIAR FOTO
+        ====================================== */
+        window.enviarFoto = async function() {
+            const arquivo = document.getElementById("arquivo").files[0];
+            const categoria = document.getElementById("categoria").value;
+
+            if (!arquivo) {
+                mensagemUpload.textContent = "Escolha uma foto primeiro.";
+                return;
+            }
+
+            mensagemUpload.textContent = "Enviando foto...";
+
+            // Nome único para o arquivo
+            const extensao = arquivo.name.split(".").pop().toLowerCase();
+            const nome = Date.now() + "-" + Math.random().toString(36).substring(2, 8) + "." + extensao;
+            const caminho = categoria + "/" + nome;
+
+            const { error } = await supabase.storage
+                .from("galeria")
+                .upload(caminho, arquivo, {
+                    cacheControl: "3600",
+                    upsert: false
+                });
+
+            if (error) {
+                mensagemUpload.textContent = "Erro ao enviar a foto. Verifique as permissões (RLS) do Storage.";
+                console.error(error);
+                return;
+            }
+
+            mensagemUpload.textContent = "Foto enviada com sucesso!";
+            document.getElementById("arquivo").value = "";
+        };
+
+        // Executa a verificação assim que carregar
+        verificarUsuario();
+    </script>
+
+</body>
+
+</html>
