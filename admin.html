@@ -23,6 +23,7 @@
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 30px;
+            text-align: left;
         }
 
         .form-group {
@@ -37,13 +38,14 @@
             font-size: 14px;
         }
 
-        .form-group select, .form-group input {
+        .form-group select, .form-group input, .form-group textarea {
             padding: 10px;
             border-radius: 5px;
             border: 1px solid #444;
             background-color: #121212;
             color: #fff;
             font-size: 14px;
+            font-family: inherit;
         }
 
         .btn-primary {
@@ -107,6 +109,18 @@
         .btn-excluir:hover {
             background-color: #991b1b;
         }
+
+        /* LISTA DE CAMPEONATOS NO ADMIN */
+        .item-camp-admin {
+            background: #121212;
+            border: 1px solid #333;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
     </style>
 </head>
 
@@ -128,9 +142,47 @@
     </header>
 
     <main class="admin-container">
-        <!-- FORMULÁRIO DE UPLOAD -->
+
+        <!-- NOVO: FORMULÁRIO DE NOTÍCIAS DE CAMPEONATOS -->
         <div class="upload-card">
-            <h3>Enviar Nova Foto</h3>
+            <h3 style="color: #d4af37;">🏆 Cadastrar Notícia / Campeonato</h3>
+            <form id="formCampeonato" style="margin-top: 15px;">
+                <div class="form-group">
+                    <label for="campTipo">Tipo de Evento:</label>
+                    <select id="campTipo" required>
+                        <option value="proximo">📌 Presença Confirmada (Próximo Campeonato)</option>
+                        <option value="realizado">✅ Campeonato Realizado (Resultado & Galeria)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="campTitulo">Título da Notícia / Campeonato:</label>
+                    <input type="text" id="campTitulo" placeholder="Ex: Alfa Confirmada no Campeonato Catarinense 2026" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="campMeta">Data / Local / Conquistas:</label>
+                    <input type="text" id="campMeta" placeholder="Ex: 20 de Setembro de 2026 | Local: Joinville/SC" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="campDescricao">Descrição / Conteúdo da Notícia:</label>
+                    <textarea id="campDescricao" rows="4" placeholder="Escreva os detalhes sobre nossa participação ou os resultados obtidos..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="campFotos">URLs das Fotos dos Atletas (separadas por vírgula):</label>
+                    <input type="text" id="campFotos" placeholder="Ex: https://.../foto1.jpg, https://.../foto2.jpg">
+                </div>
+
+                <button type="submit" class="btn-primary" id="btnSalvarCamp">Publicar Campeonato</button>
+            </form>
+            <p id="msgCampStatus" style="margin-top: 10px; font-weight: bold;"></p>
+        </div>
+
+        <!-- FORMULÁRIO DE UPLOAD DE FOTOS -->
+        <div class="upload-card">
+            <h3>Enviar Nova Foto para Galeria</h3>
             <form id="formUpload" style="margin-top: 15px;">
                 <div class="form-group">
                     <label for="selectCategoria">Categoria:</label>
@@ -174,7 +226,7 @@
 
         <!-- GERENCIADOR DE FOTOS EXISTENTES -->
         <div class="gerenciador-card">
-            <h3>Gerenciar e Excluir Fotos</h3>
+            <h3>Gerenciar e Excluir Fotos da Galeria</h3>
             <div id="gridAdminFotos" class="admin-galeria-grid">
                 <p>Carregando fotos...</p>
             </div>
@@ -188,6 +240,45 @@
 
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         const listaCategorias = ["adultos", "kids", "eventos", "graduacoes", "campeonatos"];
+
+        /* ================================
+           CADASTRAR CAMPEONATO NO SUPABASE
+        ================================ */
+        document.getElementById("formCampeonato").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            const msg = document.getElementById("msgCampStatus");
+            const btn = document.getElementById("btnSalvarCamp");
+
+            const tipo = document.getElementById("campTipo").value;
+            const titulo = document.getElementById("campTitulo").value;
+            const meta = document.getElementById("campMeta").value;
+            const descricao = document.getElementById("campDescricao").value;
+            const fotosStr = document.getElementById("campFotos").value;
+
+            // Converter fotos separadas por vírgula em array
+            const fotosArray = fotosStr ? fotosStr.split(",").map(f => f.trim()) : [];
+
+            btn.disabled = true;
+            msg.style.color = "#d97706";
+            msg.innerText = "Salvando notícia...";
+
+            const { data, error } = await supabaseClient
+                .from("campeonatos")
+                .insert([
+                    { tipo, titulo, meta, descricao, fotos: fotosArray }
+                ]);
+
+            btn.disabled = false;
+
+            if (error) {
+                msg.style.color = "#dc2626";
+                msg.innerText = "Erro ao publicar: " + error.message;
+            } else {
+                msg.style.color = "#16a34a";
+                msg.innerText = "Notícia publicada com sucesso!";
+                document.getElementById("formCampeonato").reset();
+            }
+        });
 
         /* ================================
            CARREGAR E LISTAR FOTOS
@@ -209,7 +300,6 @@
                 for (const item of itens) {
                     if (!item.name || item.name === ".emptyFolderPlaceholder") continue;
 
-                    // Se for subpasta de mês
                     if (!item.id) {
                         const { data: fotosSub } = await supabaseClient
                             .storage
@@ -226,7 +316,6 @@
                             });
                         }
                     } else {
-                        // Arquivo direto na categoria
                         if (eImagem(item.name)) {
                             const caminhoCompleto = `${cat}/${item.name}`;
                             criarCardFotoAdmin(caminhoCompleto, cat);
@@ -253,7 +342,6 @@
             const card = document.createElement("div");
             card.className = "card-foto-admin";
 
-            // Adiciona um timestamp na URL para evitar cache da imagem excluída
             const urlComCache = `${data.publicUrl}?t=${new Date().getTime()}`;
 
             card.innerHTML = `
@@ -272,7 +360,6 @@
             const confirmou = confirm("Tem certeza que deseja excluir esta foto permanentemente?");
             if (!confirmou) return;
 
-            // Formatação estrita do caminho para o Supabase
             const caminhoLimpo = caminhoArquivo.replace(/^\/+/, '');
 
             const { data, error } = await supabaseClient
@@ -284,7 +371,6 @@
                 alert("Erro ao excluir foto do Supabase: " + error.message);
             } else {
                 alert("Foto excluída com sucesso do servidor!");
-                // Aguarda 500ms e recarrega a lista para confirmar a remoção
                 setTimeout(() => {
                     carregarFotosAdmin();
                 }, 500);
