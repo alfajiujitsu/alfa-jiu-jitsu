@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administração - Alfa Jiu Jitsu</title>
     <link rel="stylesheet" href="css/style.css">
-
-    <!-- SDK Oficial do Supabase via Script Clássico (sem módulos/imports) -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
@@ -66,7 +64,6 @@
             background-color: #d32f2f;
             color: #ffffff;
             font-size: 16px;
-            transition: background 0.2s;
         }
 
         .admin-button:hover {
@@ -92,6 +89,7 @@
             <a href="horarios.html">Horários</a>
             <a href="eventos.html">Eventos</a>
             <a href="galeria.html">Galeria</a>
+            <a href="admin.html">Admin</a>
         </nav>
 
         <h1>ALFA JIU JITSU ACADEMY</h1>
@@ -99,17 +97,14 @@
     </header>
 
     <main>
-        <!-- Conteúdo principal ou institucional pode vir aqui se desejar -->
         <section style="text-align: center; padding: 20px;">
             <h2>Painel de Gestão da Galeria</h2>
-            <p>Gerencie o envio de novas fotos para as turmas e eventos da academia.</p>
+            <p>Gerencie o envio de novas fotos para a galeria da academia.</p>
         </section>
 
-        <!-- ÁREA ADMINISTRATIVA (NO FINAL DA PÁGINA) -->
         <div class="admin-section-container">
             
-            <!-- FORMULÁRIO DE LOGIN -->
-            <div id="loginBox" class="admin-card" style="display: block !important;">
+            <div id="loginBox" class="admin-card">
                 <h2>Acesso Restrito</h2>
 
                 <div class="admin-field">
@@ -126,14 +121,13 @@
                 <div id="mensagemLogin" class="admin-status"></div>
             </div>
 
-            <!-- PAINEL DE UPLOAD (EXIBIDO APÓS O LOGIN) -->
             <div id="painelBox" class="admin-card" style="display: none;">
                 <h2>Painel do Administrador</h2>
                 <p>Status: <strong>Autenticado</strong></p>
 
                 <hr style="border-color: #444; margin: 20px 0;">
 
-                <h3>Enviar Nova Foto para a Galeria</h3>
+                <h3>Enviar Nova Foto</h3>
 
                 <div class="admin-field">
                     <label for="categoria">Categoria da Foto</label>
@@ -147,7 +141,7 @@
                 </div>
 
                 <div class="admin-field">
-                    <label for="arquivo">Selecione o Arquivo de Imagem</label>
+                    <label for="arquivo">Selecione o Arquivo</label>
                     <input type="file" id="arquivo" accept="image/jpeg,image/png,image/webp">
                 </div>
 
@@ -171,7 +165,6 @@
         const SUPABASE_URL = "https://zlfcnqjcxflcecrcfhyc.supabase.co";
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpsZmNucWpjeGZsY2VjcmNmaHljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzODY1MjUsImV4cCI6MjEwMTk2MjUyNX0.YtNYhsM_ctV2HpsGJJOlSzLS_v_4vGp-82aFTaqibaI";
 
-        // Inicializa o cliente do Supabase globalmente
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         const loginBox = document.getElementById("loginBox");
@@ -179,26 +172,24 @@
         const mensagemLogin = document.getElementById("mensagemLogin");
         const mensagemUpload = document.getElementById("mensagemUpload");
 
-        // Verifica se o usuário já está logado ao carregar a página
         async function verificarSessao() {
             try {
                 const { data: { user } } = await supabaseClient.auth.getUser();
 
                 if (user) {
-                    loginBox.style.setProperty("display", "none", "important");
-                    painelBox.style.setProperty("display", "block", "important");
+                    loginBox.style.display = "none";
+                    painelBox.style.display = "block";
                 } else {
-                    loginBox.style.setProperty("display", "block", "important");
-                    painelBox.style.setProperty("display", "none", "important");
+                    loginBox.style.display = "block";
+                    painelBox.style.display = "none";
                 }
             } catch (err) {
-                console.error("Erro na verificação:", err);
-                loginBox.style.setProperty("display", "block", "important");
-                painelBox.style.setProperty("display", "none", "important");
+                console.error("Erro:", err);
+                loginBox.style.display = "block";
+                painelBox.style.display = "none";
             }
         }
 
-        // Função para realizar Login
         async function entrar() {
             const email = document.getElementById("email").value;
             const senha = document.getElementById("senha").value;
@@ -217,32 +208,29 @@
 
             if (error) {
                 mensagemLogin.textContent = "E-mail ou senha incorretos.";
-                console.error("Erro de Login:", error);
                 return;
             }
 
             mensagemLogin.textContent = "";
-            loginBox.style.setProperty("display", "none", "important");
-            painelBox.style.setProperty("display", "block", "important");
+            loginBox.style.display = "none";
+            painelBox.style.display = "block";
         }
 
-        // Função de Logout
         async function sair() {
             await supabaseClient.auth.signOut();
             mensagemLogin.textContent = "";
             mensagemUpload.textContent = "";
-            painelBox.style.setProperty("display", "none", "important");
-            loginBox.style.setProperty("display", "block", "important");
+            painelBox.style.display = "none";
+            loginBox.style.display = "block";
         }
 
-        // Função para Enviar a Foto
         async function enviarFoto() {
             const inputArquivo = document.getElementById("arquivo");
             const arquivo = inputArquivo.files[0];
             const categoria = document.getElementById("categoria").value;
 
             if (!arquivo) {
-                mensagemUpload.textContent = "Por favor, selecione uma imagem.";
+                mensagemUpload.textContent = "Selecione uma imagem.";
                 return;
             }
 
@@ -260,8 +248,8 @@
                 });
 
             if (error) {
-                mensagemUpload.textContent = "Erro ao enviar a imagem. Verifique se o login está ativo.";
-                console.error("Erro no Upload:", error);
+                mensagemUpload.textContent = "Erro ao enviar a imagem.";
+                console.error(error);
                 return;
             }
 
@@ -269,7 +257,6 @@
             inputArquivo.value = "";
         }
 
-        // Executa ao carregar
         verificarSessao();
     </script>
 
