@@ -190,12 +190,13 @@
         const listaCategorias = ["adultos", "kids", "eventos", "graduacoes", "campeonatos"];
 
         /* ================================
-           CARREGAR E LISTAR FOTOS COM BOTAO EXCLUIR
+           CARREGAR E LISTAR FOTOS
         ================================ */
         async function carregarFotosAdmin() {
             const grid = document.getElementById("gridAdminFotos");
-            grid.innerHTML = "";
+            grid.innerHTML = "<p>Atualizando lista de fotos...</p>";
             let totalFotos = 0;
+            grid.innerHTML = "";
 
             for (const cat of listaCategorias) {
                 const { data: itens, error } = await supabaseClient
@@ -252,8 +253,11 @@
             const card = document.createElement("div");
             card.className = "card-foto-admin";
 
+            // Adiciona um timestamp na URL para evitar cache da imagem excluída
+            const urlComCache = `${data.publicUrl}?t=${new Date().getTime()}`;
+
             card.innerHTML = `
-                <img src="${data.publicUrl}" alt="Foto Admin">
+                <img src="${urlComCache}" alt="Foto Admin">
                 <span class="info-foto">Pasta: <strong>${categoria}</strong></span>
                 <button class="btn-excluir" onclick="excluirFoto('${caminhoCompleto}')">Excluir</button>
             `;
@@ -262,22 +266,28 @@
         }
 
         /* ================================
-           FUNÇÃO PARA EXCLUIR FOTO NO SUPABASE
+           EXCLUIR FOTO DO STORAGE
         ================================ */
         async function excluirFoto(caminhoArquivo) {
             const confirmou = confirm("Tem certeza que deseja excluir esta foto permanentemente?");
             if (!confirmou) return;
 
-            const { error } = await supabaseClient
+            // Formatação estrita do caminho para o Supabase
+            const caminhoLimpo = caminhoArquivo.replace(/^\/+/, '');
+
+            const { data, error } = await supabaseClient
                 .storage
                 .from(BUCKET)
-                .remove([caminhoArquivo]);
+                .remove([caminhoLimpo]);
 
             if (error) {
-                alert("Erro ao excluir foto: " + error.message);
+                alert("Erro ao excluir foto do Supabase: " + error.message);
             } else {
-                alert("Foto excluída com sucesso!");
-                carregarFotosAdmin(); // Recarrega a lista
+                alert("Foto excluída com sucesso do servidor!");
+                // Aguarda 500ms e recarrega a lista para confirmar a remoção
+                setTimeout(() => {
+                    carregarFotosAdmin();
+                }, 500);
             }
         }
 
@@ -300,7 +310,6 @@
             msg.style.color = "#d97706";
             msg.innerText = "Enviando foto...";
 
-            // Monta o caminho no bucket
             let caminhoUpload = `${categoria}/${arquivo.name}`;
             if (mes && mes !== "todos") {
                 caminhoUpload = `${categoria}/${mes}/${arquivo.name}`;
@@ -320,11 +329,10 @@
                 msg.style.color = "#16a34a";
                 msg.innerText = "Foto enviada com sucesso!";
                 fileInput.value = "";
-                carregarFotosAdmin(); // Atualiza a lista na tela
+                carregarFotosAdmin();
             }
         });
 
-        // Inicializa a exibição no painel
         carregarFotosAdmin();
     </script>
 </body>
