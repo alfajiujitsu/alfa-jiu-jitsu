@@ -111,7 +111,6 @@ const SUPABASE_URL =
 const BUCKET =
     "galeria";
 
-
 const categorias = [
     "kids",
     "adultos",
@@ -119,7 +118,6 @@ const categorias = [
     "graduacoes",
     "campeonatos"
 ];
-
 
 const nomesCategorias = {
     kids: "Turma Kids Alfa Jiu Jitsu",
@@ -129,27 +127,27 @@ const nomesCategorias = {
     campeonatos: "Campeonato Alfa Jiu Jitsu"
 };
 
-
 let fotosVisiveis = [];
-
 let fotoAtual = 0;
 
 
-/* ==========================================
-   CARREGAR FOTOS DO SUPABASE
-========================================== */
+/* ================================
+   CARREGAR FOTOS
+================================ */
 
 async function carregarFotos() {
 
     const galeria =
         document.getElementById("galeriaFotos");
 
-    galeria.innerHTML = "<p>Carregando fotos...</p>";
+    galeria.innerHTML = "";
+
+    let quantidadeFotos = 0;
 
 
-    try {
+    for (const categoria of categorias) {
 
-        for (const categoria of categorias) {
+        try {
 
             const resposta = await fetch(
                 `${SUPABASE_URL}/storage/v1/object/list/${BUCKET}`,
@@ -161,16 +159,13 @@ async function carregarFotos() {
                     },
 
                     body: JSON.stringify({
-
-                        prefix: categoria + "/",
-
+                        prefix: categoria,
                         limit: 100,
-
+                        offset: 0,
                         sortBy: {
                             column: "name",
                             order: "asc"
                         }
-
                     })
                 }
             );
@@ -179,17 +174,24 @@ async function carregarFotos() {
             if (!resposta.ok) {
 
                 console.error(
-                    "Erro ao carregar categoria:",
+                    "Erro no Supabase:",
                     categoria,
                     resposta.status
                 );
 
                 continue;
-
             }
 
 
-            const arquivos = await resposta.json();
+            const arquivos =
+                await resposta.json();
+
+
+            console.log(
+                "Arquivos encontrados:",
+                categoria,
+                arquivos
+            );
 
 
             arquivos.forEach(function(arquivo) {
@@ -199,20 +201,19 @@ async function carregarFotos() {
 
                 const extensao =
                     arquivo.name
-                        .split(".")
-                        .pop()
-                        .toLowerCase();
+                    .split(".")
+                    .pop()
+                    .toLowerCase();
 
 
-                const extensoesPermitidas = [
-                    "jpg",
-                    "jpeg",
-                    "png",
-                    "webp"
-                ];
-
-
-                if (!extensoesPermitidas.includes(extensao)) {
+                if (
+                    ![
+                        "jpg",
+                        "jpeg",
+                        "png",
+                        "webp"
+                    ].includes(extensao)
+                ) {
                     return;
                 }
 
@@ -227,51 +228,48 @@ async function carregarFotos() {
 
                 criarFoto(
                     categoria,
-                    url,
-                    arquivo.name
+                    url
                 );
+
+
+                quantidadeFotos++;
 
             });
 
-        }
 
+        } catch (erro) {
 
-        const fotos =
-            document.querySelectorAll(".foto");
-
-
-        if (fotos.length === 0) {
-
-            galeria.innerHTML =
-                "<p>Nenhuma foto encontrada.</p>";
+            console.error(
+                "Erro ao carregar:",
+                categoria,
+                erro
+            );
 
         }
-
-
-        atualizarFotosVisiveis();
 
     }
 
-    catch (erro) {
 
-        console.error(erro);
+    if (quantidadeFotos === 0) {
 
         galeria.innerHTML =
-            "<p>Não foi possível carregar as fotos.</p>";
+            "<p>Nenhuma foto encontrada.</p>";
 
     }
+
+
+    atualizarFotosVisiveis();
 
 }
 
 
-/* ==========================================
-   CRIAR FOTO NA GALERIA
-========================================== */
+/* ================================
+   CRIAR FOTO
+================================ */
 
 function criarFoto(
     categoria,
-    url,
-    nomeArquivo
+    url
 ) {
 
     const galeria =
@@ -283,6 +281,7 @@ function criarFoto(
 
 
     div.className = "foto";
+
 
     div.dataset.categoria =
         categoria;
@@ -296,8 +295,7 @@ function criarFoto(
 
 
     imagem.alt =
-        nomesCategorias[categoria] ||
-        "Foto Alfa Jiu Jitsu";
+        nomesCategorias[categoria];
 
 
     imagem.loading = "lazy";
@@ -318,9 +316,9 @@ function criarFoto(
 }
 
 
-/* ==========================================
-   FILTRO DA GALERIA
-========================================== */
+/* ================================
+   FILTRO
+================================ */
 
 function filtrarGaleria(categoria) {
 
@@ -337,9 +335,7 @@ function filtrarGaleria(categoria) {
 
             foto.style.display = "block";
 
-        }
-
-        else {
+        } else {
 
             foto.style.display = "none";
 
@@ -353,9 +349,9 @@ function filtrarGaleria(categoria) {
 }
 
 
-/* ==========================================
+/* ================================
    ATUALIZAR FOTOS VISÍVEIS
-========================================== */
+================================ */
 
 function atualizarFotosVisiveis() {
 
@@ -371,9 +367,9 @@ function atualizarFotosVisiveis() {
 }
 
 
-/* ==========================================
-   ABRIR FOTO GRANDE
-========================================== */
+/* ================================
+   ABRIR FOTO
+================================ */
 
 function abrirFoto(imagem) {
 
@@ -389,9 +385,7 @@ function abrirFoto(imagem) {
 
 
     if (fotoAtual < 0) {
-
         fotoAtual = 0;
-
     }
 
 
@@ -405,9 +399,9 @@ function abrirFoto(imagem) {
 }
 
 
-/* ==========================================
+/* ================================
    MOSTRAR FOTO
-========================================== */
+================================ */
 
 function mostrarFoto() {
 
@@ -418,7 +412,7 @@ function mostrarFoto() {
 
     const imagem =
         fotosVisiveis[fotoAtual]
-            .querySelector("img");
+        .querySelector("img");
 
 
     document.getElementById(
@@ -433,9 +427,9 @@ function mostrarFoto() {
 }
 
 
-/* ==========================================
-   FOTO ANTERIOR
-========================================== */
+/* ================================
+   ANTERIOR
+================================ */
 
 function fotoAnterior() {
 
@@ -460,9 +454,9 @@ function fotoAnterior() {
 }
 
 
-/* ==========================================
-   PRÓXIMA FOTO
-========================================== */
+/* ================================
+   PRÓXIMA
+================================ */
 
 function proximaFoto() {
 
@@ -489,9 +483,9 @@ function proximaFoto() {
 }
 
 
-/* ==========================================
-   FECHAR FOTO
-========================================== */
+/* ================================
+   FECHAR
+================================ */
 
 function fecharFoto() {
 
@@ -502,9 +496,9 @@ function fecharFoto() {
 }
 
 
-/* ==========================================
-   INICIAR GALERIA
-========================================== */
+/* ================================
+   INICIAR
+================================ */
 
 carregarFotos();
 
