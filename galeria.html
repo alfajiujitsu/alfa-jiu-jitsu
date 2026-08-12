@@ -29,6 +29,23 @@
             font-size: 15px;
             cursor: pointer;
         }
+
+        .filtros button {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: 1px solid #444;
+            background-color: #222;
+            color: #fff;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        .filtros button.ativo {
+            background-color: #d4af37;
+            color: #000;
+            border-color: #d4af37;
+        }
     </style>
 </head>
 
@@ -57,12 +74,12 @@
             <div class="filtros-container">
                 <!-- BOTÕES DE CATEGORIA -->
                 <div class="filtros">
-                    <button onclick="filtrarCategoria('todos')">Todos</button>
-                    <button onclick="filtrarCategoria('kids')">Kids</button>
-                    <button onclick="filtrarCategoria('adultos')">Adultos</button>
-                    <button onclick="filtrarCategoria('eventos')">Eventos</button>
-                    <button onclick="filtrarCategoria('graduacoes')">Graduações</button>
-                    <button onclick="filtrarCategoria('campeonatos')">Campeonatos</button>
+                    <button id="btn-todos" onclick="filtrarCategoria('todos')">Todos</button>
+                    <button id="btn-kids" onclick="filtrarCategoria('kids')">Kids</button>
+                    <button id="btn-adultos" onclick="filtrarCategoria('adultos')">Adultos</button>
+                    <button id="btn-eventos" onclick="filtrarCategoria('eventos')">Eventos</button>
+                    <button id="btn-graduacoes" onclick="filtrarCategoria('graduacoes')">Graduações</button>
+                    <button id="btn-campeonatos" onclick="filtrarCategoria('campeonatos')">Campeonatos</button>
                 </div>
 
                 <!-- FILTRO DE MÊS -->
@@ -118,13 +135,23 @@
         let fotosVisiveis = [];
         let fotoAtual = 0;
 
+        /* Captura a categoria informada na URL (?categoria=kids) */
+        function obterCategoriaUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const catUrl = urlParams.get("categoria");
+            if (catUrl && (listaCategorias.includes(catUrl.toLowerCase()) || catUrl.toLowerCase() === "todos")) {
+                categoriaAtiva = catUrl.toLowerCase().trim();
+            }
+        }
+
         async function carregarFotos() {
+            obterCategoriaUrl(); // Lê a categoria enviada pelo index.html antes de renderizar
+            
             const galeria = document.getElementById("galeriaFotos");
             galeria.innerHTML = "";
             let totalFotos = 0;
 
             for (const cat of listaCategorias) {
-                // 1. Busca os itens dentro de cada pasta (ex: galeria/adultos, galeria/kids)
                 const { data: itens, error } = await supabaseClient
                     .storage
                     .from(BUCKET)
@@ -135,7 +162,6 @@
                 for (const item of itens) {
                     if (!item.name || item.name === ".emptyFolderPlaceholder") continue;
 
-                    // Verifica se é uma subpasta (ex: pasta de mês)
                     if (!item.id) {
                         const { data: fotosSub } = await supabaseClient
                             .storage
@@ -153,7 +179,6 @@
                             });
                         }
                     } else {
-                        // Arquivo direto na pasta da categoria
                         if (eImagem(item.name)) {
                             const path = `${cat}/${item.name}`;
                             const url = getUrlPublica(path);
@@ -215,7 +240,19 @@
             aplicarFiltros();
         }
 
+        function atualizarBotoesCategoria() {
+            document.querySelectorAll(".filtros button").forEach(btn => {
+                btn.classList.remove("ativo");
+            });
+
+            const btnAtivo = document.getElementById(`btn-${categoriaAtiva}`);
+            if (btnAtivo) {
+                btnAtivo.classList.add("ativo");
+            }
+        }
+
         function aplicarFiltros() {
+            atualizarBotoesCategoria();
             const fotos = document.querySelectorAll(".foto");
 
             fotos.forEach(function(foto) {
