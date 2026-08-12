@@ -1,19 +1,332 @@
-// Exemplo de como deve ser a montagem do caminho de upload:
-const categoria = document.getElementById("selectCategoria").value; // ex: "adultos" ou "kids"
-const mes = document.getElementById("selectMes").value;             // ex: "08-agosto" ou "todos"
-const arquivo = documentoInput.files[0];
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-// Define o caminho correto dentro do Bucket:
-let caminhoUpload = "";
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin - Alfa Jiu Jitsu Academy</title>
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- SDK Oficial do Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-if (mes && mes !== "todos") {
-    caminhoUpload = `${categoria}/${mes}/${arquivo.name}`;
-} else {
-    caminhoUpload = `${categoria}/${arquivo.name}`;
-}
+    <style>
+        .admin-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-// Faz o upload no bucket "galeria" com o caminho correto
-const { data, error } = await supabaseClient
-    .storage
-    .from("galeria")
-    .upload(caminhoUpload, arquivo);
+        .upload-card, .gerenciador-card {
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            color: #ddd;
+            font-size: 14px;
+        }
+
+        .form-group select, .form-group input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            background-color: #121212;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background-color: #d97706;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-primary:hover {
+            background-color: #b45309;
+        }
+
+        /* GRID DE GERENCIAMENTO DAS FOTOS */
+        .admin-galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .card-foto-admin {
+            background-color: #121212;
+            border: 1px solid #333;
+            border-radius: 6px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 10px;
+        }
+
+        .card-foto-admin img {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+        }
+
+        .info-foto {
+            font-size: 12px;
+            color: #aaa;
+            margin: 8px 0;
+            text-align: center;
+        }
+
+        .btn-excluir {
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .btn-excluir:hover {
+            background-color: #991b1b;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="historia.html">Nossa História</a>
+            <a href="professores.html">Professores</a>
+            <a href="horarios.html">Horários</a>
+            <a href="eventos.html">Eventos</a>
+            <a href="galeria.html">Galeria</a>
+            <a href="admin.html">Admin</a>
+        </nav>
+
+        <h1>ALFA JIU JITSU ACADEMY</h1>
+        <p>Painel de Administração</p>
+    </header>
+
+    <main class="admin-container">
+        <!-- FORMULÁRIO DE UPLOAD -->
+        <div class="upload-card">
+            <h3>Enviar Nova Foto</h3>
+            <form id="formUpload" style="margin-top: 15px;">
+                <div class="form-group">
+                    <label for="selectCategoria">Categoria:</label>
+                    <select id="selectCategoria" required>
+                        <option value="adultos">Adultos</option>
+                        <option value="kids">Kids</option>
+                        <option value="eventos">Eventos</option>
+                        <option value="graduacoes">Graduações</option>
+                        <option value="campeonatos">Campeonatos</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="selectMes">Mês (Opcional):</label>
+                    <select id="selectMes">
+                        <option value="todos">Sem Mês Específico</option>
+                        <option value="01-janeiro">Janeiro</option>
+                        <option value="02-fevereiro">Fevereiro</option>
+                        <option value="03-marco">Março</option>
+                        <option value="04-abril">Abril</option>
+                        <option value="05-maio">Maio</option>
+                        <option value="06-junho">Junho</option>
+                        <option value="07-julho">Julho</option>
+                        <option value="08-agosto">Agosto</option>
+                        <option value="09-setembro">Setembro</option>
+                        <option value="10-outubro">Outubro</option>
+                        <option value="11-novembro">Novembro</option>
+                        <option value="12-dezembro">Dezembro</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputArquivo">Selecione a Imagem:</label>
+                    <input type="file" id="inputArquivo" accept="image/*" required>
+                </div>
+
+                <button type="submit" class="btn-primary" id="btnEnviar">Enviar Foto</button>
+            </form>
+            <p id="mensagemStatus" style="margin-top: 10px; font-weight: bold;"></p>
+        </div>
+
+        <!-- GERENCIADOR DE FOTOS EXISTENTES -->
+        <div class="gerenciador-card">
+            <h3>Gerenciar e Excluir Fotos</h3>
+            <div id="gridAdminFotos" class="admin-galeria-grid">
+                <p>Carregando fotos...</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const SUPABASE_URL = "https://zlfcnqjcxflcecrcfhyc.supabase.co";
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpsZmNucWpjeGZsY2VjcmNmaHljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzODY1MjUsImV4cCI6MjEwMTk2MjUyNX0.YtNYhsM_ctV2HpsGJJOlSzLS_v_4vGp-82aFTaqibaI";
+        const BUCKET = "galeria";
+
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        const listaCategorias = ["adultos", "kids", "eventos", "graduacoes", "campeonatos"];
+
+        /* ================================
+           CARREGAR E LISTAR FOTOS COM BOTAO EXCLUIR
+        ================================ */
+        async function carregarFotosAdmin() {
+            const grid = document.getElementById("gridAdminFotos");
+            grid.innerHTML = "";
+            let totalFotos = 0;
+
+            for (const cat of listaCategorias) {
+                const { data: itens, error } = await supabaseClient
+                    .storage
+                    .from(BUCKET)
+                    .list(cat, { limit: 100 });
+
+                if (error || !itens) continue;
+
+                for (const item of itens) {
+                    if (!item.name || item.name === ".emptyFolderPlaceholder") continue;
+
+                    // Se for subpasta de mês
+                    if (!item.id) {
+                        const { data: fotosSub } = await supabaseClient
+                            .storage
+                            .from(BUCKET)
+                            .list(`${cat}/${item.name}`, { limit: 100 });
+
+                        if (fotosSub) {
+                            fotosSub.forEach(f => {
+                                if (eImagem(f.name)) {
+                                    const caminhoCompleto = `${cat}/${item.name}/${f.name}`;
+                                    criarCardFotoAdmin(caminhoCompleto, cat);
+                                    totalFotos++;
+                                }
+                            });
+                        }
+                    } else {
+                        // Arquivo direto na categoria
+                        if (eImagem(item.name)) {
+                            const caminhoCompleto = `${cat}/${item.name}`;
+                            criarCardFotoAdmin(caminhoCompleto, cat);
+                            totalFotos++;
+                        }
+                    }
+                }
+            }
+
+            if (totalFotos === 0) {
+                grid.innerHTML = "<p>Nenhuma foto cadastrada no sistema.</p>";
+            }
+        }
+
+        function eImagem(nomeArquivo) {
+            const ext = nomeArquivo.split(".").pop().toLowerCase();
+            return ["jpg", "jpeg", "png", "webp"].includes(ext);
+        }
+
+        function criarCardFotoAdmin(caminhoCompleto, categoria) {
+            const grid = document.getElementById("gridAdminFotos");
+            const { data } = supabaseClient.storage.from(BUCKET).getPublicUrl(caminhoCompleto);
+
+            const card = document.createElement("div");
+            card.className = "card-foto-admin";
+
+            card.innerHTML = `
+                <img src="${data.publicUrl}" alt="Foto Admin">
+                <span class="info-foto">Pasta: <strong>${categoria}</strong></span>
+                <button class="btn-excluir" onclick="excluirFoto('${caminhoCompleto}')">Excluir</button>
+            `;
+
+            grid.appendChild(card);
+        }
+
+        /* ================================
+           FUNÇÃO PARA EXCLUIR FOTO NO SUPABASE
+        ================================ */
+        async function excluirFoto(caminhoArquivo) {
+            const confirmou = confirm("Tem certeza que deseja excluir esta foto permanentemente?");
+            if (!confirmou) return;
+
+            const { error } = await supabaseClient
+                .storage
+                .from(BUCKET)
+                .remove([caminhoArquivo]);
+
+            if (error) {
+                alert("Erro ao excluir foto: " + error.message);
+            } else {
+                alert("Foto excluída com sucesso!");
+                carregarFotosAdmin(); // Recarrega a lista
+            }
+        }
+
+        /* ================================
+           ENVIAR FOTO (UPLOAD)
+        ================================ */
+        document.getElementById("formUpload").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            const msg = document.getElementById("mensagemStatus");
+            const btn = document.getElementById("btnEnviar");
+
+            const categoria = document.getElementById("selectCategoria").value;
+            const mes = document.getElementById("selectMes").value;
+            const fileInput = document.getElementById("inputArquivo");
+            const arquivo = fileInput.files[0];
+
+            if (!arquivo) return;
+
+            btn.disabled = true;
+            msg.style.color = "#d97706";
+            msg.innerText = "Enviando foto...";
+
+            // Monta o caminho no bucket
+            let caminhoUpload = `${categoria}/${arquivo.name}`;
+            if (mes && mes !== "todos") {
+                caminhoUpload = `${categoria}/${mes}/${arquivo.name}`;
+            }
+
+            const { data, error } = await supabaseClient
+                .storage
+                .from(BUCKET)
+                .upload(caminhoUpload, arquivo, { upsert: true });
+
+            btn.disabled = false;
+
+            if (error) {
+                msg.style.color = "#dc2626";
+                msg.innerText = "Erro ao enviar: " + error.message;
+            } else {
+                msg.style.color = "#16a34a";
+                msg.innerText = "Foto enviada com sucesso!";
+                fileInput.value = "";
+                carregarFotosAdmin(); // Atualiza a lista na tela
+            }
+        });
+
+        // Inicializa a exibição no painel
+        carregarFotosAdmin();
+    </script>
+</body>
+
+</html>
