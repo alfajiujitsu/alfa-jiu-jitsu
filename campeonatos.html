@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campeonatos - Alfa Jiu Jitsu Academy</title>
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .secao-titulo {
+            color: #d4af37;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            margin: 40px auto 20px auto;
+            max-width: 900px;
+            text-align: left;
+        }
+
+        .container-campeonatos {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .card-noticia {
+            background: #1c1c1c;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: left;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+
+        .card-noticia.proximo {
+            border-left: 5px solid #d4af37;
+        }
+
+        .card-noticia.realizado {
+            border-left: 5px solid #4caf50;
+        }
+
+        .tag-status {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .tag-proximo { background: #d4af37; color: #000; }
+        .tag-realizado { background: #4caf50; color: #fff; }
+
+        .noticia-meta {
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .galeria-atletas {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .galeria-atletas img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #444;
+            transition: transform 0.2s ease;
+        }
+
+        .galeria-atletas img:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-galeria {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid #d4af37;
+            color: #d4af37;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .btn-galeria:hover {
+            background: #d4af37;
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="historia.html">Nossa História</a>
+            <a href="professores.html">Professores</a>
+            <a href="horarios.html">Horários</a>
+            <a href="eventos.html">Eventos</a>
+            <a href="galeria.html">Galeria</a>
+        </nav>
+
+        <h1>ALFA JIU JITSU ACADEMY</h1>
+        <p>Disciplina • Respeito • Evolução</p>
+    </header>
+
+    <main>
+        <h2>🏆 Campeonatos & Competições</h2>
+        <p>Acompanhe a agenda de torneios da nossa equipe e o desempenho dos nossos atletas nos tatames.</p>
+
+        <!-- SEÇÃO 1: PRÓXIMOS CAMPEONATOS -->
+        <h3 class="secao-titulo">📌 Próximos Campeonatos</h3>
+        <div class="container-campeonatos">
+
+            <div class="card-noticia proximo">
+                <span class="tag-status tag-proximo">Inscrições Abertas</span>
+                <h3>Campeonato Catarinense de Jiu Jitsu 2026</h3>
+                <div class="noticia-meta">
+                    📅 <strong>Data:</strong> 20 de Setembro de 2026 | 📍 <strong>Local:</strong> Joinville/SC
+                </div>
+                <p>Nossa equipe estará presente em peso com as turmas Kids e Adulto. Os treinos específicos para a competição já começaram!</p>
+            </div>
+
+        </div>
+
+        <!-- SEÇÃO 2: CAMPEONATOS REALIZADOS -->
+        <h3 class="secao-titulo">✅ Campeonatos Realizados</h3>
+        <div class="container-campeonatos">
+
+            <div class="card-noticia realizado">
+                <span class="tag-status tag-realizado">Concluído</span>
+                <h3>Open Joinville BJJ 2026</h3>
+                <div class="noticia-meta">
+                    📅 <strong>Data:</strong> 15 de Maio de 2026 | 🏅 <strong>Resultado:</strong> 5 Ouros, 3 Pratas e 2 Bronzes
+                </div>
+                <p>Parabéns a todos os atletas que representaram o escudo da Alfa Jiu Jitsu Academy no tatame com muita garra e disciplina!</p>
+
+                <!-- Fotos dos Atletas que participaram -->
+                <div class="galeria-atletas">
+                    <!-- Substitua os 'src' abaixo pelas URLs das fotos dos atletas -->
+                    <img src="https://via.placeholder.com/300x200" alt="Atleta no Pódio">
+                    <img src="https://via.placeholder.com/300x200" alt="Equipe no Evento">
+                    <img src="https://via.placeholder.com/300x200" alt="Luta Atleta">
+                </div>
+
+                <a href="galeria.html?categoria=campeonatos" class="btn-galeria">Ver todas as fotos no Álbum</a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2026 Alfa Jiu Jitsu Academy</p>
+    </footer>
+
+</body>
+
+</html>
