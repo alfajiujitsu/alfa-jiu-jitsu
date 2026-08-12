@@ -111,6 +111,7 @@
 
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+        const categorias = ["kids", "adultos", "eventos", "graduacoes", "campeonatos"];
         const meses = [
             "01-janeiro", "02-fevereiro", "03-marco", "04-abril",
             "05-maio", "06-junho", "07-julho", "08-agosto",
@@ -131,73 +132,38 @@
         let fotoAtual = 0;
 
         /* ================================
-           CARREGAR TODAS AS PASTAS DO BUCKET
+           CARREGAR FOTOS DE FORMA ESTRUTURADA
         ================================ */
         async function carregarFotos() {
             const galeria = document.getElementById("galeriaFotos");
             galeria.innerHTML = "";
             let quantidadeFotos = 0;
 
-            try {
-                // 1. Lista todas as pastas/arquivos da raiz do bucket
-                const { data: itensRaiz, error } = await supabaseClient
-                    .storage
-                    .from(BUCKET)
-                    .list("", { limit: 100 });
+            for (const categoria of categorias) {
+                // 1. Fotos salvas direto na raiz da categoria (sem mês)
+                const fotosRaiz = await listarFotosPasta(categoria);
+                fotosRaiz.forEach(url => {
+                    criarFoto(categoria, "todos", url);
+                    quantidadeFotos++;
+                });
 
-                if (error || !itensRaiz) {
-                    galeria.innerHTML = "<p>Nenhuma foto encontrada.</p>";
-                    return;
+                // 2. Fotos salvas dentro das subpastas de meses
+                for (const mes of meses) {
+                    const caminhoMes = `${categoria}/${mes}`;
+                    const fotosMes = await listarFotosPasta(caminhoMes);
+
+                    fotosMes.forEach(url => {
+                        criarFoto(categoria, mes, url);
+                        quantidadeFotos++;
+                    });
                 }
-
-                for (const item of itensRaiz) {
-                    // Se o item for uma pasta (não tem extensão)
-                    if (!item.id) {
-                        const pastaNome = item.name;
-                        // Determina a categoria limpa (ex: 'adultos01' vira 'adultos')
-                        const categoriaBase = extrairCategoriaBase(pastaNome);
-
-                        // A. Verifica arquivos na raiz dessa pasta
-                        const fotosRaizPasta = await listarFotosPasta(pastaNome);
-                        fotosRaizPasta.forEach(foto => {
-                            criarFoto(categoriaBase, "sem-mes", foto.url);
-                            quantidadeFotos++;
-                        });
-
-                        // B. Verifica arquivos nas subpastas de meses dentro dessa pasta
-                        for (const mes of meses) {
-                            const caminhoMes = `${pastaNome}/${mes}`;
-                            const fotosMes = await listarFotosPasta(caminhoMes);
-
-                            fotosMes.forEach(foto => {
-                                criarFoto(categoriaBase, mes, foto.url);
-                                quantidadeFotos++;
-                            });
-                        }
-                    }
-                }
-
-                if (quantidadeFotos === 0) {
-                    galeria.innerHTML = "<p>Nenhuma foto encontrada.</p>";
-                }
-
-                aplicarFiltros();
-
-            } catch (err) {
-                console.error("Erro ao carregar fotos:", err);
-                galeria.innerHTML = "<p>Erro ao carregar fotos.</p>";
             }
-        }
 
-        // Mapeia nomes de pastas como 'adultos01' para 'adultos'
-        function extrairCategoriaBase(nomePasta) {
-            const pasta = nomePasta.toLowerCase();
-            if (pasta.includes("adulto")) return "adultos";
-            if (pasta.includes("kid")) return "kids";
-            if (pasta.includes("evento")) return "eventos";
-            if (pasta.includes("gradua")) return "graduacoes";
-            if (pasta.includes("campeonato")) return "campeonatos";
-            return pasta;
+            if (quantidadeFotos === 0) {
+                galeria.innerHTML = "<p>Nenhuma foto encontrada.</p>";
+            } else {
+                aplicarFiltros();
+            }
         }
 
         async function listarFotosPasta(caminho) {
@@ -221,7 +187,7 @@
                             .from(BUCKET)
                             .getPublicUrl(`${caminho}/${arquivo.name}`);
 
-                        fotosValidas.push({ url: urlData.publicUrl });
+                        fotosValidas.push(urlData.publicUrl);
                     }
                 }
                 return fotosValidas;
@@ -231,7 +197,7 @@
         }
 
         /* ================================
-           CRIAR ELEMENTO DE FOTO
+           CRIAR ELEMENTO DA FOTO NO HTML
         ================================ */
         function criarFoto(categoria, mes, url) {
             const galeria = document.getElementById("galeriaFotos");
@@ -255,7 +221,7 @@
         }
 
         /* ================================
-           LÓGICA DE FILTROS
+           LÓGICA DOS FILTROS
         ================================ */
         function filtrarCategoria(categoria) {
             categoriaAtiva = categoria;
@@ -272,7 +238,7 @@
 
             fotos.forEach(function(foto) {
                 const bateCategoria = (categoriaAtiva === "todos" || foto.dataset.categoria === categoriaAtiva);
-                const bateMes = (mesAtivo === "todos" || foto.dataset.mes === mesAtivo);
+                const bateMes = (mesAtivo === "todos" || foto.dataset.mes === mesAtivo || foto.dataset.mes === "todos");
 
                 if (bateCategoria && bateMes) {
                     foto.style.display = "block";
@@ -331,7 +297,7 @@
             document.getElementById("visualizador").style.display = "none";
         }
 
-        // Carrega ao iniciar
+        // Executa ao carregar a página
         carregarFotos();
     </script>
 
