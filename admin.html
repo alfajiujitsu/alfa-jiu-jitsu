@@ -72,7 +72,7 @@
         }
 
         #login {
-            display: block;
+            display: block; /* Garante visibilidade inicial */
         }
     </style>
 </head>
@@ -95,9 +95,7 @@
 
     <main class="admin-container">
 
-        <!-- =========================
-             LOGIN
-        ========================== -->
+        <!-- LOGIN -->
         <section id="login" class="admin-box">
             <h2>Área Administrativa</h2>
 
@@ -116,9 +114,7 @@
             <p id="mensagemLogin"></p>
         </section>
 
-        <!-- =========================
-             PAINEL
-        ========================== -->
+        <!-- PAINEL -->
         <section id="painel" class="admin-box">
             <h2>Painel Administrativo</h2>
             <p>Você está logado.</p>
@@ -163,42 +159,36 @@
     <script type="module">
         import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
-        /* ======================================
-           CONFIGURAÇÃO SUPABASE
-        ====================================== */
         const SUPABASE_URL = "https://zlfcnqjcxflcecrcfhyc.supabase.co";
-        
-        // Usando a chave anon JWT Válida para a SDK
         const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpsZmNucWpjeGZsY2VjcmNmaHljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzODY1MjUsImV4cCI6MjEwMTk2MjUyNX0.YtNYhsM_ctV2HpsGJJOlSzLS_v_4vGp-82aFTaqibaI";
 
-        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // Registra o cliente na janela global
+        window.supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        /* ======================================
-           ELEMENTOS
-        ====================================== */
         const login = document.getElementById("login");
         const painel = document.getElementById("painel");
         const mensagemLogin = document.getElementById("mensagemLogin");
         const mensagemUpload = document.getElementById("mensagemUpload");
 
-        /* ======================================
-           VERIFICAR LOGIN
-        ====================================== */
+        // Checagem de sessão ativa
         async function verificarUsuario() {
-            const { data: { user } } = await supabase.auth.getUser();
+            try {
+                const { data: { user } } = await window.supabase.auth.getUser();
 
-            if (user) {
-                login.style.display = "none";
-                painel.style.display = "block";
-            } else {
+                if (user) {
+                    login.style.display = "none";
+                    painel.style.display = "block";
+                } else {
+                    login.style.display = "block";
+                    painel.style.display = "none";
+                }
+            } catch (err) {
+                console.error("Erro na verificação:", err);
                 login.style.display = "block";
                 painel.style.display = "none";
             }
         }
 
-        /* ======================================
-           LOGIN
-        ====================================== */
         window.entrar = async function() {
             const email = document.getElementById("email").value;
             const senha = document.getElementById("senha").value;
@@ -210,7 +200,7 @@
 
             mensagemLogin.textContent = "Entrando...";
 
-            const { error } = await supabase.auth.signInWithPassword({
+            const { error } = await window.supabase.auth.signInWithPassword({
                 email: email,
                 password: senha
             });
@@ -226,20 +216,14 @@
             painel.style.display = "block";
         };
 
-        /* ======================================
-           LOGOUT
-        ====================================== */
         window.sair = async function() {
-            await supabase.auth.signOut();
+            await window.supabase.auth.signOut();
             mensagemLogin.textContent = "";
             mensagemUpload.textContent = "";
             painel.style.display = "none";
             login.style.display = "block";
         };
 
-        /* ======================================
-           ENVIAR FOTO
-        ====================================== */
         window.enviarFoto = async function() {
             const arquivo = document.getElementById("arquivo").files[0];
             const categoria = document.getElementById("categoria").value;
@@ -251,12 +235,11 @@
 
             mensagemUpload.textContent = "Enviando foto...";
 
-            // Nome único para o arquivo
             const extensao = arquivo.name.split(".").pop().toLowerCase();
             const nome = Date.now() + "-" + Math.random().toString(36).substring(2, 8) + "." + extensao;
             const caminho = categoria + "/" + nome;
 
-            const { error } = await supabase.storage
+            const { error } = await window.supabase.storage
                 .from("galeria")
                 .upload(caminho, arquivo, {
                     cacheControl: "3600",
@@ -264,7 +247,7 @@
                 });
 
             if (error) {
-                mensagemUpload.textContent = "Erro ao enviar a foto. Verifique as permissões (RLS) do Storage.";
+                mensagemUpload.textContent = "Erro ao enviar a foto. Verifique se seu usuário tem permissão no Storage.";
                 console.error(error);
                 return;
             }
@@ -273,7 +256,6 @@
             document.getElementById("arquivo").value = "";
         };
 
-        // Executa a verificação assim que carregar
         verificarUsuario();
     </script>
 
