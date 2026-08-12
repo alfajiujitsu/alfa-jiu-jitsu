@@ -1,228 +1,179 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alfa Jiu Jitsu Academy</title>
-<link rel="stylesheet" href="css/style.css">
-  
-<style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alfa Jiu Jitsu Academy</title>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animacoes.css">
+    <link rel="stylesheet" href="css/responsivo.css">
 
-body{
-margin:0;
-font-family:Arial;
-background:#111;
-color:white;
-text-align:center;
-}
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: white;
+            text-align: center;
+        }
 
-header{
-background:#000;
-padding:40px;
-}
+        header {
+            background: #000;
+            padding: 40px 20px;
+        }
 
-h1{
-color:#d4af37;
-}
+        header nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
 
-section{
-padding:50px;
-}
+        header nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
 
-.botao{
-display:inline-block;
-padding:15px 30px;
-background:#d4af37;
-color:black;
-text-decoration:none;
-border-radius:8px;
-font-weight:bold;
-}
+        header nav a:hover {
+            color: #d4af37;
+        }
 
-footer{
-background:#000;
-padding:20px;
-margin-top:50px;
-}
+        h1 {
+            color: #d4af37;
+            margin-top: 10px;
+        }
 
-</style>
+        section {
+            padding: 50px 20px;
+        }
 
+        .turmas {
+            background-color: #1a1a1a;
+        }
+
+        .cards-turmas {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .turma-card {
+            background: #222;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 25px;
+            width: 280px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .botao {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 24px;
+            background: #d4af37;
+            color: black;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .botao:hover {
+            background: #b49329;
+        }
+
+        .logo-img {
+            max-width: 180px;
+            border-radius: 50%;
+            margin-top: 20px;
+        }
+
+        footer {
+            background: #000;
+            padding: 20px;
+            margin-top: 50px;
+            border-top: 1px solid #222;
+        }
+    </style>
 </head>
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/animacoes.css">
-<link rel="stylesheet" href="css/responsivo.css">
-  
-<body>
+
 <body>
 
-<header>
-
-<nav>
-
-<a href="index.html">Início</a>
-
-<a href="historia.html">Nossa História</a>
-
-<a href="professores.html">Professores</a>
-
-<a href="horarios.html">Horários</a>
-
-<a href="eventos.html">Eventos</a>
-
-<a href="galeria.html">Galeria</a>
-
-</nav> 
-
-<h1>ALFA JIU JITSU ACADEMY</h1>
-
-<p>Disciplina • Respeito • Evolução</p>
-
-</header>
-
-<main>
-
-<section class="turmas">
-
-<h2>Escolha sua Turma</h2>
-
-<div class="cards-turmas">
-
-<div class="turma-card">
-
-<h3>👶 Kids</h3>
-
-<p><strong>Dias:</strong> Terça e Quinta</p>
-
-<p><strong>Horário:</strong> 19:00</p>
-
-<p><strong>Professor:</strong> Vilson Fajardo</p>
-
-<a href="galeria.html?categoria=kids" class="botao">
-Conhecer Turma
-</a>
-
-</div>
-
-
-<div class="turma-card">
-
-<h3>🥋 Adultos</h3>
-
-<p><strong>Dias:</strong> Segunda a Sexta</p>
-
-<p><strong>Horário:</strong> 20:00</p>
-
-<p><strong>Professor:</strong> Jean Andrade</p>
-
-<a href="galeria.html?categoria=adultos" class="botao">
-Conhecer Turma
-</a>
-
-</div>
-
-</div>
-
-</section>
-<img src="imagens/logo.jpeg" alt="Logo Alfa Jiu Jitsu Academy">
-
-<h1>
-ALFA JIU JITSU ACADEMY
-</h1>
-
-<h2>
-Disciplina • Respeito • Evolução
-</h2>
-
-<p>
-Transformando vidas através do Jiu Jitsu.
-</p>
-
-<a href="#" class="botao">
-Agende uma aula experimental
-</a>
-
-</section>
-
-
-<section>
-
-<h2>
-Nossa História
-</h2>
-
-<p>
-A Alfa Jiu Jitsu Academy nasceu com o propósito de ensinar Jiu Jitsu,
-formar atletas e desenvolver valores como disciplina, respeito e amizade.
-</p>
-
-</section>
-
-
-</main>
-
-</body>
-<header>
-
-<h1>ALFA JIU JITSU ACADEMY</h1>
-
-<p>Disciplina • Respeito • Evolução</p>
-
-</header>
-
-<section>
-
-<h2>Bem-vindo!</h2>
-
-<p>
-Em breve nosso site completo estará no ar.
-</p>
-
-<br>
-
-<a class="botao" href="#">Fale conosco</a>
-
-</section>
-
-<footer>
-
-<h3>ALFA JIU JITSU ACADEMY</h3>
-
-<p>Disciplina • Respeito • Evolução</p>
-
-<p>Joinville - Santa Catarina</p>
-
-<p>© 2026 Todos os direitos reservados.</p>
-
-</footer>
-
-</body>
-  <body>
-
-<header>
-
-<h1>ALFA JIU JITSU ACADEMY</h1>
-
-<p>Disciplina • Respeito • Evolução</p>
-
-</header>
-
-<main>
-
-<h2>Bem-vindo!</h2>
-
-<p>
-Nossa missão é formar atletas e pessoas através do Jiu Jitsu.
-</p>
-
-</main>
-
-
-<footer>
-
-© 2026 Alfa Jiu Jitsu Academy
-
-</footer>
-
+    <header>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="historia.html">Nossa História</a>
+            <a href="professores.html">Professores</a>
+            <a href="horarios.html">Horários</a>
+            <a href="eventos.html">Eventos</a>
+            <a href="galeria.html">Galeria</a>
+            <a href="admin.html">Admin</a>
+        </nav>
+
+        <img src="imagens/logo.jpeg" alt="Logo Alfa Jiu Jitsu Academy" class="logo-img">
+        <h1>ALFA JIU JITSU ACADEMY</h1>
+        <p>Disciplina • Respeito • Evolução</p>
+    </header>
+
+    <main>
+        <!-- SEÇÃO DE TURMAS COM FILTRO PARA A GALERIA -->
+        <section class="turmas">
+            <h2>Escolha sua Turma</h2>
+
+            <div class="cards-turmas">
+                <div class="turma-card">
+                    <h3>👶 Kids</h3>
+                    <p><strong>Dias:</strong> Terça e Quinta</p>
+                    <p><strong>Horário:</strong> 19:00</p>
+                    <p><strong>Professor:</strong> Vilson Fajardo</p>
+                    <a href="galeria.html?categoria=kids" class="botao">
+                        Conhecer Turma
+                    </a>
+                </div>
+
+                <div class="turma-card">
+                    <h3>🥋 Adultos</h3>
+                    <p><strong>Dias:</strong> Segunda a Sexta</p>
+                    <p><strong>Horário:</strong> 20:00</p>
+                    <p><strong>Professor:</strong> Jean Andrade</p>
+                    <a href="galeria.html?categoria=adultos" class="botao">
+                        Conhecer Turma
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO AULA EXPERIMENTAL -->
+        <section>
+            <h2>Transformando vidas através do Jiu Jitsu</h2>
+            <p>Venha fazer parte da nossa equipe e treinar com os melhores instrutores.</p>
+            <a href="https://wa.me/5547999999999" target="_blank" class="botao">
+                Agende uma aula experimental
+            </a>
+        </section>
+
+        <!-- SOBRE / HISTÓRIA RESUMIDA -->
+        <section style="background-color: #161616;">
+            <h2>Nossa História</h2>
+            <p style="max-width: 700px; margin: 0 auto; line-height: 1.6;">
+                A Alfa Jiu Jitsu Academy nasceu com o propósito de ensinar Jiu Jitsu,
+                formar atletas e desenvolver valores essenciais como disciplina, respeito e amizade.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <h3>ALFA JIU JITSU ACADEMY</h3>
+        <p>Disciplina • Respeito • Evolução</p>
+        <p>Joinville - Santa Catarina</p>
+        <p>© 2026 Todos os direitos reservados.</p>
+    </footer>
 
 </body>
 
