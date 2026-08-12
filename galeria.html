@@ -135,12 +135,12 @@
         let fotosVisiveis = [];
         let fotoAtual = 0;
 
-        // Captura a categoria informada na URL assim que o script executa
+        // Captura o parâmetro '?categoria=...' da URL logo na abertura da página
         function obterCategoriaUrl() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const catUrl = urlParams.get("categoria");
-            if (catUrl) {
-                const catLimpa = catUrl.toLowerCase().trim();
+            const params = new URLSearchParams(window.location.search);
+            const cat = params.get("categoria");
+            if (cat) {
+                const catLimpa = cat.toLowerCase().trim();
                 if (listaCategorias.includes(catLimpa) || catLimpa === "todos") {
                     categoriaAtiva = catLimpa;
                 }
@@ -148,10 +148,11 @@
         }
 
         async function carregarFotos() {
-            obterCategoriaUrl(); // Lê a categoria da URL antes de tudo
+            obterCategoriaUrl();
+            atualizarBotoesCategoria();
 
             const galeria = document.getElementById("galeriaFotos");
-            galeria.innerHTML = "";
+            galeria.innerHTML = "<p>Carregando fotos...</p>";
             let totalFotos = 0;
 
             for (const cat of listaCategorias) {
@@ -165,6 +166,7 @@
                 for (const item of itens) {
                     if (!item.name || item.name === ".emptyFolderPlaceholder") continue;
 
+                    // Se for subpasta de mês
                     if (!item.id) {
                         const { data: fotosSub } = await supabaseClient
                             .storage
@@ -182,15 +184,20 @@
                             });
                         }
                     } else {
+                        // Se for arquivo direto na raiz da categoria
                         if (eImagem(item.name)) {
                             const path = `${cat}/${item.name}`;
                             const url = getUrlPublica(path);
-                            criarElementoFoto(cat, "todos", url);
+                            criarElementoFoto(cat, "sem-mes", url);
                             totalFotos++;
                         }
                     }
                 }
             }
+
+            // Remove a mensagem de carregando
+            const msgCarregando = galeria.querySelector("p");
+            if (msgCarregando) msgCarregando.remove();
 
             if (totalFotos === 0) {
                 galeria.innerHTML = "<p>Nenhuma foto encontrada nas pastas.</p>";
@@ -263,7 +270,7 @@
                 const mesFoto = foto.getAttribute("data-mes");
 
                 const bateCategoria = (categoriaAtiva === "todos" || catFoto === categoriaAtiva);
-                const bateMes = (mesAtivo === "todos" || mesFoto === mesAtivo || mesFoto === "todos");
+                const bateMes = (mesAtivo === "todos" || mesFoto === mesAtivo || mesFoto === "sem-mes");
 
                 if (bateCategoria && bateMes) {
                     foto.style.display = "block";
@@ -315,7 +322,7 @@
             document.getElementById("visualizador").style.display = "none";
         }
 
-        // Executa ao carregar a página
+        // Inicia o carregamento
         carregarFotos();
     </script>
 
