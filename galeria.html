@@ -9,6 +9,27 @@
     
     <!-- SDK Oficial do Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        .filtros-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .filtro-mes {
+            padding: 8px 14px;
+            border-radius: 6px;
+            border: 1px solid #444;
+            background-color: #222;
+            color: #fff;
+            font-size: 15px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -33,13 +54,35 @@
             <h2>Galeria</h2>
             <p>Momentos da nossa equipe dentro e fora do tatame.</p>
 
-            <div class="filtros">
-                <button onclick="filtrarGaleria('todos')">Todos</button>
-                <button onclick="filtrarGaleria('kids')">Kids</button>
-                <button onclick="filtrarGaleria('adultos')">Adultos</button>
-                <button onclick="filtrarGaleria('eventos')">Eventos</button>
-                <button onclick="filtrarGaleria('graduacoes')">Graduações</button>
-                <button onclick="filtrarGaleria('campeonatos')">Campeonatos</button>
+            <div class="filtros-container">
+                <!-- BOTÕES DE CATEGORIA -->
+                <div class="filtros">
+                    <button onclick="filtrarCategoria('todos')">Todos</button>
+                    <button onclick="filtrarCategoria('kids')">Kids</button>
+                    <button onclick="filtrarCategoria('adultos')">Adultos</button>
+                    <button onclick="filtrarCategoria('eventos')">Eventos</button>
+                    <button onclick="filtrarCategoria('graduacoes')">Graduações</button>
+                    <button onclick="filtrarCategoria('campeonatos')">Campeonatos</button>
+                </div>
+
+                <!-- FILTRO DE MÊS -->
+                <div>
+                    <select id="selectMes" class="filtro-mes" onchange="filtrarMes(this.value)">
+                        <option value="todos">Todos os Meses</option>
+                        <option value="01-janeiro">Janeiro</option>
+                        <option value="02-fevereiro">Fevereiro</option>
+                        <option value="03-marco">Março</option>
+                        <option value="04-abril">Abril</option>
+                        <option value="05-maio">Maio</option>
+                        <option value="06-junho">Junho</option>
+                        <option value="07-julho">Julho</option>
+                        <option value="08-agosto">Agosto</option>
+                        <option value="09-setembro">Setembro</option>
+                        <option value="10-outubro">Outubro</option>
+                        <option value="11-novembro">Novembro</option>
+                        <option value="12-dezembro">Dezembro</option>
+                    </select>
+                </div>
             </div>
 
             <div class="galeria" id="galeriaFotos">
@@ -63,19 +106,16 @@
 
     <script>
         const SUPABASE_URL = "https://zlfcnqjcxflcecrcfhyc.supabase.co";
-        // Chave anon JWT clássica configurada
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpsZmNucWpjeGZsY2VjcmNmaHljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzODY1MjUsImV4cCI6MjEwMTk2MjUyNX0.YtNYhsM_ctV2HpsGJJOlSzLS_v_4vGp-82aFTaqibaI"; 
         const BUCKET = "galeria";
 
-        // Inicializa o cliente oficial do Supabase
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        const categorias = [
-            "kids",
-            "adultos",
-            "eventos",
-            "graduacoes",
-            "campeonatos"
+        const categorias = ["kids", "adultos", "eventos", "graduacoes", "campeonatos"];
+        const meses = [
+            "01-janeiro", "02-fevereiro", "03-marco", "04-abril",
+            "05-maio", "06-junho", "07-julho", "08-agosto",
+            "09-setembro", "10-outubro", "11-novembro", "12-dezembro"
         ];
 
         const nomesCategorias = {
@@ -86,61 +126,36 @@
             campeonatos: "Campeonato Alfa Jiu Jitsu"
         };
 
+        let categoriaAtiva = "todos";
+        let mesAtivo = "todos";
         let fotosVisiveis = [];
         let fotoAtual = 0;
 
         /* ================================
-           CARREGAR FOTOS VIA SUPABASE SDK
+           CARREGAR FOTOS
         ================================ */
         async function carregarFotos() {
             const galeria = document.getElementById("galeriaFotos");
             galeria.innerHTML = "";
-
             let quantidadeFotos = 0;
 
             for (const categoria of categorias) {
-                try {
-                    // Consulta os arquivos dentro da subpasta correspondente à categoria
-                    const { data: arquivos, error } = await supabaseClient
-                        .storage
-                        .from(BUCKET)
-                        .list(categoria, {
-                            limit: 100,
-                            offset: 0,
-                            sortBy: { column: "name", order: "asc" }
-                        });
+                // 1. Busca fotos diretamente na raiz da categoria
+                const fotosRaiz = await listarFotosPasta(categoria);
+                fotosRaiz.forEach(item => {
+                    criarFoto(categoria, "sem-mes", item.url);
+                    quantidadeFotos++;
+                });
 
-                    if (error) {
-                        console.error("Erro ao listar categoria:", categoria, error);
-                        continue;
-                    }
+                // 2. Busca fotos dentro das subpastas de meses
+                for (const mes of meses) {
+                    const caminhoPasta = `${categoria}/${mes}`;
+                    const fotosMes = await listarFotosPasta(caminhoPasta);
 
-                    console.log("Arquivos encontrados:", categoria, arquivos);
-
-                    arquivos.forEach(function(arquivo) {
-                        // Ignora arquivos sem nome ou marcadores de pasta do Supabase
-                        if (!arquivo.name || arquivo.name === ".emptyFolderPlaceholder") return;
-
-                        const extensao = arquivo.name.split(".").pop().toLowerCase();
-
-                        if (!["jpg", "jpeg", "png", "webp"].includes(extensao)) {
-                            return;
-                        }
-
-                        const caminho = `${categoria}/${arquivo.name}`;
-
-                        // Gera a URL pública do arquivo
-                        const { data: urlData } = supabaseClient
-                            .storage
-                            .from(BUCKET)
-                            .getPublicUrl(caminho);
-
-                        criarFoto(categoria, urlData.publicUrl);
+                    fotosMes.forEach(item => {
+                        criarFoto(categoria, mes, item.url);
                         quantidadeFotos++;
                     });
-
-                } catch (erro) {
-                    console.error("Erro ao carregar:", categoria, erro);
                 }
             }
 
@@ -148,18 +163,49 @@
                 galeria.innerHTML = "<p>Nenhuma foto encontrada.</p>";
             }
 
-            atualizarFotosVisiveis();
+            aplicarFiltros();
+        }
+
+        async function listarFotosPasta(caminho) {
+            try {
+                const { data: arquivos, error } = await supabaseClient
+                    .storage
+                    .from(BUCKET)
+                    .list(caminho, { limit: 100 });
+
+                if (error || !arquivos) return [];
+
+                const fotosValidas = [];
+
+                for (const arquivo of arquivos) {
+                    if (!arquivo.name || arquivo.name === ".emptyFolderPlaceholder") continue;
+
+                    const extensao = arquivo.name.split(".").pop().toLowerCase();
+                    if (["jpg", "jpeg", "png", "webp"].includes(extensao)) {
+                        const { data: urlData } = supabaseClient
+                            .storage
+                            .from(BUCKET)
+                            .getPublicUrl(`${caminho}/${arquivo.name}`);
+
+                        fotosValidas.push({ url: urlData.publicUrl });
+                    }
+                }
+                return fotosValidas;
+            } catch (err) {
+                return [];
+            }
         }
 
         /* ================================
-           CRIAR FOTO NO DOM
+           CRIAR ELEMENTO DE FOTO
         ================================ */
-        function criarFoto(categoria, url) {
+        function criarFoto(categoria, mes, url) {
             const galeria = document.getElementById("galeriaFotos");
             const div = document.createElement("div");
 
             div.className = "foto";
             div.dataset.categoria = categoria;
+            div.dataset.mes = mes;
 
             const imagem = document.createElement("img");
             imagem.src = url;
@@ -175,13 +221,26 @@
         }
 
         /* ================================
-           FILTRO DE CATEGORIAS
+           LÓGICA DE FILTROS
         ================================ */
-        function filtrarGaleria(categoria) {
+        function filtrarCategoria(categoria) {
+            categoriaAtiva = categoria;
+            aplicarFiltros();
+        }
+
+        function filtrarMes(mes) {
+            mesAtivo = mes;
+            aplicarFiltros();
+        }
+
+        function aplicarFiltros() {
             const fotos = document.querySelectorAll(".foto");
 
             fotos.forEach(function(foto) {
-                if (categoria === "todos" || foto.dataset.categoria === categoria) {
+                const bateCategoria = (categoriaAtiva === "todos" || foto.dataset.categoria === categoriaAtiva);
+                const bateMes = (mesAtivo === "todos" || foto.dataset.mes === mesAtivo);
+
+                if (bateCategoria && bateMes) {
                     foto.style.display = "block";
                 } else {
                     foto.style.display = "none";
@@ -191,19 +250,14 @@
             atualizarFotosVisiveis();
         }
 
-        /* ================================
-           ATUALIZAR FOTOS VISÍVEIS
-        ================================ */
         function atualizarFotosVisiveis() {
-            fotosVisiveis = Array.from(
-                document.querySelectorAll(".foto")
-            ).filter(function(foto) {
+            fotosVisiveis = Array.from(document.querySelectorAll(".foto")).filter(function(foto) {
                 return foto.style.display !== "none";
             });
         }
 
         /* ================================
-           ABRIR LIGHTBOX
+           LIGHTBOX
         ================================ */
         function abrirFoto(imagem) {
             atualizarFotosVisiveis();
@@ -212,58 +266,38 @@
                 return foto.querySelector("img") === imagem;
             });
 
-            if (fotoAtual < 0) {
-                fotoAtual = 0;
-            }
+            if (fotoAtual < 0) fotoAtual = 0;
 
             mostrarFoto();
             document.getElementById("visualizador").style.display = "flex";
         }
 
-        /* ================================
-           EXIBIR FOTO SELECIONADA
-        ================================ */
         function mostrarFoto() {
             if (fotosVisiveis.length === 0) return;
-
             const imagem = fotosVisiveis[fotoAtual].querySelector("img");
             document.getElementById("fotoGrande").src = imagem.src;
             document.getElementById("fotoGrande").alt = imagem.alt;
         }
 
-        /* ================================
-           NAVEGAÇÃO (ANTERIOR / PRÓXIMA)
-        ================================ */
         function fotoAnterior() {
             if (fotosVisiveis.length === 0) return;
-
             fotoAtual--;
-            if (fotoAtual < 0) {
-                fotoAtual = fotosVisiveis.length - 1;
-            }
+            if (fotoAtual < 0) fotoAtual = fotosVisiveis.length - 1;
             mostrarFoto();
         }
 
         function proximaFoto() {
             if (fotosVisiveis.length === 0) return;
-
             fotoAtual++;
-            if (fotoAtual >= fotosVisiveis.length) {
-                fotoAtual = 0;
-            }
+            if (fotoAtual >= fotosVisiveis.length) fotoAtual = 0;
             mostrarFoto();
         }
 
-        /* ================================
-           FECHAR LIGHTBOX
-        ================================ */
         function fecharFoto() {
             document.getElementById("visualizador").style.display = "none";
         }
 
-        /* ================================
-           INICIALIZAÇÃO
-        ================================ */
+        // Carrega ao iniciar
         carregarFotos();
     </script>
 
