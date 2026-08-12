@@ -67,7 +67,7 @@
             cursor: not-allowed;
         }
 
-        /* GRID DE GERENCIAMENTO DAS FOTOS */
+        /* GRID DE GERENCIAMENTO DAS FOTOS E GRADUAÇÕES */
         .admin-galeria-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -138,7 +138,7 @@
 
     <main class="admin-container">
 
-        <!-- CADASTRAR NOTÍCIA COM UPLOAD DE FOTOS -->
+        <!-- 1. CADASTRAR NOTÍCIA COM UPLOAD DE FOTOS -->
         <div class="upload-card">
             <h3 style="color: #d4af37;">🏆 Cadastrar Notícia / Campeonato</h3>
             <form id="formCampeonato" style="margin-top: 15px;">
@@ -175,7 +175,64 @@
             <p id="msgCampStatus" style="margin-top: 10px; font-weight: bold;"></p>
         </div>
 
-        <!-- FORMULÁRIO DE UPLOAD PARA A GALERIA -->
+        <!-- 2. CADASTRAR GRADUAÇÃO / ATLETA -->
+        <div class="upload-card">
+            <h3 style="color: #d4af37;">🎓 Cadastrar Graduação de Aluno</h3>
+            <form id="formGraduacao" style="margin-top: 15px;">
+                <div class="form-group">
+                    <label for="gradNome">Nome do Aluno:</label>
+                    <input type="text" id="gradNome" placeholder="Ex: João Silva" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="gradFaixa">Faixa Atual:</label>
+                    <select id="gradFaixa" required>
+                        <option value="Branca">⚪ Faixa Branca</option>
+                        <option value="Cinza">⚪/⚪ Faixa Cinza (Kids)</option>
+                        <option value="Amarela">🟡 Faixa Amarela (Kids)</option>
+                        <option value="Laranja">🟠 Faixa Laranja (Kids)</option>
+                        <option value="Verde">🟢 Faixa Verde (Kids)</option>
+                        <option value="Azul">🔵 Faixa Azul</option>
+                        <option value="Roxa">🟣 Faixa Roxa</option>
+                        <option value="Marrom">🟤 Faixa Marrom</option>
+                        <option value="Preta">⚫ Faixa Preta</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="gradAno">Ano em que recebeu a faixa:</label>
+                    <input type="number" id="gradAno" min="2000" max="2030" placeholder="Ex: 2026" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="gradHistoria">História / Trajetória do Aluno:</label>
+                    <textarea id="gradHistoria" rows="4" placeholder="Conte a trajetória do aluno no Jiu Jitsu, conquistas, tempo de treino..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="gradFotoAluno">Foto do Aluno:</label>
+                    <input type="file" id="gradFotoAluno" accept="image/*" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="gradFotoFaixa">Foto / Imagem da Faixa (Opcional):</label>
+                    <input type="file" id="gradFotoFaixa" accept="image/*">
+                </div>
+
+                <button type="submit" class="btn-primary" id="btnSalvarGrad">Cadastrar Graduação</button>
+            </form>
+            <p id="msgGradStatus" style="margin-top: 10px; font-weight: bold;"></p>
+        </div>
+
+        <!-- 3. GERENCIADOR DE GRADUAÇÕES EXISTENTES -->
+        <div class="gerenciador-card">
+            <h3 style="color: #d4af37;">🎓 Alunos Graduados Cadastrados</h3>
+            <div id="gridAdminGraduacoes" class="admin-galeria-grid">
+                <p>Carregando alunos...</p>
+            </div>
+        </div>
+
+        <!-- 4. FORMULÁRIO DE UPLOAD PARA A GALERIA GERAL -->
         <div class="upload-card">
             <h3>Enviar Nova Foto para Galeria Geral</h3>
             <form id="formUpload" style="margin-top: 15px;">
@@ -219,7 +276,7 @@
             <p id="mensagemStatus" style="margin-top: 10px; font-weight: bold;"></p>
         </div>
 
-        <!-- GERENCIADOR DE FOTOS EXISTENTES -->
+        <!-- 5. GERENCIADOR DE FOTOS EXISTENTES -->
         <div class="gerenciador-card">
             <h3>Gerenciar e Excluir Fotos da Galeria</h3>
             <div id="gridAdminFotos" class="admin-galeria-grid">
@@ -237,7 +294,7 @@
         const listaCategorias = ["adultos", "kids", "eventos", "graduacoes", "campeonatos"];
 
         /* ================================
-           CADASTRAR CAMPEONATO COM UPLOAD DE FOTOS
+           1. CADASTRAR CAMPEONATO
         ================================ */
         document.getElementById("formCampeonato").addEventListener("submit", async function(e) {
             e.preventDefault();
@@ -301,7 +358,140 @@
         });
 
         /* ================================
-           CARREGAR E LISTAR FOTOS DO STORAGE
+           2. CADASTRAR E GERENCIAR GRADUAÇÕES
+        ================================ */
+        async function uploadFotoGraduacao(fileInput, subpasta) {
+            if (!fileInput.files || fileInput.files.length === 0) return null;
+            
+            const file = fileInput.files[0];
+            const nomeSanitizado = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
+            const caminho = `graduacoes/${subpasta}/${Date.now()}_${nomeSanitizado}`;
+
+            const { data, error } = await supabaseClient
+                .storage
+                .from(BUCKET)
+                .upload(caminho, file, { upsert: true });
+
+            if (error) {
+                console.error("Erro no upload:", error);
+                return null;
+            }
+
+            const { data: urlData } = supabaseClient
+                .storage
+                .from(BUCKET)
+                .getPublicUrl(caminho);
+
+            return urlData ? urlData.publicUrl : null;
+        }
+
+        document.getElementById("formGraduacao").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            const msg = document.getElementById("msgGradStatus");
+            const btn = document.getElementById("btnSalvarGrad");
+
+            const nome = document.getElementById("gradNome").value;
+            const faixa = document.getElementById("gradFaixa").value;
+            const ano = document.getElementById("gradAno").value;
+            const historia = document.getElementById("gradHistoria").value;
+            const fotoAlunoInput = document.getElementById("gradFotoAluno");
+            const fotoFaixaInput = document.getElementById("gradFotoFaixa");
+
+            btn.disabled = true;
+            msg.style.color = "#d97706";
+            msg.innerText = "Fazendo upload das imagens e salvando...";
+
+            const fotoAlunoUrl = await uploadFotoGraduacao(fotoAlunoInput, "alunos");
+            const fotoFaixaUrl = await uploadFotoGraduacao(fotoFaixaInput, "faixas");
+
+            if (!fotoAlunoUrl) {
+                msg.style.color = "#dc2626";
+                msg.innerText = "Erro ao enviar a foto do aluno. Tente novamente.";
+                btn.disabled = false;
+                return;
+            }
+
+            const { data, error } = await supabaseClient
+                .from("graduacoes")
+                .insert([
+                    { 
+                        nome: nome,
+                        faixa: faixa,
+                        ano: parseInt(ano),
+                        historia: historia,
+                        foto_aluno: fotoAlunoUrl,
+                        foto_faixa: fotoFaixaUrl
+                    }
+                ]);
+
+            btn.disabled = false;
+
+            if (error) {
+                msg.style.color = "#dc2626";
+                msg.innerText = "Erro ao salvar: " + error.message;
+            } else {
+                msg.style.color = "#16a34a";
+                msg.innerText = "Graduação cadastrada com sucesso!";
+                document.getElementById("formGraduacao").reset();
+                carregarGraduacoesAdmin();
+            }
+        });
+
+        async function carregarGraduacoesAdmin() {
+            const grid = document.getElementById("gridAdminGraduacoes");
+            grid.innerHTML = "<p>Carregando alunos graduados...</p>";
+
+            const { data: graduacoes, error } = await supabaseClient
+                .from("graduacoes")
+                .select("*")
+                .order("created_at", { ascending: false });
+
+            if (error) {
+                grid.innerHTML = `<p style="color: #dc2626;">Erro ao carregar: ${error.message}</p>`;
+                return;
+            }
+
+            if (!graduacoes || graduacoes.length === 0) {
+                grid.innerHTML = "<p>Nenhum aluno graduado cadastrado ainda.</p>";
+                return;
+            }
+
+            grid.innerHTML = "";
+            graduacoes.forEach(item => {
+                const card = document.createElement("div");
+                card.className = "card-foto-admin";
+
+                card.innerHTML = `
+                    <img src="${item.foto_aluno}" alt="${item.nome}">
+                    <div style="padding: 10px; width: 100%; text-align: center;">
+                        <strong style="color: #fff; font-size: 14px;">${item.nome}</strong>
+                        <p style="color: #d4af37; font-size: 12px; margin: 4px 0;">Faixa ${item.faixa} (${item.ano})</p>
+                        <button class="btn-excluir" style="margin-top: 8px; width: 100%;" onclick="window.excluirGraduacao(${item.id})">Excluir Aluno</button>
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        window.excluirGraduacao = async function(id) {
+            if (!confirm("Tem certeza que deseja remover este aluno graduado?")) return;
+
+            const { error } = await supabaseClient
+                .from("graduacoes")
+                .delete()
+                .eq("id", id);
+
+            if (error) {
+                alert("Erro ao excluir: " + error.message);
+            } else {
+                alert("Graduação removida com sucesso!");
+                carregarGraduacoesAdmin();
+            }
+        };
+
+        /* ================================
+           3. CARREGAR E LISTAR FOTOS DA GALERIA
         ================================ */
         async function carregarFotosAdmin() {
             const grid = document.getElementById("gridAdminFotos");
@@ -321,7 +511,6 @@
                     if (!item.name || item.name === ".emptyFolderPlaceholder") continue;
 
                     if (!item.id) {
-                        // Trata subpastas (como os meses)
                         const { data: fotosSub } = await supabaseClient
                             .storage
                             .from(BUCKET)
@@ -347,7 +536,7 @@
             }
 
             if (totalFotos === 0) {
-                grid.innerHTML = "<p>Nenhuma foto cadastrada no sistema.</p>";
+                grid.innerHTML = "<p>Nenhuma foto cadastrada na galeria.</p>";
             }
         }
 
@@ -374,9 +563,6 @@
             grid.appendChild(card);
         }
 
-        /* ================================
-           EXCLUIR FOTO DO STORAGE
-        ================================ */
         window.excluirFoto = async function(caminhoArquivo) {
             const confirmou = confirm("Tem certeza que deseja excluir esta foto permanentemente?");
             if (!confirmou) return;
@@ -397,7 +583,7 @@
         };
 
         /* ================================
-           ENVIAR FOTO PARA A GALERIA
+           4. UPLOAD GALERIA GERAL
         ================================ */
         document.getElementById("formUpload").addEventListener("submit", async function(e) {
             e.preventDefault();
@@ -415,7 +601,6 @@
             msg.style.color = "#d97706";
             msg.innerText = "Enviando foto...";
 
-            // Sanitiza e gera nome único para evitar sobrescrever fotos com mesmo nome
             const nomeSanitizado = arquivo.name.replace(/[^a-zA-Z0-9.-]/g, "_");
             const nomeUnico = `${Date.now()}_${nomeSanitizado}`;
 
@@ -442,8 +627,9 @@
             }
         });
 
-        // Inicializar carregamento
+        // Inicializar chamadas
         carregarFotosAdmin();
+        carregarGraduacoesAdmin();
     </script>
 </body>
 
