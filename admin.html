@@ -109,18 +109,6 @@
         .btn-excluir:hover {
             background-color: #991b1b;
         }
-
-        /* LISTA DE CAMPEONATOS NO ADMIN */
-        .item-camp-admin {
-            background: #121212;
-            border: 1px solid #333;
-            padding: 15px;
-            border-radius: 6px;
-            margin-top: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
     </style>
 </head>
 
@@ -143,7 +131,7 @@
 
     <main class="admin-container">
 
-        <!-- NOVO: FORMULÁRIO DE NOTÍCIAS DE CAMPEONATOS -->
+        <!-- CADASTRAR NOTÍCIA COM UPLOAD DE FOTOS -->
         <div class="upload-card">
             <h3 style="color: #d4af37;">🏆 Cadastrar Notícia / Campeonato</h3>
             <form id="formCampeonato" style="margin-top: 15px;">
@@ -171,8 +159,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="campFotos">URLs das Fotos dos Atletas (separadas por vírgula):</label>
-                    <input type="text" id="campFotos" placeholder="Ex: https://.../foto1.jpg, https://.../foto2.jpg">
+                    <label for="campFotosArquivo">Selecione as Fotos do Campeonato (Você pode escolher várias):</label>
+                    <input type="file" id="campFotosArquivo" accept="image/*" multiple>
                 </div>
 
                 <button type="submit" class="btn-primary" id="btnSalvarCamp">Publicar Campeonato</button>
@@ -180,9 +168,9 @@
             <p id="msgCampStatus" style="margin-top: 10px; font-weight: bold;"></p>
         </div>
 
-        <!-- FORMULÁRIO DE UPLOAD DE FOTOS -->
+        <!-- FORMULÁRIO DE UPLOAD PARA A GALERIA -->
         <div class="upload-card">
-            <h3>Enviar Nova Foto para Galeria</h3>
+            <h3>Enviar Nova Foto para Galeria Geral</h3>
             <form id="formUpload" style="margin-top: 15px;">
                 <div class="form-group">
                     <label for="selectCategoria">Categoria:</label>
@@ -242,7 +230,7 @@
         const listaCategorias = ["adultos", "kids", "eventos", "graduacoes", "campeonatos"];
 
         /* ================================
-           CADASTRAR CAMPEONATO NO SUPABASE
+           CADASTRAR CAMPEONATO COM UPLOAD DE FOTOS
         ================================ */
         document.getElementById("formCampeonato").addEventListener("submit", async function(e) {
             e.preventDefault();
@@ -253,19 +241,44 @@
             const titulo = document.getElementById("campTitulo").value;
             const meta = document.getElementById("campMeta").value;
             const descricao = document.getElementById("campDescricao").value;
-            const fotosStr = document.getElementById("campFotos").value;
-
-            // Converter fotos separadas por vírgula em array
-            const fotosArray = fotosStr ? fotosStr.split(",").map(f => f.trim()) : [];
+            const fileInput = document.getElementById("campFotosArquivo");
+            const arquivos = fileInput.files;
 
             btn.disabled = true;
             msg.style.color = "#d97706";
-            msg.innerText = "Salvando notícia...";
+            msg.innerText = "Fazendo upload das fotos e salvando notícia...";
 
+            let urlsFotos = [];
+
+            // Se houver fotos selecionadas, faz o upload para a pasta 'campeonatos' no Storage
+            if (arquivos.length > 0) {
+                for (let i = 0; i < arquivos.length; i++) {
+                    const file = arquivos[i];
+                    const nomeUnico = `campeonatos/${Date.now()}_${file.name}`;
+
+                    const { data: uploadData, error: uploadError } = await supabaseClient
+                        .storage
+                        .from(BUCKET)
+                        .upload(nomeUnico, file, { upsert: true });
+
+                    if (!uploadError) {
+                        const { data: urlData } = supabaseClient
+                            .storage
+                            .from(BUCKET)
+                            .getPublicUrl(nomeUnico);
+
+                        if (urlData) {
+                            urlsFotos.push(urlData.publicUrl);
+                        }
+                    }
+                }
+            }
+
+            // Salva a notícia com o array de URLs das fotos
             const { data, error } = await supabaseClient
                 .from("campeonatos")
                 .insert([
-                    { tipo, titulo, meta, descricao, fotos: fotosArray }
+                    { tipo, titulo, meta, descricao, fotos: urlsFotos }
                 ]);
 
             btn.disabled = false;
@@ -275,13 +288,13 @@
                 msg.innerText = "Erro ao publicar: " + error.message;
             } else {
                 msg.style.color = "#16a34a";
-                msg.innerText = "Notícia publicada com sucesso!";
+                msg.innerText = "Notícia de campeonato publicada com sucesso!";
                 document.getElementById("formCampeonato").reset();
             }
         });
 
         /* ================================
-           CARREGAR E LISTAR FOTOS
+           CARREGAR E LISTAR FOTOS DO STORAGE
         ================================ */
         async function carregarFotosAdmin() {
             const grid = document.getElementById("gridAdminFotos");
@@ -378,7 +391,7 @@
         }
 
         /* ================================
-           ENVIAR FOTO (UPLOAD)
+           ENVIAR FOTO PARA A GALERIA
         ================================ */
         document.getElementById("formUpload").addEventListener("submit", async function(e) {
             e.preventDefault();
