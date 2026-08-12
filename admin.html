@@ -62,6 +62,11 @@
             background-color: #b45309;
         }
 
+        .btn-primary:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+
         /* GRID DE GERENCIAMENTO DAS FOTOS */
         .admin-galeria-grid {
             display: grid;
@@ -92,6 +97,8 @@
             color: #aaa;
             margin: 8px 0;
             text-align: center;
+            padding: 0 5px;
+            word-break: break-all;
         }
 
         .btn-excluir {
@@ -250,11 +257,11 @@
 
             let urlsFotos = [];
 
-            // Se houver fotos selecionadas, faz o upload para a pasta 'campeonatos' no Storage
             if (arquivos.length > 0) {
                 for (let i = 0; i < arquivos.length; i++) {
                     const file = arquivos[i];
-                    const nomeUnico = `campeonatos/${Date.now()}_${file.name}`;
+                    const nomeSanitizado = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
+                    const nomeUnico = `campeonatos/${Date.now()}_${nomeSanitizado}`;
 
                     const { data: uploadData, error: uploadError } = await supabaseClient
                         .storage
@@ -274,7 +281,6 @@
                 }
             }
 
-            // Salva a notícia com o array de URLs das fotos
             const { data, error } = await supabaseClient
                 .from("campeonatos")
                 .insert([
@@ -290,6 +296,7 @@
                 msg.style.color = "#16a34a";
                 msg.innerText = "Notícia de campeonato publicada com sucesso!";
                 document.getElementById("formCampeonato").reset();
+                carregarFotosAdmin();
             }
         });
 
@@ -314,6 +321,7 @@
                     if (!item.name || item.name === ".emptyFolderPlaceholder") continue;
 
                     if (!item.id) {
+                        // Trata subpastas (como os meses)
                         const { data: fotosSub } = await supabaseClient
                             .storage
                             .from(BUCKET)
@@ -323,7 +331,7 @@
                             fotosSub.forEach(f => {
                                 if (eImagem(f.name)) {
                                     const caminhoCompleto = `${cat}/${item.name}/${f.name}`;
-                                    criarCardFotoAdmin(caminhoCompleto, cat);
+                                    criarCardFotoAdmin(caminhoCompleto, `${cat}/${item.name}`);
                                     totalFotos++;
                                 }
                             });
@@ -345,10 +353,10 @@
 
         function eImagem(nomeArquivo) {
             const ext = nomeArquivo.split(".").pop().toLowerCase();
-            return ["jpg", "jpeg", "png", "webp"].includes(ext);
+            return ["jpg", "jpeg", "png", "webp", "gif"].includes(ext);
         }
 
-        function criarCardFotoAdmin(caminhoCompleto, categoria) {
+        function criarCardFotoAdmin(caminhoCompleto, pastaExibicao) {
             const grid = document.getElementById("gridAdminFotos");
             const { data } = supabaseClient.storage.from(BUCKET).getPublicUrl(caminhoCompleto);
 
@@ -358,9 +366,9 @@
             const urlComCache = `${data.publicUrl}?t=${new Date().getTime()}`;
 
             card.innerHTML = `
-                <img src="${urlComCache}" alt="Foto Admin">
-                <span class="info-foto">Pasta: <strong>${categoria}</strong></span>
-                <button class="btn-excluir" onclick="excluirFoto('${caminhoCompleto}')">Excluir</button>
+                <img src="${urlComCache}" alt="Foto Admin" loading="lazy">
+                <span class="info-foto">Pasta: <strong>${pastaExibicao}</strong></span>
+                <button class="btn-excluir" onclick="window.excluirFoto('${caminhoCompleto}')">Excluir</button>
             `;
 
             grid.appendChild(card);
@@ -369,7 +377,7 @@
         /* ================================
            EXCLUIR FOTO DO STORAGE
         ================================ */
-        async function excluirFoto(caminhoArquivo) {
+        window.excluirFoto = async function(caminhoArquivo) {
             const confirmou = confirm("Tem certeza que deseja excluir esta foto permanentemente?");
             if (!confirmou) return;
 
@@ -384,11 +392,9 @@
                 alert("Erro ao excluir foto do Supabase: " + error.message);
             } else {
                 alert("Foto excluída com sucesso do servidor!");
-                setTimeout(() => {
-                    carregarFotosAdmin();
-                }, 500);
+                carregarFotosAdmin();
             }
-        }
+        };
 
         /* ================================
            ENVIAR FOTO PARA A GALERIA
@@ -409,9 +415,13 @@
             msg.style.color = "#d97706";
             msg.innerText = "Enviando foto...";
 
-            let caminhoUpload = `${categoria}/${arquivo.name}`;
+            // Sanitiza e gera nome único para evitar sobrescrever fotos com mesmo nome
+            const nomeSanitizado = arquivo.name.replace(/[^a-zA-Z0-9.-]/g, "_");
+            const nomeUnico = `${Date.now()}_${nomeSanitizado}`;
+
+            let caminhoUpload = `${categoria}/${nomeUnico}`;
             if (mes && mes !== "todos") {
-                caminhoUpload = `${categoria}/${mes}/${arquivo.name}`;
+                caminhoUpload = `${categoria}/${mes}/${nomeUnico}`;
             }
 
             const { data, error } = await supabaseClient
@@ -432,6 +442,7 @@
             }
         });
 
+        // Inicializar carregamento
         carregarFotosAdmin();
     </script>
 </body>
