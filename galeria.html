@@ -111,154 +111,108 @@
 
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        const nomesCategorias = {
-            kids: "Turma Kids Alfa Jiu Jitsu",
-            adultos: "Turma Adultos Alfa Jiu Jitsu",
-            eventos: "Evento Alfa Jiu Jitsu",
-            graduacoes: "Graduação Alfa Jiu Jitsu",
-            campeonatos: "Campeonato Alfa Jiu Jitsu"
-        };
+        // Pastas exatamente como estão no seu Supabase Storage
+        const categorias = ["adultos", "campeonatos", "eventos", "graduacoes", "kids"];
 
         let categoriaAtiva = "todos";
         let mesAtivo = "todos";
         let fotosVisiveis = [];
         let fotoAtual = 0;
 
-        /* ================================
-           CARREGAR TODAS AS FOTOS DE UMA VEZ
-        ================================ */
         async function carregarFotos() {
             const galeria = document.getElementById("galeriaFotos");
             galeria.innerHTML = "";
+            let totalFotos = 0;
 
-            try {
-                // Lista TODOS os arquivos do bucket recursivamente em 1 única chamada
+            for (const cat of categorias) {
+                // Busca o conteúdo dentro de cada pasta (ex: galeria/kids ou galeria/adultos)
                 const { data: arquivos, error } = await supabaseClient
                     .storage
                     .from(BUCKET)
-                    .list("", { limit: 500, sortBy: { column: "created_at", order: "desc" } });
+                    .list(cat, { limit: 100 });
 
-                if (error) {
-                    console.error("Erro no Supabase:", error);
-                    galeria.innerHTML = "<p>Erro ao carregar galeria.</p>";
-                    return;
-                }
+                if (error || !arquivos) continue;
 
-                let quantidadeFotos = 0;
-
-                // Percorre subpastas
                 for (const item of arquivos) {
-                    // Se for pasta, explora os arquivos dentro dela
+                    if (!item.name || item.name === ".emptyFolderPlaceholder") continue;
+
+                    // Se for uma subpasta de mês dentro da categoria (ex: adultos/01-janeiro)
                     if (!item.id) {
-                        const { data: subArquivos } = await supabaseClient
+                        const { data: fotosMes } = await supabaseClient
                             .storage
                             .from(BUCKET)
-                            .list(item.name, { limit: 200 });
+                            .list(`${cat}/${item.name}`, { limit: 100 });
 
-                        if (subArquivos) {
-                            for (const subItem of subArquivos) {
-                                // Caso seja caminho: categoria/mes/foto.jpg
-                                if (!subItem.id) {
-                                    const caminhoMes = item.name + "/" + subItem.name;
-                                    const { data: fotosMes } = await supabaseClient
-                                        .storage
-                                        .from(BUCKET)
-                                        .list(caminhoMes, { limit: 200 });
-
-                                    if (fotosMes) {
-                                        fotosMes.forEach(foto => {
-                                            if (processarEExibir(item.name, subItem.name, foto)) quantidadeFotos++;
-                                        });
-                                    }
-                                } else {
-                                    // Caso seja caminho: categoria/foto.jpg
-                                    if (processarEExibir(item.name, "todos", subItem)) quantidadeFotos++;
+                        if (fotosMes) {
+                            fotosMes.forEach(foto => {
+                                if (eImagem(foto.name)) {
+                                    const path = `${cat}/${item.name}/${foto.name}`;
+                                    const url = getUrlPublica(path);
+                                    criarElementoFoto(cat, item.name, url);
+                                    totalFotos++;
                                 }
-                            }
+                            });
                         }
                     } else {
-                        // Foto solta na raiz
-                        if (processarEExibir("todos", "todos", item)) quantidadeFotos++;
+                        // Se for foto direta na pasta da categoria (ex: adultos/adultos01.jpg)
+                        if (eImagem(item.name)) {
+                            const path = `${cat}/${item.name}`;
+                            const url = getUrlPublica(path);
+                            criarElementoFoto(cat, "todos", url);
+                            totalFotos++;
+                        }
                     }
                 }
+            }
 
-                if (quantidadeFotos === 0) {
-                    galeria.innerHTML = "<p>Nenhuma foto encontrada.</p>";
-                } else {
-                    aplicarFiltros();
-                }
-
-            } catch (err) {
-                console.error("Erro inesperado:", err);
-                galeria.innerHTML = "<p>Erro ao carregar galeria.</p>";
+            if (totalFotos === 0) {
+                galeria.innerHTML = "<p>Nenhuma foto encontrada nas pastas.</p>";
+            } else {
+                aplicarFiltros();
             }
         }
 
-        function processarEExibir(categoriaBruta, mesBruto, arquivo) {
-            if (!arquivo.name || arquivo.name === ".emptyFolderPlaceholder") return false;
-
-            const extensao = arquivo.name.split(".").pop().toLowerCase();
-            if (!["jpg", "jpeg", "png", "webp"].includes(extensao)) return false;
-
-            // Limpeza da categoria (ex: adultos01 -> adultos)
-            let cat = categoriaBruta.toLowerCase();
-            if (cat.includes("adulto")) cat = "adultos";
-            else if (cat.includes("kid")) cat = "kids";
-            else if (cat.includes("evento")) cat = "eventos";
-            else if (cat.includes("gradua")) cat = "graduacoes";
-            else if (cat.includes("campeonato")) cat = "campeonatos";
-
-            // Caminho da URL pública
-            let caminhoCompleto = arquivo.name;
-            if (categoriaBruta !== "todos" && mesBruto !== "todos") {
-                caminhoCompleto = `${categoriaBruta}/${mesBruto}/${arquivo.name}`;
-            } else if (categoriaBruta !== "todos") {
-                caminhoCompleto = `${categoriaBruta}/${arquivo.name}`;
-            }
-
-            const { data: urlData } = supabaseClient
-                .storage
-                .from(BUCKET)
-                .getPublicUrl(caminhoCompleto);
-
-            criarFoto(cat, mesBruto, urlData.publicUrl);
-            return true;
+        function eImagem(nomeArquivo) {
+            const ext = nomeArquivo.split(".").pop().toLowerCase();
+            return ["jpg", "jpeg", "png", "webp"].includes(ext);
         }
 
-        /* ================================
-           CRIAR ELEMENTO DA FOTO
-        ================================ */
-        function criarFoto(categoria, mes, url) {
+        function getUrlPublica(caminho) {
+            const { data } = supabaseClient.storage.from(BUCKET).getPublicUrl(caminho);
+            return data.publicUrl;
+        }
+
+        function criarElementoFoto(categoria, mes, url) {
             const galeria = document.getElementById("galeriaFotos");
             const div = document.createElement("div");
 
             div.className = "foto";
-            div.dataset.categoria = categoria;
-            div.dataset.mes = mes;
+            div.dataset.categoria = categoria.toLowerCase();
+            div.dataset.mes = mes.toLowerCase();
 
-            const imagem = document.createElement("img");
-            imagem.src = url;
-            imagem.alt = nomesCategorias[categoria] || "Foto Alfa Jiu Jitsu";
-            imagem.loading = "lazy";
+            const img = document.createElement("img");
+            img.src = url;
+            img.alt = `Foto ${categoria}`;
+            img.loading = "lazy";
 
-            imagem.onclick = function() {
-                abrirFoto(imagem);
+            img.onclick = function() {
+                abrirFoto(img);
             };
 
-            div.appendChild(imagem);
+            div.appendChild(img);
             galeria.appendChild(div);
         }
 
         /* ================================
-           FILTROS
+           LÓGICA DE FILTRAGEM
         ================================ */
         function filtrarCategoria(categoria) {
-            categoriaAtiva = categoria;
+            categoriaAtiva = categoria.toLowerCase();
             aplicarFiltros();
         }
 
         function filtrarMes(mes) {
-            mesAtivo = mes;
+            mesAtivo = mes.toLowerCase();
             aplicarFiltros();
         }
 
@@ -266,10 +220,10 @@
             const fotos = document.querySelectorAll(".foto");
 
             fotos.forEach(function(foto) {
-                const bateCategoria = (categoriaAtiva === "todos" || foto.dataset.categoria === categoriaAtiva);
+                const batetCategoria = (categoriaAtiva === "todos" || foto.dataset.categoria === categoriaAtiva);
                 const bateMes = (mesAtivo === "todos" || foto.dataset.mes === mesAtivo || foto.dataset.mes === "todos");
 
-                if (bateCategoria && bateMes) {
+                if (batetCategoria && bateMes) {
                     foto.style.display = "block";
                 } else {
                     foto.style.display = "none";
@@ -290,11 +244,7 @@
         ================================ */
         function abrirFoto(imagem) {
             atualizarFotosVisiveis();
-
-            fotoAtual = fotosVisiveis.findIndex(function(foto) {
-                return foto.querySelector("img") === imagem;
-            });
-
+            fotoAtual = fotosVisiveis.findIndex(foto => foto.querySelector("img") === imagem);
             if (fotoAtual < 0) fotoAtual = 0;
 
             mostrarFoto();
@@ -305,20 +255,17 @@
             if (fotosVisiveis.length === 0) return;
             const imagem = fotosVisiveis[fotoAtual].querySelector("img");
             document.getElementById("fotoGrande").src = imagem.src;
-            document.getElementById("fotoGrande").alt = imagem.alt;
         }
 
         function fotoAnterior() {
             if (fotosVisiveis.length === 0) return;
-            fotoAtual--;
-            if (fotoAtual < 0) fotoAtual = fotosVisiveis.length - 1;
+            fotoAtual = (fotoAtual - 1 + fotosVisiveis.length) % fotosVisiveis.length;
             mostrarFoto();
         }
 
         function proximaFoto() {
             if (fotosVisiveis.length === 0) return;
-            fotoAtual++;
-            if (fotoAtual >= fotosVisiveis.length) fotoAtual = 0;
+            fotoAtual = (fotoAtual + 1) % fotosVisiveis.length;
             mostrarFoto();
         }
 
@@ -326,6 +273,7 @@
             document.getElementById("visualizador").style.display = "none";
         }
 
+        // Inicializa a galeria ao carregar a página
         carregarFotos();
     </script>
 
