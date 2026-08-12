@@ -135,18 +135,21 @@
         let fotosVisiveis = [];
         let fotoAtual = 0;
 
-        /* Captura a categoria informada na URL (?categoria=kids) */
+        // Captura a categoria informada na URL assim que o script executa
         function obterCategoriaUrl() {
             const urlParams = new URLSearchParams(window.location.search);
             const catUrl = urlParams.get("categoria");
-            if (catUrl && (listaCategorias.includes(catUrl.toLowerCase()) || catUrl.toLowerCase() === "todos")) {
-                categoriaAtiva = catUrl.toLowerCase().trim();
+            if (catUrl) {
+                const catLimpa = catUrl.toLowerCase().trim();
+                if (listaCategorias.includes(catLimpa) || catLimpa === "todos") {
+                    categoriaAtiva = catLimpa;
+                }
             }
         }
 
         async function carregarFotos() {
-            obterCategoriaUrl(); // Lê a categoria enviada pelo index.html antes de renderizar
-            
+            obterCategoriaUrl(); // Lê a categoria da URL antes de tudo
+
             const galeria = document.getElementById("galeriaFotos");
             galeria.innerHTML = "";
             let totalFotos = 0;
@@ -312,6 +315,7 @@
             document.getElementById("visualizador").style.display = "none";
         }
 
+        // Executa ao carregar a página
         carregarFotos();
     </script>
 
