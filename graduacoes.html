@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graduações - Alfa Jiu Jitsu Academy</title>
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- SDK do Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        .graduacoes-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .grid-alunos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .card-aluno {
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: transform 0.2s;
+        }
+
+        .card-aluno:hover {
+            transform: translateY(-5px);
+            border-color: #d4af37;
+        }
+
+        .foto-aluno-container {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            background-color: #121212;
+        }
+
+        .foto-aluno {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .foto-faixa-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 70px;
+            height: auto;
+            border-radius: 4px;
+            border: 1px solid #fff;
+            background-color: #000;
+            padding: 2px;
+        }
+
+        .info-aluno {
+            padding: 15px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .info-aluno h3 {
+            color: #fff;
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .tag-faixa {
+            color: #d4af37;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .historia-aluno {
+            color: #ccc;
+            font-size: 13px;
+            line-height: 1.4;
+            margin-top: 5px;
+            white-space: pre-line;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="historia.html">Nossa História</a>
+            <a href="professores.html">Professores</a>
+            <a href="horarios.html">Horários</a>
+            <a href="eventos.html">Eventos</a>
+            <a href="graduacoes.html">Graduações</a>
+            <a href="galeria.html">Galeria</a>
+            <a href="admin.html">Admin</a>
+        </nav>
+
+        <h1>ALFA JIU JITSU ACADEMY</h1>
+        <p>Mural de Alunos e Graduações</p>
+    </header>
+
+    <main class="graduacoes-container">
+        <h2 style="color: #d4af37; text-align: center;">Nossos Atletas Graduados</h2>
+        <p style="text-align: center; color: #aaa;">Conheça a trajetória e as conquistas dos alunos da Alfa Jiu Jitsu.</p>
+
+        <div id="gridAlunos" class="grid-alunos">
+            <p>Carregando graduações...</p>
+        </div>
+    </main>
+
+    <script>
+        const SUPABASE_URL = "https://zlfcnqjcxflcecrcfhyc.supabase.co";
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpsZmNucWpjeGZsY2VjcmNmaHljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzODY1MjUsImV4cCI6MjEwMTk2MjUyNX0.YtNYhsM_ctV2HpsGJJOlSzLS_v_4vGp-82aFTaqibaI";
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        async function carregarMuralGraduacoes() {
+            const container = document.getElementById("gridAlunos");
+
+            const { data: graduacoes, error } = await supabaseClient
+                .from("graduacoes")
+                .select("*")
+                .order("ano", { ascending: false });
+
+            if (error) {
+                container.innerHTML = `<p style="color: #dc2626;">Erro ao carregar dados: ${error.message}</p>`;
+                return;
+            }
+
+            if (!graduacoes || graduacoes.length === 0) {
+                container.innerHTML = "<p style='text-align: center; color: #888;'>Nenhum aluno cadastrado ainda.</p>";
+                return;
+            }
+
+            container.innerHTML = "";
+
+            graduacoes.forEach(item => {
+                const card = document.createElement("div");
+                card.className = "card-aluno";
+
+                // Imagem da Faixa (se houver)
+                const imgFaixaHtml = item.foto_faixa 
+                    ? `<img src="${item.foto_faixa}" alt="Faixa" class="foto-faixa-badge">`
+                    : '';
+
+                card.innerHTML = `
+                    <div class="foto-aluno-container">
+                        <img src="${item.foto_aluno}" alt="${item.nome}" class="foto-aluno" loading="lazy">
+                        ${imgFaixaHtml}
+                    </div>
+                    <div class="info-aluno">
+                        <h3>${item.nome}</h3>
+                        <span class="tag-faixa">Faixa ${item.faixa} — Ano ${item.ano}</span>
+                        <p class="historia-aluno">${item.historia}</p>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        carregarMuralGraduacoes();
+    </script>
+</body>
+
+</html>
