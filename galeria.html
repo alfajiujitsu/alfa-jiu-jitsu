@@ -111,13 +111,6 @@
 
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        const categorias = ["kids", "adultos", "eventos", "graduacoes", "campeonatos"];
-        const meses = [
-            "01-janeiro", "02-fevereiro", "03-marco", "04-abril",
-            "05-maio", "06-junho", "07-julho", "08-agosto",
-            "09-setembro", "10-outubro", "11-novembro", "12-dezembro"
-        ];
-
         const nomesCategorias = {
             kids: "Turma Kids Alfa Jiu Jitsu",
             adultos: "Turma Adultos Alfa Jiu Jitsu",
@@ -132,72 +125,108 @@
         let fotoAtual = 0;
 
         /* ================================
-           CARREGAR FOTOS DE FORMA ESTRUTURADA
+           CARREGAR TODAS AS FOTOS DE UMA VEZ
         ================================ */
         async function carregarFotos() {
             const galeria = document.getElementById("galeriaFotos");
             galeria.innerHTML = "";
-            let quantidadeFotos = 0;
 
-            for (const categoria of categorias) {
-                // 1. Fotos salvas direto na raiz da categoria (sem mês)
-                const fotosRaiz = await listarFotosPasta(categoria);
-                fotosRaiz.forEach(url => {
-                    criarFoto(categoria, "todos", url);
-                    quantidadeFotos++;
-                });
-
-                // 2. Fotos salvas dentro das subpastas de meses
-                for (const mes of meses) {
-                    const caminhoMes = `${categoria}/${mes}`;
-                    const fotosMes = await listarFotosPasta(caminhoMes);
-
-                    fotosMes.forEach(url => {
-                        criarFoto(categoria, mes, url);
-                        quantidadeFotos++;
-                    });
-                }
-            }
-
-            if (quantidadeFotos === 0) {
-                galeria.innerHTML = "<p>Nenhuma foto encontrada.</p>";
-            } else {
-                aplicarFiltros();
-            }
-        }
-
-        async function listarFotosPasta(caminho) {
             try {
+                // Lista TODOS os arquivos do bucket recursivamente em 1 única chamada
                 const { data: arquivos, error } = await supabaseClient
                     .storage
                     .from(BUCKET)
-                    .list(caminho, { limit: 100 });
+                    .list("", { limit: 500, sortBy: { column: "created_at", order: "desc" } });
 
-                if (error || !arquivos) return [];
+                if (error) {
+                    console.error("Erro no Supabase:", error);
+                    galeria.innerHTML = "<p>Erro ao carregar galeria.</p>";
+                    return;
+                }
 
-                const fotosValidas = [];
+                let quantidadeFotos = 0;
 
-                for (const arquivo of arquivos) {
-                    if (!arquivo.name || arquivo.name === ".emptyFolderPlaceholder") continue;
-
-                    const extensao = arquivo.name.split(".").pop().toLowerCase();
-                    if (["jpg", "jpeg", "png", "webp"].includes(extensao)) {
-                        const { data: urlData } = supabaseClient
+                // Percorre subpastas
+                for (const item of arquivos) {
+                    // Se for pasta, explora os arquivos dentro dela
+                    if (!item.id) {
+                        const { data: subArquivos } = await supabaseClient
                             .storage
                             .from(BUCKET)
-                            .getPublicUrl(`${caminho}/${arquivo.name}`);
+                            .list(item.name, { limit: 200 });
 
-                        fotosValidas.push(urlData.publicUrl);
+                        if (subArquivos) {
+                            for (const subItem of subArquivos) {
+                                // Caso seja caminho: categoria/mes/foto.jpg
+                                if (!subItem.id) {
+                                    const caminhoMes = item.name + "/" + subItem.name;
+                                    const { data: fotosMes } = await supabaseClient
+                                        .storage
+                                        .from(BUCKET)
+                                        .list(caminhoMes, { limit: 200 });
+
+                                    if (fotosMes) {
+                                        fotosMes.forEach(foto => {
+                                            if (processarEExibir(item.name, subItem.name, foto)) quantidadeFotos++;
+                                        });
+                                    }
+                                } else {
+                                    // Caso seja caminho: categoria/foto.jpg
+                                    if (processarEExibir(item.name, "todos", subItem)) quantidadeFotos++;
+                                }
+                            }
+                        }
+                    } else {
+                        // Foto solta na raiz
+                        if (processarEExibir("todos", "todos", item)) quantidadeFotos++;
                     }
                 }
-                return fotosValidas;
+
+                if (quantidadeFotos === 0) {
+                    galeria.innerHTML = "<p>Nenhuma foto encontrada.</p>";
+                } else {
+                    aplicarFiltros();
+                }
+
             } catch (err) {
-                return [];
+                console.error("Erro inesperado:", err);
+                galeria.innerHTML = "<p>Erro ao carregar galeria.</p>";
             }
         }
 
+        function processarEExibir(categoriaBruta, mesBruto, arquivo) {
+            if (!arquivo.name || arquivo.name === ".emptyFolderPlaceholder") return false;
+
+            const extensao = arquivo.name.split(".").pop().toLowerCase();
+            if (!["jpg", "jpeg", "png", "webp"].includes(extensao)) return false;
+
+            // Limpeza da categoria (ex: adultos01 -> adultos)
+            let cat = categoriaBruta.toLowerCase();
+            if (cat.includes("adulto")) cat = "adultos";
+            else if (cat.includes("kid")) cat = "kids";
+            else if (cat.includes("evento")) cat = "eventos";
+            else if (cat.includes("gradua")) cat = "graduacoes";
+            else if (cat.includes("campeonato")) cat = "campeonatos";
+
+            // Caminho da URL pública
+            let caminhoCompleto = arquivo.name;
+            if (categoriaBruta !== "todos" && mesBruto !== "todos") {
+                caminhoCompleto = `${categoriaBruta}/${mesBruto}/${arquivo.name}`;
+            } else if (categoriaBruta !== "todos") {
+                caminhoCompleto = `${categoriaBruta}/${arquivo.name}`;
+            }
+
+            const { data: urlData } = supabaseClient
+                .storage
+                .from(BUCKET)
+                .getPublicUrl(caminhoCompleto);
+
+            criarFoto(cat, mesBruto, urlData.publicUrl);
+            return true;
+        }
+
         /* ================================
-           CRIAR ELEMENTO DA FOTO NO HTML
+           CRIAR ELEMENTO DA FOTO
         ================================ */
         function criarFoto(categoria, mes, url) {
             const galeria = document.getElementById("galeriaFotos");
@@ -221,7 +250,7 @@
         }
 
         /* ================================
-           LÓGICA DOS FILTROS
+           FILTROS
         ================================ */
         function filtrarCategoria(categoria) {
             categoriaAtiva = categoria;
@@ -297,7 +326,6 @@
             document.getElementById("visualizador").style.display = "none";
         }
 
-        // Executa ao carregar a página
         carregarFotos();
     </script>
 
