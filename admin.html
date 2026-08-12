@@ -104,6 +104,7 @@
 
         <div class="admin-section-container">
             
+            <!-- LOGIN -->
             <div id="loginBox" class="admin-card">
                 <h2>Acesso Restrito</h2>
 
@@ -121,6 +122,7 @@
                 <div id="mensagemLogin" class="admin-status"></div>
             </div>
 
+            <!-- PAINEL -->
             <div id="painelBox" class="admin-card" style="display: none;">
                 <h2>Painel do Administrador</h2>
                 <p>Status: <strong>Autenticado</strong></p>
@@ -137,6 +139,24 @@
                         <option value="eventos">Eventos</option>
                         <option value="graduacoes">Graduações</option>
                         <option value="campeonatos">Campeonatos</option>
+                    </select>
+                </div>
+
+                <div class="admin-field">
+                    <label for="mes">Mês em que a foto foi tirada</label>
+                    <select id="mes">
+                        <option value="01-janeiro">Janeiro</option>
+                        <option value="02-fevereiro">Fevereiro</option>
+                        <option value="03-marco">Março</option>
+                        <option value="04-abril">Abril</option>
+                        <option value="05-maio">Maio</option>
+                        <option value="06-junho">Junho</option>
+                        <option value="07-julho">Julho</option>
+                        <option value="08-agosto">Agosto</option>
+                        <option value="09-setembro">Setembro</option>
+                        <option value="10-outubro">Outubro</option>
+                        <option value="11-novembro">Novembro</option>
+                        <option value="12-dezembro">Dezembro</option>
                     </select>
                 </div>
 
@@ -228,6 +248,7 @@
             const inputArquivo = document.getElementById("arquivo");
             const arquivo = inputArquivo.files[0];
             const categoria = document.getElementById("categoria").value;
+            const mes = document.getElementById("mes").value;
 
             if (!arquivo) {
                 mensagemUpload.textContent = "Selecione uma imagem.";
@@ -238,7 +259,9 @@
 
             const extensao = arquivo.name.split(".").pop().toLowerCase();
             const nomeUnico = Date.now() + "-" + Math.random().toString(36).substring(2, 8) + "." + extensao;
-            const caminho = categoria + "/" + nomeUnico;
+            
+            // Salva na pasta: categoria/mes/nome-da-foto.jpg
+            const caminho = categoria + "/" + mes + "/" + nomeUnico;
 
             const { error } = await supabaseClient.storage
                 .from("galeria")
