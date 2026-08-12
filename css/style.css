@@ -1129,3 +1129,15 @@ transform:translateY(-50%) scale(1.1);
     transform: translateY(-50%) scale(1.1);
 
 }
+/* ===== AJUSTE DOS CARDS CLICÁVEIS EM EVENTOS ===== */
+a.evento {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+a.evento p {
+    color: #d6d6d6;
+}
