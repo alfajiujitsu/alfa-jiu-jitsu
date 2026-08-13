@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Alfa Jiu Jitsu Academy</title>
+    <title>Login / Cadastro - Alfa Jiu Jitsu Academy</title>
     
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animacoes.css">
@@ -12,8 +12,8 @@
 
     <style>
         .login-container {
-            max-width: 400px;
-            margin: 60px auto;
+            max-width: 450px;
+            margin: 50px auto;
             background-color: #1c1c1c;
             padding: 30px;
             border-radius: 12px;
@@ -22,21 +22,45 @@
             text-align: left;
         }
 
-        .login-container h2 {
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #333;
+            margin-bottom: 25px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s, border-bottom 0.3s;
+        }
+
+        .tab-btn.active {
             color: #d4af37;
-            text-align: center;
-            margin-top: 0;
-            margin-bottom: 20px;
+            border-bottom: 3px solid #d4af37;
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .form-group label {
             display: block;
             color: #ccc;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-size: 14px;
         }
 
@@ -56,7 +80,7 @@
             border-color: #d4af37;
         }
 
-        .btn-login {
+        .btn-submit {
             width: 100%;
             padding: 12px;
             background-color: #d4af37;
@@ -67,19 +91,22 @@
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin-top: 10px;
         }
 
-        .btn-login:hover {
+        .btn-submit:hover {
             background-color: #b49329;
         }
 
-        .msg-erro {
-            color: #ff5555;
+        .msg-status {
             font-size: 14px;
             text-align: center;
             margin-top: 15px;
             display: none;
         }
+
+        .msg-erro { color: #ff5555; }
+        .msg-sucesso { color: #25d366; }
     </style>
 </head>
 
@@ -92,41 +119,72 @@
             <a href="professores.html">Professores</a>
             <a href="horarios.html">Horários</a>
             <a href="eventos.html">Eventos</a>
-            <a href="graduacoes.html">Graduaçoes</a>
+            <a href="graduacoes.html">Graduações</a>
             <a href="galeria.html">Galeria</a>
             <a href="contato.html">Contato</a>
             <a href="login.html">Login</a>
         </nav>
 
         <h1>ALFA JIU JITSU ACADEMY</h1>
-        <p>Área de Acesso</p>
+        <p>Acesso e Cadastro de Alunos</p>
     </header>
 
     <main>
         <div class="login-container">
-            <h2>Acessar Conta</h2>
-            
-            <form id="formLogin">
+            <!-- ABAS PARA ALTERNAR ENTRE LOGIN E CADASTRO -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('login')">Entrar</button>
+                <button class="tab-btn" onclick="switchTab('cadastro')">Cadastrar Aluno</button>
+            </div>
+
+            <!-- FORMULÁRIO DE LOGIN -->
+            <form id="formLogin" class="form-section active">
                 <div class="form-group">
-                    <label for="tipoUsuario">Tipo de Acesso</label>
-                    <select id="tipoUsuario" required>
-                        <option value="aluno">Aluno (Reserva de Materiais)</option>
+                    <label for="loginTipo">Tipo de Acesso</label>
+                    <select id="loginTipo">
+                        <option value="aluno">Aluno</option>
                         <option value="admin">Administrador</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="usuario">Usuário / E-mail</label>
-                    <input type="text" id="usuario" placeholder="Digite seu usuário" required>
+                    <label for="loginEmail">E-mail</label>
+                    <input type="email" id="loginEmail" placeholder="seu@email.com" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="senha">Senha</label>
-                    <input type="password" id="senha" placeholder="Digite sua senha" required>
+                    <label for="loginSenha">Senha</label>
+                    <input type="password" id="loginSenha" placeholder="Digite sua senha" required>
                 </div>
 
-                <button type="submit" class="btn-login">Entrar</button>
-                <div id="msgErro" class="msg-erro">Usuário ou senha incorretos!</div>
+                <button type="submit" class="btn-submit">Entrar no Sistema</button>
+                <div id="msgLogin" class="msg-status msg-erro"></div>
+            </form>
+
+            <!-- FORMULÁRIO DE CADASTRO -->
+            <form id="formCadastro" class="form-section">
+                <div class="form-group">
+                    <label for="cadNome">Nome Completo</label>
+                    <input type="text" id="cadNome" placeholder="Digite seu nome completo" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cadEmail">E-mail</label>
+                    <input type="email" id="cadEmail" placeholder="seu@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cadSenha">Senha</label>
+                    <input type="password" id="cadSenha" placeholder="Crie uma senha" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cadConfirmaSenha">Confirme a Senha</label>
+                    <input type="password" id="cadConfirmaSenha" placeholder="Repita a senha" required>
+                </div>
+
+                <button type="submit" class="btn-submit">Criar Minha Conta</button>
+                <div id="msgCadastro" class="msg-status"></div>
             </form>
         </div>
     </main>
@@ -136,30 +194,95 @@
     </footer>
 
     <script>
+        // Função para alternar as abas
+        function switchTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const forms = document.querySelectorAll('.form-section');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            forms.forEach(form => form.classList.remove('active'));
+
+            if (tabName === 'login') {
+                tabs[0].classList.add('active');
+                document.getElementById('formLogin').classList.add('active');
+            } else {
+                tabs[1].classList.add('active');
+                document.getElementById('formCadastro').classList.add('active');
+            }
+        }
+
+        // --- LÓGICA DE CADASTRO DE ALUNO ---
+        document.getElementById('formCadastro').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nome = document.getElementById('cadNome').value;
+            const email = document.getElementById('cadEmail').value;
+            const senha = document.getElementById('cadSenha').value;
+            const confirmaSenha = document.getElementById('cadConfirmaSenha').value;
+            const msgCadastro = document.getElementById('msgCadastro');
+
+            if (senha !== confirmaSenha) {
+                msgCadastro.className = "msg-status msg-erro";
+                msgCadastro.innerText = "As senhas não coincidem! Tente novamente.";
+                msgCadastro.style.display = "block";
+                return;
+            }
+
+            // Busca os alunos cadastrados no localStorage
+            let alunos = JSON.parse(localStorage.getItem('alunosCadastrados')) || [];
+
+            // Verifica se o e-mail já existe
+            const emailExiste = alunos.some(aluno => aluno.email === email);
+            if (emailExiste) {
+                msgCadastro.className = "msg-status msg-erro";
+                msgCadastro.innerText = "Este e-mail já está cadastrado!";
+                msgCadastro.style.display = "block";
+                return;
+            }
+
+            // Salva o novo aluno
+            alunos.push({ nome, email, senha });
+            localStorage.setItem('alunosCadastrados', JSON.stringify(alunos));
+
+            msgCadastro.className = "msg-status msg-sucesso";
+            msgCadastro.innerText = "Cadastro realizado com sucesso! Alterne para 'Entrar' e faça seu login.";
+            msgCadastro.style.display = "block";
+            document.getElementById('formCadastro').reset();
+        });
+
+        // --- LÓGICA DE LOGIN ---
         document.getElementById('formLogin').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const tipo = document.getElementById('tipoUsuario').value;
-            const usuario = document.getElementById('usuario').value;
-            const senha = document.getElementById('senha').value;
-            const msgErro = document.getElementById('msgErro');
+            const tipo = document.getElementById('loginTipo').value;
+            const email = document.getElementById('loginEmail').value;
+            const senha = document.getElementById('loginSenha').value;
+            const msgLogin = document.getElementById('msgLogin');
 
-            // SIMULAÇÃO DE VALIDAÇÃO (Ajuste com suas senhas de preferência)
+            msgLogin.style.display = "none";
+
+            // VALIDAÇÃO DE ADMINISTRADOR
             if (tipo === 'admin') {
-                if (usuario === 'admin' && senha === 'admin123') {
+                // Insira abaixo o e-mail e a senha que você deseja usar para o ADM:
+                if (email === 'admin@alfajiujitsu.com' && senha === 'admin123') {
                     localStorage.setItem('usuarioLogado', JSON.stringify({ tipo: 'admin', nome: 'Administrador' }));
                     window.location.href = 'admin.html';
                 } else {
-                    msgErro.innerText = "Credenciais de Administrador incorretas!";
-                    msgErro.style.display = 'block';
+                    msgLogin.innerText = "E-mail ou senha de Administrador incorretos!";
+                    msgLogin.style.display = "block";
                 }
-            } else if (tipo === 'aluno') {
-                if (usuario && senha) { // Aceita qualquer usuário/senha para teste de aluno
-                    localStorage.setItem('usuarioLogado', JSON.stringify({ tipo: 'aluno', nome: usuario }));
+            } 
+            // VALIDAÇÃO DE ALUNO
+            else if (tipo === 'aluno') {
+                let alunos = JSON.parse(localStorage.getItem('alunosCadastrados')) || [];
+                const alunoEncontrado = alunos.find(aluno => aluno.email === email && aluno.senha === senha);
+
+                if (alunoEncontrado) {
+                    localStorage.setItem('usuarioLogado', JSON.stringify({ tipo: 'aluno', nome: alunoEncontrado.nome }));
                     window.location.href = 'reservas.html';
                 } else {
-                    msgErro.innerText = "Por favor, preencha todos os campos!";
-                    msgErro.style.display = 'block';
+                    msgLogin.innerText = "Aluno não encontrado ou senha incorreta! Faça o cadastro primeiro.";
+                    msgLogin.style.display = "block";
                 }
             }
         });
