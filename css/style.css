@@ -1,6 +1,6 @@
 /* ==========================================================================
    ALFA JIU JITSU ACADEMY - GLOBAL STYLE SHEET
-   Versão: 3.0 Dark Gold Premium
+   Versão: 3.1 Dark Gold Premium Otimizado
    ========================================================================== */
 
 /* --- IMPORTAÇÃO DE FONTES GOOGLE --- */
@@ -36,7 +36,7 @@
 }
 
 /* --- RESET & BASE --- */
-* {
+*, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -63,9 +63,9 @@ h1, h2, h3, h4, h5, h6 {
     text-transform: uppercase;
 }
 
-h1 { font-size: 3.5rem; color: #ffffff; }
-h2 { font-size: 2.5rem; color: var(--gold-primary); }
-h3 { font-size: 1.8rem; color: #ffffff; }
+h1 { font-size: clamp(2.5rem, 5vw, 4rem); color: #ffffff; }
+h2 { font-size: clamp(2rem, 4vw, 3rem); color: var(--gold-primary); }
+h3 { font-size: clamp(1.4rem, 3vw, 1.8rem); color: #ffffff; }
 
 p {
     color: var(--text-muted);
@@ -81,7 +81,7 @@ a {
 
 /* --- LAYOUTS GERAIS --- */
 section {
-    padding: 90px 8%;
+    padding: 80px 8%;
     position: relative;
 }
 
@@ -96,13 +96,13 @@ main {
 header {
     background: #000000;
     text-align: center;
-    padding: 40px 20px;
+    padding: 30px 20px;
     border-bottom: 1px solid var(--bg-card-border);
 }
 
 header h1 {
     color: var(--gold-primary);
-    font-size: 3rem;
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
     margin-bottom: 8px;
 }
 
@@ -112,14 +112,15 @@ header p {
 }
 
 nav {
-    background: rgba(5, 5, 5, 0.9);
+    background: rgba(5, 5, 5, 0.92);
     backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--bg-card-border);
-    padding: 18px 30px;
+    padding: 16px 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 25px;
+    gap: 20px;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -132,6 +133,7 @@ nav a {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
+    padding: 4px 8px;
 }
 
 nav a:hover, nav a.active {
@@ -141,13 +143,14 @@ nav a:hover, nav a.active {
 
 /* --- SEÇÃO HERO --- */
 .hero {
-    min-height: 85vh;
+    min-height: 80vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
     padding: 60px 20px;
+    background-color: var(--bg-body);
     background: linear-gradient(180deg, rgba(5,5,5,0.7) 0%, rgba(5,5,5,0.95) 100%),
                 url("../imagens/banner.jpg") center/cover no-repeat;
     position: relative;
@@ -155,13 +158,13 @@ nav a:hover, nav a.active {
 
 .hero img {
     width: 180px;
+    max-width: 80%;
+    height: auto;
     margin-bottom: 20px;
     filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.3));
 }
 
 .hero h1 {
-    font-size: 4rem;
-    color: #ffffff;
     line-height: 1.1;
     margin-bottom: 10px;
 }
@@ -184,7 +187,7 @@ nav a:hover, nav a.active {
     background: var(--gold-primary);
     color: var(--text-dark);
     padding: 16px 36px;
-    margin-top: 30px;
+    margin-top: 25px;
     border-radius: 50px;
     font-family: var(--font-body);
     font-weight: 800;
@@ -216,7 +219,7 @@ nav a:hover, nav a.active {
     color: #ffffff;
 }
 
-/* --- CARDS GERENCIAIS (PROFESSORES, VANTAGENS, TURMAS, EVENTOS) --- */
+/* --- CARDS GERENCIAIS --- */
 .professores, .vantagens .cards, .turmas .cards-turmas, .eventos, .treinos {
     display: flex;
     justify-content: center;
@@ -229,9 +232,11 @@ nav a:hover, nav a.active {
     background: var(--bg-card);
     border: 1px solid var(--bg-card-border);
     padding: 30px;
-    width: 310px;
+    width: 320px;
+    max-width: 100%;
     border-radius: var(--radius-md);
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     transition: var(--transition-normal);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     text-align: left;
@@ -245,7 +250,6 @@ nav a:hover, nav a.active {
 
 .card h3, .turma h3, .turma-card h3, .evento h3 {
     color: var(--gold-primary);
-    font-size: 1.8rem;
     margin-bottom: 12px;
 }
 
@@ -261,13 +265,14 @@ a.evento {
     align-items: center;
     justify-content: center;
     gap: 60px;
-    padding: 90px 8%;
+    padding: 80px 8%;
     flex-wrap: wrap;
 }
 
 .sobre-imagem img {
     width: 480px;
     max-width: 100%;
+    height: auto;
     border-radius: var(--radius-lg);
     border: 1px solid var(--bg-card-border);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
@@ -278,12 +283,10 @@ a.evento {
 }
 
 .sobre-texto h2 {
-    font-size: 3rem;
     margin-bottom: 10px;
 }
 
 .sobre-texto h3 {
-    font-size: 1.5rem;
     color: #fff;
     margin-bottom: 20px;
 }
@@ -301,13 +304,14 @@ a.evento {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 35px;
+    gap: 30px;
     margin-top: 40px;
 }
 
 .numero {
     background: var(--bg-card);
     width: 220px;
+    max-width: 100%;
     padding: 30px 20px;
     border-radius: var(--radius-md);
     border: 1px solid var(--bg-card-border);
@@ -331,10 +335,16 @@ a.evento {
 }
 
 /* --- TABELAS --- */
+.tabela-responsive {
+    width: 100%;
+    overflow-x: auto;
+    margin: 30px 0;
+}
+
 table {
     width: 100%;
     max-width: 1000px;
-    margin: 40px auto;
+    margin: 0 auto;
     border-collapse: separate;
     border-spacing: 0;
     border-radius: var(--radius-md);
@@ -438,6 +448,7 @@ tr:hover {
     height: 100vh;
     background: rgba(0, 0, 0, 0.95);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     z-index: 9999;
     justify-content: center;
     align-items: center;
@@ -497,7 +508,7 @@ tr:hover {
     transform: translateY(-50%) scale(1.1);
 }
 
-/* --- BOTÕES FLUTUANTES (WHATSAPP & INSTAGRAM) --- */
+/* --- BOTÕES FLUTUANTES --- */
 .flutuantes-container {
     position: fixed;
     bottom: 25px;
@@ -518,6 +529,12 @@ tr:hover {
     color: #ffffff;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
     transition: var(--transition-normal);
+}
+
+.flutuante-btn svg {
+    width: 28px;
+    height: 28px;
+    fill: currentColor;
 }
 
 .flutuante-btn:hover {
@@ -547,11 +564,12 @@ footer p {
 
 /* --- RESPONSIVIDADE BÁSICA --- */
 @media (max-width: 768px) {
-    header h1 { font-size: 2.2rem; }
-    .hero h1 { font-size: 2.8rem; }
-    nav { gap: 12px; padding: 15px; }
+    section { padding: 50px 5%; }
+    nav { gap: 10px; padding: 12px; }
     nav a { font-size: 0.78rem; }
-    .sobre-alfa { gap: 30px; text-align: center; }
-    .visualizador .anterior { left: 10px; }
-    .visualizador .proxima { right: 10px; }
+    .sobre-alfa { gap: 30px; text-align: center; padding: 50px 5%; }
+    .visualizador .anterior { left: 10px; width: 45px; height: 45px; }
+    .visualizador .proxima { right: 10px; width: 45px; height: 45px; }
+    .flutuante-btn { width: 48px; height: 48px; }
+    .flutuantes-container { bottom: 15px; right: 15px; }
 }
