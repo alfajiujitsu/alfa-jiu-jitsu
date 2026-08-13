@@ -4,125 +4,484 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galeria - Alfa Jiu Jitsu Academy</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Galeria de Fotos | Alfa Jiu Jitsu Academy</title>
     
+    <!-- Google Fonts: Bebas Neue + Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <!-- SDK Oficial do Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
+        :root {
+            --bg-body: #050505;
+            --bg-card: rgba(18, 18, 20, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.08);
+            --gold-primary: #D4AF37;
+            --gold-glow: rgba(212, 175, 55, 0.15);
+            --text-main: #F4F4F5;
+            --text-muted: #A1A1AA;
+            --font-head: 'Bebas Neue', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- BACKGROUND GLOW EFFECT --- */
+        .glow-bg {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 900px;
+            height: 450px;
+            background: radial-gradient(circle, var(--gold-glow) 0%, rgba(0,0,0,0) 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* --- HEADER NAVIGATION --- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--bg-card-border);
+            padding: 18px 40px;
+        }
+
+        .nav-container {
+            max-width: 1250px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            letter-spacing: 2px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--gold-primary);
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--gold-primary);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            padding: 70px 20px 30px 20px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 100px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-primary);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-family: var(--font-head);
+            font-size: clamp(3rem, 6vw, 5rem);
+            line-height: 0.95;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            background: linear-gradient(180deg, #FFFFFF 0%, #A1A1AA 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            font-weight: 300;
+        }
+
+        /* --- MAIN CONTAINER --- */
+        .container {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 20px 20px 100px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- FILTROS BAR --- */
         .filtros-container {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
+            gap: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            padding: 16px 24px;
+            border-radius: 16px;
+            backdrop-filter: blur(12px);
+            margin-bottom: 40px;
         }
 
-        .filtro-mes {
-            padding: 8px 14px;
-            border-radius: 6px;
-            border: 1px solid #444;
-            background-color: #222;
-            color: #fff;
-            font-size: 15px;
-            cursor: pointer;
+        .filtros {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .filtros button {
-            padding: 8px 16px;
-            border-radius: 6px;
-            border: 1px solid #444;
-            background-color: #222;
-            color: #fff;
+            padding: 10px 20px;
+            border-radius: 100px;
+            border: 1px solid var(--bg-card-border);
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-muted);
             cursor: pointer;
-            font-weight: bold;
-            transition: all 0.2s ease;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .filtros button:hover {
+            border-color: rgba(212, 175, 55, 0.5);
+            color: var(--gold-primary);
+            background: rgba(212, 175, 55, 0.05);
         }
 
         .filtros button.ativo {
-            background-color: #d4af37;
+            background: var(--gold-primary);
             color: #000;
-            border-color: #d4af37;
+            border-color: var(--gold-primary);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .filtro-mes-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filtro-mes {
+            padding: 10px 18px;
+            border-radius: 100px;
+            border: 1px solid var(--bg-card-border);
+            background-color: #121214;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .filtro-mes:focus, .filtro-mes:hover {
+            border-color: var(--gold-primary);
+        }
+
+        /* --- GALERIA GRID --- */
+        .galeria {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            min-height: 300px;
+        }
+
+        .foto {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            aspect-ratio: 4 / 3;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .foto img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .foto::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.7) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .foto:hover {
+            transform: translateY(-5px);
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .foto:hover img {
+            transform: scale(1.08);
+        }
+
+        .foto:hover::after {
+            opacity: 1;
+        }
+
+        /* MSG CARREGANDO OU VAZIO */
+        #carregando, .msg-status {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            font-weight: 400;
+            background: var(--bg-card);
+            border: 1px dashed var(--bg-card-border);
+            border-radius: 16px;
+        }
+
+        /* --- LIGHTBOX / VISUALIZADOR --- */
+        .visualizador {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(20px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .visualizador img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            object-fit: contain;
+            user-select: none;
+        }
+
+        .visualizador .fechar {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            font-size: 2.2rem;
+            color: #fff;
+            cursor: pointer;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            line-height: 0;
+        }
+
+        .visualizador .fechar:hover {
+            background: var(--gold-primary);
+            color: #000;
+        }
+
+        .visualizador .anterior, .visualizador .proxima {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            font-size: 1.5rem;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .visualizador .anterior { left: 30px; }
+        .visualizador .proxima { right: 30px; }
+
+        .visualizador .anterior:hover, .visualizador .proxima:hover {
+            background: var(--gold-primary);
+            color: #000;
+            border-color: var(--gold-primary);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            border-top: 1px solid var(--bg-card-border);
+            padding: 50px 20px;
+            text-align: center;
+            background: #000;
+        }
+
+        footer h2 {
+            font-family: var(--font-head);
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            color: var(--gold-primary);
+            margin-bottom: 8px;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            .nav-container { flex-direction: column; gap: 15px; }
+            .filtros-container { flex-direction: column; align-items: stretch; }
+            .filtros { justify-content: center; }
+            .filtro-mes-wrapper { justify-content: center; }
+            .visualizador .anterior { left: 10px; }
+            .visualizador .proxima { right: 10px; }
         }
     </style>
 </head>
 
 <body>
 
-    <header>
-        <nav>
-    <a href="index.html">Início</a>
-    <a href="historia.html">Nossa História</a>
-    <a href="professores.html">Professores</a>
-    <a href="horarios.html">Horários</a>
-    <a href="eventos.html">Eventos</a>
-    <a href="graduacoes.html">Graduaçoes</a>
-    <a href="galeria.html">Galeria</a>
-    <a href="contato.html">Contato</a>
-    <a href="login.html">Login</a>
-</nav>
+    <div class="glow-bg"></div>
 
-        <h1>ALFA JIU JITSU ACADEMY</h1>
-        <p>Disciplina • Respeito • Evolução</p>
+    <!-- HEADER NAVIGATION -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">ALFA<span>HQ</span></a>
+            <nav>
+                <a href="index.html">Início</a>
+                <a href="historia.html">História</a>
+                <a href="professores.html">Professores</a>
+                <a href="horarios.html">Horários</a>
+                <a href="eventos.html">Eventos</a>
+                <a href="graduacoes.html">Graduações</a>
+                <a href="galeria.html" class="active">Galeria</a>
+                <a href="contato.html">Contato</a>
+                <a href="login.html">Login</a>
+            </nav>
+        </div>
     </header>
 
-    <main>
-        <section>
-            <h2>Galeria</h2>
-            <p>Momentos da nossa equipe dentro e fora do tatame.</p>
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <span class="hero-badge">Acervo de Registros</span>
+        <h1>Galeria de Fotos</h1>
+        <p>Momentos marcantes da nossa equipe, atletas e alunos dentro e fora do tatame.</p>
+    </section>
 
-            <div class="filtros-container">
-                <!-- BOTÕES DE CATEGORIA -->
-                <div class="filtros">
-                    <button id="btn-todos" onclick="filtrarCategoria('todos')">Todos</button>
-                    <button id="btn-kids" onclick="filtrarCategoria('kids')">Kids</button>
-                    <button id="btn-adultos" onclick="filtrarCategoria('adultos')">Adultos</button>
-                    <button id="btn-eventos" onclick="filtrarCategoria('eventos')">Eventos</button>
-                    <button id="btn-graduacoes" onclick="filtrarCategoria('graduacoes')">Graduações</button>
-                    <button id="btn-campeonatos" onclick="filtrarCategoria('campeonatos')">Campeonatos</button>
-                </div>
+    <!-- MAIN CONTAINER -->
+    <main class="container">
 
-                <!-- FILTRO DE MÊS -->
-                <div>
-                    <select id="selectMes" class="filtro-mes" onchange="filtrarMes(this.value)">
-                        <option value="todos">Todos os Meses</option>
-                        <option value="01-janeiro">Janeiro</option>
-                        <option value="02-fevereiro">Fevereiro</option>
-                        <option value="03-marco">Março</option>
-                        <option value="04-abril">Abril</option>
-                        <option value="05-maio">Maio</option>
-                        <option value="06-junho">Junho</option>
-                        <option value="07-julho">Julho</option>
-                        <option value="08-agosto">Agosto</option>
-                        <option value="09-setembro">Setembro</option>
-                        <option value="10-outubro">Outubro</option>
-                        <option value="11-novembro">Novembro</option>
-                        <option value="12-dezembro">Dezembro</option>
-                    </select>
-                </div>
+        <!-- FILTROS -->
+        <div class="filtros-container">
+            <div class="filtros">
+                <button id="btn-todos" onclick="filtrarCategoria('todos')">Todos</button>
+                <button id="btn-kids" onclick="filtrarCategoria('kids')">Kids</button>
+                <button id="btn-adultos" onclick="filtrarCategoria('adultos')">Adultos</button>
+                <button id="btn-eventos" onclick="filtrarCategoria('eventos')">Eventos</button>
+                <button id="btn-graduacoes" onclick="filtrarCategoria('graduacoes')">Graduações</button>
+                <button id="btn-campeonatos" onclick="filtrarCategoria('campeonatos')">Campeonatos</button>
             </div>
 
-            <div class="galeria" id="galeriaFotos">
-                <p id="carregando">Carregando fotos...</p>
+            <div class="filtro-mes-wrapper">
+                <select id="selectMes" class="filtro-mes" onchange="filtrarMes(this.value)">
+                    <option value="todos">📅 Todos os Meses</option>
+                    <option value="01-janeiro">Janeiro</option>
+                    <option value="02-fevereiro">Fevereiro</option>
+                    <option value="03-marco">Março</option>
+                    <option value="04-abril">Abril</option>
+                    <option value="05-maio">Maio</option>
+                    <option value="06-junho">Junho</option>
+                    <option value="07-julho">Julho</option>
+                    <option value="08-agosto">Agosto</option>
+                    <option value="09-setembro">Setembro</option>
+                    <option value="10-outubro">Outubro</option>
+                    <option value="11-novembro">Novembro</option>
+                    <option value="12-dezembro">Dezembro</option>
+                </select>
             </div>
-        </section>
+        </div>
+
+        <!-- GRID DA GALERIA -->
+        <div class="galeria" id="galeriaFotos">
+            <p id="carregando">Carregando acervo de fotos...</p>
+        </div>
+
     </main>
 
-    <footer>
-        <p>ALFA JIU JITSU ACADEMY</p>
-        <p>Disciplina • Respeito • Evolução</p>
-        <p>© 2026 Alfa Jiu Jitsu Academy</p>
-    </footer>
-
+    <!-- LIGHTBOX / VISUALIZADOR -->
     <div id="visualizador" class="visualizador">
-        <span class="fechar" onclick="fecharFoto()">×</span>
-        <button class="anterior" onclick="fotoAnterior()">❮</button>
-        <img id="fotoGrande" src="" alt="">
-        <button class="proxima" onclick="proximaFoto()">❯</button>
+        <span class="fechar" onclick="fecharFoto()">&times;</span>
+        <button class="anterior" onclick="fotoAnterior()">&#10094;</button>
+        <img id="fotoGrande" src="" alt="Foto expandida">
+        <button class="proxima" onclick="proximaFoto()">&#10095;</button>
     </div>
 
+    <!-- FOOTER -->
+    <footer>
+        <h2>ALFA JIU JITSU ACADEMY</h2>
+        <p>Disciplina • Respeito • Evolução</p>
+        <p style="margin-top: 15px; opacity: 0.5;">© 2026 Alfa Jiu Jitsu Academy. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- SCRIPT ORIGINAL COM MANTIMENTO INTEGRAL DA LÓGICA SUPABASE -->
     <script>
         const SUPABASE_URL = "https://zlfcnqjcxflcecrcfhyc.supabase.co";
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpsZmNucWpjeGZsY2VjcmNmaHljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzODY1MjUsImV4cCI6MjEwMTk2MjUyNX0.YtNYhsM_ctV2HpsGJJOlSzLS_v_4vGp-82aFTaqibaI"; 
@@ -154,7 +513,7 @@
             atualizarBotoesCategoria();
 
             const galeria = document.getElementById("galeriaFotos");
-            galeria.innerHTML = "<p>Carregando fotos...</p>";
+            galeria.innerHTML = '<p id="carregando">Carregando acervo de fotos...</p>';
             let totalFotos = 0;
 
             for (const cat of listaCategorias) {
@@ -198,11 +557,11 @@
             }
 
             // Remove a mensagem de carregando
-            const msgCarregando = galeria.querySelector("p");
+            const msgCarregando = document.getElementById("carregando");
             if (msgCarregando) msgCarregando.remove();
 
             if (totalFotos === 0) {
-                galeria.innerHTML = "<p>Nenhuma foto encontrada nas pastas.</p>";
+                galeria.innerHTML = '<p class="msg-status">Nenhuma foto encontrada nas pastas da galeria.</p>';
             } else {
                 aplicarFiltros();
             }
@@ -323,6 +682,16 @@
         function fecharFoto() {
             document.getElementById("visualizador").style.display = "none";
         }
+
+        // Suporte a atalhos de teclado para o Lightbox
+        document.addEventListener("keydown", function(e) {
+            const visualizador = document.getElementById("visualizador");
+            if (visualizador.style.display === "flex") {
+                if (e.key === "Escape") fecharFoto();
+                if (e.key === "ArrowLeft") fotoAnterior();
+                if (e.key === "ArrowRight") proximaFoto();
+            }
+        });
 
         // Inicia o carregamento
         carregarFotos();
