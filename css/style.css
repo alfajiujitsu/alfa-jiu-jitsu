@@ -131,7 +131,7 @@ nav a:hover, nav a.active {
 .hero h1 {
     font-family: var(--font-head);
     font-size: clamp(3rem, 6vw, 4.5rem);
-    color: #FFFFFF; /* Texto super visível */
+    color: #FFFFFF;
     letter-spacing: 2px;
     line-height: 1;
     margin-bottom: 12px;
@@ -177,12 +177,12 @@ nav a:hover, nav a.active {
     box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3);
 }
 
-/* --- CARDS & ESTRUTURA --- */
+/* --- CARDS & ESTRUTURA GERAL --- */
 section {
     padding: 80px 8%;
 }
 
-.card, .turma, .turma-card, .evento {
+.card, .turma, .turma-card, .evento, .card-black-belt {
     background: var(--bg-card);
     border: 1px solid var(--bg-card-border);
     padding: 32px;
@@ -191,10 +191,33 @@ section {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-.card:hover, .turma:hover, .turma-card:hover, .evento:hover {
+.card:hover, .turma:hover, .turma-card:hover, .evento:hover, .card-black-belt:hover {
     transform: translateY(-8px);
     border-color: rgba(212, 175, 55, 0.5);
     box-shadow: 0 15px 35px rgba(212, 175, 55, 0.15);
+}
+
+/* --- SEÇÃO BLACK BELTS / PROFESSORES (CORREÇÃO DE IMAGEM) --- */
+.black-belts-container, .professores {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+/* Ajuste da imagem para focar no rosto e não cortar */
+.card-black-belt img, 
+.black-belt-foto img,
+.card-professor img {
+    width: 100%;
+    height: 380px;                  /* Altura ideal estilo retrato/poster */
+    object-fit: cover;              /* Preenche a área sem distorcer */
+    object-position: top center;    /* <--- FORÇA O FOCO NO ROSTO/TOPO */
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--bg-card-border);
+    margin-bottom: 20px;
+    display: block;
 }
 
 /* --- BOTÕES FLUTUANTES --- */
@@ -247,4 +270,10 @@ footer {
 @media (max-width: 768px) {
     nav { justify-content: center; text-align: center; }
     .nav-links { justify-content: center; gap: 12px; }
+    
+    .card-black-belt img, 
+    .black-belt-foto img,
+    .card-professor img {
+        height: 300px; /* Ajuste para telas de celular */
+    }
 }
