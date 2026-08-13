@@ -4,117 +4,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Admin - Alfa Jiu Jitsu Academy</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Painel do Administrador - Alfa Jiu Jitsu</title>
     
-    <!-- SDK Oficial do Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animacoes.css">
+    <link rel="stylesheet" href="css/responsivo.css">
 
     <style>
         .admin-container {
-            max-width: 900px;
-            margin: 0 auto;
+            max-width: 1000px;
+            margin: 40px auto;
             padding: 20px;
         }
 
-        .upload-card, .gerenciador-card {
-            background-color: #1e1e1e;
+        .header-adm {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1c1c1c;
+            padding: 15px 25px;
+            border-radius: 10px;
             border: 1px solid #333;
-            border-radius: 8px;
-            padding: 20px;
             margin-bottom: 30px;
+        }
+
+        .secao-cadatro {
+            background: #1c1c1c;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            margin-bottom: 40px;
             text-align: left;
         }
 
-        .form-group {
-            margin-bottom: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .form-group label {
-            color: #ddd;
-            font-size: 14px;
-        }
-
-        .form-group select, .form-group input, .form-group textarea {
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #444;
-            background-color: #121212;
-            color: #fff;
-            font-size: 14px;
-            font-family: inherit;
-        }
-
-        .btn-primary {
-            background-color: #d97706;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .btn-primary:hover {
-            background-color: #b45309;
-        }
-
-        .btn-primary:disabled {
-            background-color: #555;
-            cursor: not-allowed;
-        }
-
-        /* GRID DE GERENCIAMENTO DAS FOTOS E GRADUAÇÕES */
-        .admin-galeria-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .card-foto-admin {
-            background-color: #121212;
-            border: 1px solid #333;
-            border-radius: 6px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .secao-cadatro h3 {
+            color: #d4af37;
+            margin-top: 0;
+            border-bottom: 1px solid #333;
             padding-bottom: 10px;
         }
 
-        .card-foto-admin img {
-            width: 100%;
-            height: 130px;
-            object-fit: cover;
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
         }
 
-        .info-foto {
-            font-size: 12px;
-            color: #aaa;
-            margin: 8px 0;
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            color: #ccc;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group select {
+            padding: 10px;
+            background: #111;
+            border: 1px solid #444;
+            border-radius: 6px;
+            color: white;
+        }
+
+        .btn-salvar {
+            background: #d4af37;
+            color: #000;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+
+        .btn-salvar:hover {
+            background: #b49329;
+        }
+
+        .lista-produtos-adm {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card-adm-prod {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
             text-align: center;
-            padding: 0 5px;
-            word-break: break-all;
+        }
+
+        .card-adm-prod img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 10px;
         }
 
         .btn-excluir {
-            background-color: #dc2626;
+            background: #e74c3c;
             color: white;
             border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
+            padding: 8px 15px;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 12px;
-            font-weight: bold;
-            transition: background 0.2s;
+            margin-top: 10px;
         }
 
-        .btn-excluir:hover {
-            background-color: #991b1b;
+        .btn-logout {
+            background-color: #e74c3c;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -122,517 +134,156 @@
 <body>
 
     <header>
-          <nav>
-    <a href="index.html">Início</a>
-    <a href="historia.html">Nossa História</a>
-    <a href="professores.html">Professores</a>
-    <a href="horarios.html">Horários</a>
-    <a href="eventos.html">Eventos</a>
-    <a href="graduacoes.html">Graduaçoes</a>
-    <a href="galeria.html">Galeria</a>
-    <a href="contato.html">Contato</a>
-    <a href="login.html">Login</a>
-</nav>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="historia.html">Nossa História</a>
+            <a href="professores.html">Professores</a>
+            <a href="horarios.html">Horários</a>
+            <a href="eventos.html">Eventos</a>
+            <a href="graduacoes.html">Graduaçoes</a>
+            <a href="galeria.html">Galeria</a>
+            <a href="contato.html">Contato</a>
+            <a href="login.html">Login</a>
+        </nav>
 
         <h1>ALFA JIU JITSU ACADEMY</h1>
-        <p>Painel de Administração</p>
+        <p>Painel de Controle do Administrador</p>
     </header>
 
     <main class="admin-container">
-
-        <!-- 1. CADASTRAR NOTÍCIA COM UPLOAD DE FOTOS -->
-        <div class="upload-card">
-            <h3 style="color: #d4af37;">🏆 Cadastrar Notícia / Campeonato</h3>
-            <form id="formCampeonato" style="margin-top: 15px;">
-                <div class="form-group">
-                    <label for="campTipo">Tipo de Evento:</label>
-                    <select id="campTipo" required>
-                        <option value="proximo">📌 Presença Confirmada (Próximo Campeonato)</option>
-                        <option value="realizado">✅ Campeonato Realizado (Resultado & Galeria)</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="campTitulo">Título da Notícia / Campeonato:</label>
-                    <input type="text" id="campTitulo" placeholder="Ex: Alfa Confirmada no Campeonato Catarinense 2026" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="campMeta">Data / Local / Conquistas:</label>
-                    <input type="text" id="campMeta" placeholder="Ex: 20 de Setembro de 2026 | Local: Joinville/SC" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="campDescricao">Descrição / Conteúdo da Notícia:</label>
-                    <textarea id="campDescricao" rows="4" placeholder="Escreva os detalhes sobre nossa participação ou os resultados obtidos..." required></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="campFotosArquivo">Selecione as Fotos do Campeonato (Você pode escolher várias):</label>
-                    <input type="file" id="campFotosArquivo" accept="image/*" multiple>
-                </div>
-
-                <button type="submit" class="btn-primary" id="btnSalvarCamp">Publicar Campeonato</button>
-            </form>
-            <p id="msgCampStatus" style="margin-top: 10px; font-weight: bold;"></p>
+        <div class="header-adm">
+            <h2 style="margin: 0; color: #fff;">Painel Admin - <span style="color: #d4af37;">Gestão da Shop</span></h2>
+            <button onclick="logout()" class="btn-logout">Sair do Admin</button>
         </div>
 
-        <!-- 2. CADASTRAR GRADUAÇÃO / ATLETA -->
-        <div class="upload-card">
-            <h3 style="color: #d4af37;">🎓 Cadastrar Graduação de Aluno</h3>
-            <form id="formGraduacao" style="margin-top: 15px;">
-                <div class="form-group">
-                    <label for="gradNome">Nome do Aluno:</label>
-                    <input type="text" id="gradNome" placeholder="Ex: João Silva" required>
+        <!-- FORMULÁRIO DE CADASTRO DE PRODUTOS -->
+        <section class="secao-cadatro">
+            <h3>🛍️ Cadastrar Novo Produto para a Shop</h3>
+            <form id="formProduto">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="prodNome">Nome do Item</label>
+                        <input type="text" id="prodNome" placeholder="Ex: Camisa Alfa Jiu Jitsu" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="prodTamanho">Tamanho(s)</label>
+                        <input type="text" id="prodTamanho" placeholder="Ex: P, M, G, GG ou A1, A2" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="prodQtd">Quantidade Disponível</label>
+                        <input type="number" id="prodQtd" min="1" placeholder="Ex: 3" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="prodPreco">Preço (R$)</label>
+                        <input type="text" id="prodPreco" placeholder="Ex: 89,90" required>
+                    </div>
+
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label for="prodFoto">Enviar Foto do Produto</label>
+                        <input type="file" id="prodFoto" accept="image/*" required>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="gradFaixa">Faixa Atual:</label>
-                    <select id="gradFaixa" required>
-                        <option value="Branca">⚪ Faixa Branca</option>
-                        <option value="Cinza">⚪/⚪ Faixa Cinza (Kids)</option>
-                        <option value="Amarela">🟡 Faixa Amarela (Kids)</option>
-                        <option value="Laranja">🟠 Faixa Laranja (Kids)</option>
-                        <option value="Verde">🟢 Faixa Verde (Kids)</option>
-                        <option value="Azul">🔵 Faixa Azul</option>
-                        <option value="Roxa">🟣 Faixa Roxa</option>
-                        <option value="Marrom">🟤 Faixa Marrom</option>
-                        <option value="Preta">⚫ Faixa Preta</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="gradAno">Ano em que recebeu a faixa:</label>
-                    <input type="number" id="gradAno" min="2000" max="2030" placeholder="Ex: 2026" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="gradHistoria">História / Trajetória do Aluno:</label>
-                    <textarea id="gradHistoria" rows="4" placeholder="Conte a trajetória do aluno no Jiu Jitsu, conquistas, tempo de treino..." required></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="gradFotoAluno">Foto do Aluno:</label>
-                    <input type="file" id="gradFotoAluno" accept="image/*" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="gradFotoFaixa">Foto / Imagem da Faixa (Opcional):</label>
-                    <input type="file" id="gradFotoFaixa" accept="image/*">
-                </div>
-
-                <button type="submit" class="btn-primary" id="btnSalvarGrad">Cadastrar Graduação</button>
+                <button type="submit" class="btn-salvar">Cadastrar Produto</button>
             </form>
-            <p id="msgGradStatus" style="margin-top: 10px; font-weight: bold;"></p>
-        </div>
+        </section>
 
-        <!-- 3. GERENCIADOR DE GRADUAÇÕES EXISTENTES -->
-        <div class="gerenciador-card">
-            <h3 style="color: #d4af37;">🎓 Alunos Graduados Cadastrados</h3>
-            <div id="gridAdminGraduacoes" class="admin-galeria-grid">
-                <p>Carregando alunos...</p>
+        <!-- GERENCIAMENTO DOS PRODUTOS JÁ CADASTRADOS -->
+        <section class="secao-cadatro">
+            <h3>📦 Produtos Cadastrados</h3>
+            <div id="listaProdutosAdmin" class="lista-produtos-adm">
+                <!-- Os produtos salvos aparecerão aqui -->
             </div>
-        </div>
-
-        <!-- 4. FORMULÁRIO DE UPLOAD PARA A GALERIA GERAL -->
-        <div class="upload-card">
-            <h3>Enviar Nova Foto para Galeria Geral</h3>
-            <form id="formUpload" style="margin-top: 15px;">
-                <div class="form-group">
-                    <label for="selectCategoria">Categoria:</label>
-                    <select id="selectCategoria" required>
-                        <option value="adultos">Adultos</option>
-                        <option value="kids">Kids</option>
-                        <option value="eventos">Eventos</option>
-                        <option value="graduacoes">Graduações</option>
-                        <option value="campeonatos">Campeonatos</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="selectMes">Mês (Opcional):</label>
-                    <select id="selectMes">
-                        <option value="todos">Sem Mês Específico</option>
-                        <option value="01-janeiro">Janeiro</option>
-                        <option value="02-fevereiro">Fevereiro</option>
-                        <option value="03-marco">Março</option>
-                        <option value="04-abril">Abril</option>
-                        <option value="05-maio">Maio</option>
-                        <option value="06-junho">Junho</option>
-                        <option value="07-julho">Julho</option>
-                        <option value="08-agosto">Agosto</option>
-                        <option value="09-setembro">Setembro</option>
-                        <option value="10-outubro">Outubro</option>
-                        <option value="11-novembro">Novembro</option>
-                        <option value="12-dezembro">Dezembro</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="inputArquivo">Selecione a Imagem:</label>
-                    <input type="file" id="inputArquivo" accept="image/*" required>
-                </div>
-
-                <button type="submit" class="btn-primary" id="btnEnviar">Enviar Foto</button>
-            </form>
-            <p id="mensagemStatus" style="margin-top: 10px; font-weight: bold;"></p>
-        </div>
-
-        <!-- 5. GERENCIADOR DE FOTOS EXISTENTES -->
-        <div class="gerenciador-card">
-            <h3>Gerenciar e Excluir Fotos da Galeria</h3>
-            <div id="gridAdminFotos" class="admin-galeria-grid">
-                <p>Carregando fotos...</p>
-            </div>
-        </div>
+        </section>
     </main>
 
+    <footer>
+        <p>© 2026 Alfa Jiu Jitsu Academy. Todos os direitos reservados.</p>
+    </footer>
+
     <script>
-        const SUPABASE_URL = "https://zlfcnqjcxflcecrcfhyc.supabase.co";
-        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpsZmNucWpjeGZsY2VjcmNmaHljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzODY1MjUsImV4cCI6MjEwMTk2MjUyNX0.YtNYhsM_ctV2HpsGJJOlSzLS_v_4vGp-82aFTaqibaI";
-        const BUCKET = "galeria";
+        // Carrega os produtos salvos ao abrir a página
+        document.addEventListener('DOMContentLoaded', carregarProdutosAdmin);
 
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-        const listaCategorias = ["adultos", "kids", "eventos", "graduacoes", "campeonatos"];
-
-        /* ================================
-           1. CADASTRAR CAMPEONATO
-        ================================ */
-        document.getElementById("formCampeonato").addEventListener("submit", async function(e) {
+        document.getElementById('formProduto').addEventListener('submit', function(e) {
             e.preventDefault();
-            const msg = document.getElementById("msgCampStatus");
-            const btn = document.getElementById("btnSalvarCamp");
 
-            const tipo = document.getElementById("campTipo").value;
-            const titulo = document.getElementById("campTitulo").value;
-            const meta = document.getElementById("campMeta").value;
-            const descricao = document.getElementById("campDescricao").value;
-            const fileInput = document.getElementById("campFotosArquivo");
-            const arquivos = fileInput.files;
+            const nome = document.getElementById('prodNome').value;
+            const tamanho = document.getElementById('prodTamanho').value;
+            const qtd = parseInt(document.getElementById('prodQtd').value);
+            const preco = document.getElementById('prodPreco').value;
+            const fileInput = document.getElementById('prodFoto');
 
-            btn.disabled = true;
-            msg.style.color = "#d97706";
-            msg.innerText = "Fazendo upload das fotos e salvando notícia...";
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
 
-            let urlsFotos = [];
+                reader.onload = function(event) {
+                    const fotoBase64 = event.target.result;
 
-            if (arquivos.length > 0) {
-                for (let i = 0; i < arquivos.length; i++) {
-                    const file = arquivos[i];
-                    const nomeSanitizado = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
-                    const nomeUnico = `campeonatos/${Date.now()}_${nomeSanitizado}`;
-
-                    const { data: uploadData, error: uploadError } = await supabaseClient
-                        .storage
-                        .from(BUCKET)
-                        .upload(nomeUnico, file, { upsert: true });
-
-                    if (!uploadError) {
-                        const { data: urlData } = supabaseClient
-                            .storage
-                            .from(BUCKET)
-                            .getPublicUrl(nomeUnico);
-
-                        if (urlData) {
-                            urlsFotos.push(urlData.publicUrl);
-                        }
-                    }
-                }
-            }
-
-            const { data, error } = await supabaseClient
-                .from("campeonatos")
-                .insert([
-                    { tipo, titulo, meta, descricao, fotos: urlsFotos }
-                ]);
-
-            btn.disabled = false;
-
-            if (error) {
-                msg.style.color = "#dc2626";
-                msg.innerText = "Erro ao publicar: " + error.message;
-            } else {
-                msg.style.color = "#16a34a";
-                msg.innerText = "Notícia de campeonato publicada com sucesso!";
-                document.getElementById("formCampeonato").reset();
-                carregarFotosAdmin();
-            }
-        });
-
-        /* ================================
-           2. CADASTRAR E GERENCIAR GRADUAÇÕES
-        ================================ */
-        async function uploadFotoGraduacao(fileInput, subpasta) {
-            if (!fileInput.files || fileInput.files.length === 0) return null;
-            
-            const file = fileInput.files[0];
-            const nomeSanitizado = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
-            const caminho = `graduacoes/${subpasta}/${Date.now()}_${nomeSanitizado}`;
-
-            const { data, error } = await supabaseClient
-                .storage
-                .from(BUCKET)
-                .upload(caminho, file, { upsert: true });
-
-            if (error) {
-                console.error("Erro no upload:", error);
-                return null;
-            }
-
-            const { data: urlData } = supabaseClient
-                .storage
-                .from(BUCKET)
-                .getPublicUrl(caminho);
-
-            return urlData ? urlData.publicUrl : null;
-        }
-
-        document.getElementById("formGraduacao").addEventListener("submit", async function(e) {
-            e.preventDefault();
-            const msg = document.getElementById("msgGradStatus");
-            const btn = document.getElementById("btnSalvarGrad");
-
-            const nome = document.getElementById("gradNome").value;
-            const faixa = document.getElementById("gradFaixa").value;
-            const ano = document.getElementById("gradAno").value;
-            const historia = document.getElementById("gradHistoria").value;
-            const fotoAlunoInput = document.getElementById("gradFotoAluno");
-            const fotoFaixaInput = document.getElementById("gradFotoFaixa");
-
-            btn.disabled = true;
-            msg.style.color = "#d97706";
-            msg.innerText = "Fazendo upload das imagens e salvando...";
-
-            const fotoAlunoUrl = await uploadFotoGraduacao(fotoAlunoInput, "alunos");
-            const fotoFaixaUrl = await uploadFotoGraduacao(fotoFaixaInput, "faixas");
-
-            if (!fotoAlunoUrl) {
-                msg.style.color = "#dc2626";
-                msg.innerText = "Erro ao enviar a foto do aluno. Tente novamente.";
-                btn.disabled = false;
-                return;
-            }
-
-            const { data, error } = await supabaseClient
-                .from("graduacoes")
-                .insert([
-                    { 
+                    const novoProduto = {
+                        id: Date.now(),
                         nome: nome,
-                        faixa: faixa,
-                        ano: parseInt(ano),
-                        historia: historia,
-                        foto_aluno: fotoAlunoUrl,
-                        foto_faixa: fotoFaixaUrl
-                    }
-                ]);
+                        tamanho: tamanho,
+                        qtd: qtd,
+                        preco: preco,
+                        foto: fotoBase64
+                    };
 
-            btn.disabled = false;
+                    let produtos = JSON.parse(localStorage.getItem('produtosShop')) || [];
+                    produtos.push(novoProduto);
+                    localStorage.setItem('produtosShop', JSON.stringify(produtos));
 
-            if (error) {
-                msg.style.color = "#dc2626";
-                msg.innerText = "Erro ao salvar: " + error.message;
-            } else {
-                msg.style.color = "#16a34a";
-                msg.innerText = "Graduação cadastrada com sucesso!";
-                document.getElementById("formGraduacao").reset();
-                carregarGraduacoesAdmin();
+                    alert('Produto cadastrado com sucesso!');
+                    document.getElementById('formProduto').reset();
+                    carregarProdutosAdmin();
+                };
+
+                reader.readAsDataURL(fileInput.files[0]);
             }
         });
 
-        async function carregarGraduacoesAdmin() {
-            const grid = document.getElementById("gridAdminGraduacoes");
-            grid.innerHTML = "<p>Carregando alunos graduados...</p>";
+        function carregarProdutosAdmin() {
+            const container = document.getElementById('listaProdutosAdmin');
+            const produtos = JSON.parse(localStorage.getItem('produtosShop')) || [];
 
-            const { data: graduacoes, error } = await supabaseClient
-                .from("graduacoes")
-                .select("*")
-                .order("created_at", { ascending: false });
-
-            if (error) {
-                grid.innerHTML = `<p style="color: #dc2626;">Erro ao carregar: ${error.message}</p>`;
+            if (produtos.length === 0) {
+                container.innerHTML = '<p style="color: #888;">Nenhum produto cadastrado no momento.</p>';
                 return;
             }
 
-            if (!graduacoes || graduacoes.length === 0) {
-                grid.innerHTML = "<p>Nenhum aluno graduado cadastrado ainda.</p>";
-                return;
-            }
-
-            grid.innerHTML = "";
-            graduacoes.forEach(item => {
-                const card = document.createElement("div");
-                card.className = "card-foto-admin";
-
-                card.innerHTML = `
-                    <img src="${item.foto_aluno}" alt="${item.nome}">
-                    <div style="padding: 10px; width: 100%; text-align: center;">
-                        <strong style="color: #fff; font-size: 14px;">${item.nome}</strong>
-                        <p style="color: #d4af37; font-size: 12px; margin: 4px 0;">Faixa ${item.faixa} (${item.ano})</p>
-                        <button class="btn-excluir" style="margin-top: 8px; width: 100%;" onclick="window.excluirGraduacao(${item.id})">Excluir Aluno</button>
+            container.innerHTML = '';
+            produtos.forEach(prod => {
+                container.innerHTML += `
+                    <div class="card-adm-prod">
+                        <img src="${prod.foto}" alt="${prod.nome}">
+                        <h4 style="color: #d4af37; margin: 5px 0;">${prod.nome}</h4>
+                        <p style="margin: 3px 0; color: #ccc;">Tamanho: <strong>${prod.tamanho}</strong></p>
+                        <p style="margin: 3px 0; color: #ccc;">Disponível: <strong>${prod.qtd} un.</strong></p>
+                        <p style="margin: 3px 0; color: #25d366;">R$ ${prod.preco}</p>
+                        <button onclick="excluirProduto(${prod.id})" class="btn-excluir">Excluir</button>
                     </div>
                 `;
-
-                grid.appendChild(card);
             });
         }
 
-        window.excluirGraduacao = async function(id) {
-            if (!confirm("Tem certeza que deseja remover este aluno graduado?")) return;
-
-            const { error } = await supabaseClient
-                .from("graduacoes")
-                .delete()
-                .eq("id", id);
-
-            if (error) {
-                alert("Erro ao excluir: " + error.message);
-            } else {
-                alert("Graduação removida com sucesso!");
-                carregarGraduacoesAdmin();
-            }
-        };
-
-        /* ================================
-           3. CARREGAR E LISTAR FOTOS DA GALERIA
-        ================================ */
-        async function carregarFotosAdmin() {
-            const grid = document.getElementById("gridAdminFotos");
-            grid.innerHTML = "<p>Atualizando lista de fotos...</p>";
-            let totalFotos = 0;
-            grid.innerHTML = "";
-
-            for (const cat of listaCategorias) {
-                const { data: itens, error } = await supabaseClient
-                    .storage
-                    .from(BUCKET)
-                    .list(cat, { limit: 100 });
-
-                if (error || !itens) continue;
-
-                for (const item of itens) {
-                    if (!item.name || item.name === ".emptyFolderPlaceholder") continue;
-
-                    if (!item.id) {
-                        const { data: fotosSub } = await supabaseClient
-                            .storage
-                            .from(BUCKET)
-                            .list(`${cat}/${item.name}`, { limit: 100 });
-
-                        if (fotosSub) {
-                            fotosSub.forEach(f => {
-                                if (eImagem(f.name)) {
-                                    const caminhoCompleto = `${cat}/${item.name}/${f.name}`;
-                                    criarCardFotoAdmin(caminhoCompleto, `${cat}/${item.name}`);
-                                    totalFotos++;
-                                }
-                            });
-                        }
-                    } else {
-                        if (eImagem(item.name)) {
-                            const caminhoCompleto = `${cat}/${item.name}`;
-                            criarCardFotoAdmin(caminhoCompleto, cat);
-                            totalFotos++;
-                        }
-                    }
-                }
-            }
-
-            if (totalFotos === 0) {
-                grid.innerHTML = "<p>Nenhuma foto cadastrada na galeria.</p>";
+        function excluirProduto(id) {
+            if (confirm("Tem certeza que deseja excluir este produto?")) {
+                let produtos = JSON.parse(localStorage.getItem('produtosShop')) || [];
+                produtos = produtos.filter(p => p.id !== id);
+                localStorage.setItem('produtosShop', JSON.stringify(produtos));
+                carregarProdutosAdmin();
             }
         }
 
-        function eImagem(nomeArquivo) {
-            const ext = nomeArquivo.split(".").pop().toLowerCase();
-            return ["jpg", "jpeg", "png", "webp", "gif"].includes(ext);
+        function logout() {
+            localStorage.removeItem('usuarioLogado');
+            window.location.href = 'login.html';
         }
-
-        function criarCardFotoAdmin(caminhoCompleto, pastaExibicao) {
-            const grid = document.getElementById("gridAdminFotos");
-            const { data } = supabaseClient.storage.from(BUCKET).getPublicUrl(caminhoCompleto);
-
-            const card = document.createElement("div");
-            card.className = "card-foto-admin";
-
-            const urlComCache = `${data.publicUrl}?t=${new Date().getTime()}`;
-
-            card.innerHTML = `
-                <img src="${urlComCache}" alt="Foto Admin" loading="lazy">
-                <span class="info-foto">Pasta: <strong>${pastaExibicao}</strong></span>
-                <button class="btn-excluir" onclick="window.excluirFoto('${caminhoCompleto}')">Excluir</button>
-            `;
-
-            grid.appendChild(card);
-        }
-
-        window.excluirFoto = async function(caminhoArquivo) {
-            const confirmou = confirm("Tem certeza que deseja excluir esta foto permanentemente?");
-            if (!confirmou) return;
-
-            const caminhoLimpo = caminhoArquivo.replace(/^\/+/, '');
-
-            const { data, error } = await supabaseClient
-                .storage
-                .from(BUCKET)
-                .remove([caminhoLimpo]);
-
-            if (error) {
-                alert("Erro ao excluir foto do Supabase: " + error.message);
-            } else {
-                alert("Foto excluída com sucesso do servidor!");
-                carregarFotosAdmin();
-            }
-        };
-
-        /* ================================
-           4. UPLOAD GALERIA GERAL
-        ================================ */
-        document.getElementById("formUpload").addEventListener("submit", async function(e) {
-            e.preventDefault();
-            const msg = document.getElementById("mensagemStatus");
-            const btn = document.getElementById("btnEnviar");
-
-            const categoria = document.getElementById("selectCategoria").value;
-            const mes = document.getElementById("selectMes").value;
-            const fileInput = document.getElementById("inputArquivo");
-            const arquivo = fileInput.files[0];
-
-            if (!arquivo) return;
-
-            btn.disabled = true;
-            msg.style.color = "#d97706";
-            msg.innerText = "Enviando foto...";
-
-            const nomeSanitizado = arquivo.name.replace(/[^a-zA-Z0-9.-]/g, "_");
-            const nomeUnico = `${Date.now()}_${nomeSanitizado}`;
-
-            let caminhoUpload = `${categoria}/${nomeUnico}`;
-            if (mes && mes !== "todos") {
-                caminhoUpload = `${categoria}/${mes}/${nomeUnico}`;
-            }
-
-            const { data, error } = await supabaseClient
-                .storage
-                .from(BUCKET)
-                .upload(caminhoUpload, arquivo, { upsert: true });
-
-            btn.disabled = false;
-
-            if (error) {
-                msg.style.color = "#dc2626";
-                msg.innerText = "Erro ao enviar: " + error.message;
-            } else {
-                msg.style.color = "#16a34a";
-                msg.innerText = "Foto enviada com sucesso!";
-                fileInput.value = "";
-                carregarFotosAdmin();
-            }
-        });
-
-        // Inicializar chamadas
-        carregarFotosAdmin();
-        carregarGraduacoesAdmin();
     </script>
+
 </body>
 
 </html>
