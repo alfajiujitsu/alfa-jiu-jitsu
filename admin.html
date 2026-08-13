@@ -190,11 +190,11 @@
 
         <!-- BOTOES DE NAVEGAÇÃO ENTRE AS ABAS -->
         <div class="tabs-admin">
-            <button class="tab-btn-adm active" onclick="trocarAba('shop')">🛍️ Shop / Loja</button>
-            <button class="tab-btn-adm" onclick="trocarAba('metodologia')">🥋 Metodologia & Turmas</button>
-            <button class="tab-btn-adm" onclick="trocarAba('graduacoes')">🎖️ Graduações</button>
-            <button class="tab-btn-adm" onclick="trocarAba('eventos')">🏆 Eventos & Campeonatos</button>
-            <button class="tab-btn-adm" onclick="trocarAba('galeria')">📸 Galeria de Fotos</button>
+            <button class="tab-btn-adm active" onclick="trocarAba(this, 'shop')">🛍️ Shop / Loja</button>
+            <button class="tab-btn-adm" onclick="trocarAba(this, 'metodologia')">🥋 Metodologia & Turmas</button>
+            <button class="tab-btn-adm" onclick="trocarAba(this, 'graduacoes')">🎖️ Graduações</button>
+            <button class="tab-btn-adm" onclick="trocarAba(this, 'eventos')">🏆 Eventos & Campeonatos</button>
+            <button class="tab-btn-adm" onclick="trocarAba(this, 'galeria')">📸 Galeria de Fotos</button>
         </div>
 
         <!-- ================= ABA 1: SHOP / LOJA ================= -->
@@ -373,14 +373,14 @@
 
     <script>
         // --- GERENCIAMENTO DAS ABAS ---
-        function trocarAba(nomeAba) {
+        function trocarAba(element, nomeAba) {
             const btns = document.querySelectorAll('.tab-btn-adm');
             const secaos = document.querySelectorAll('.secao-adm');
 
             btns.forEach(b => b.classList.remove('active'));
             secaos.forEach(s => s.classList.remove('active'));
 
-            event.target.classList.add('active');
+            element.classList.add('active');
             document.getElementById('aba-' + nomeAba).classList.add('active');
         }
 
