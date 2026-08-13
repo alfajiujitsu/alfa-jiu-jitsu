@@ -4,170 +4,457 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campeonatos - Alfa Jiu Jitsu Academy</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Campeonatos | Alfa Jiu Jitsu Academy</title>
+    
+    <!-- Google Fonts: Bebas Neue (Títulos Brutalistas) + Plus Jakarta Sans (Texto Ultra Clean) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <style>
-        .secao-titulo {
-            color: #d4af37;
-            border-bottom: 2px solid #333;
-            padding-bottom: 10px;
-            margin: 40px auto 20px auto;
-            max-width: 900px;
-            text-align: left;
+        :root {
+            --bg-body: #050505;
+            --bg-card: rgba(18, 18, 20, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.08);
+            --gold-primary: #D4AF37;
+            --gold-glow: rgba(212, 175, 55, 0.2);
+            --green-status: #10B981;
+            --green-glow: rgba(16, 185, 129, 0.15);
+            --text-main: #F4F4F5;
+            --text-muted: #A1A1AA;
+            --font-head: 'Bebas Neue', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
         }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- BACKGROUND GLOW EFFECT --- */
+        .glow-bg {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 900px;
+            height: 450px;
+            background: radial-gradient(circle, var(--gold-glow) 0%, rgba(0,0,0,0) 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* --- HEADER NAVIGATION --- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--bg-card-border);
+            padding: 18px 40px;
+        }
+
+        .nav-container {
+            max-width: 1250px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            letter-spacing: 2px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--gold-primary);
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--gold-primary);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            padding: 80px 20px 40px 20px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 100px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-primary);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-family: var(--font-head);
+            font-size: clamp(3.2rem, 7vw, 5.5rem);
+            line-height: 0.95;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            background: linear-gradient(180deg, #FFFFFF 0%, #A1A1AA 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        /* --- CONTAINER PRINCIPAL --- */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px 20px 100px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* TITULOS DE SEÇÃO */
+        .secao-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 50px 0 25px 0;
+            border-bottom: 1px solid var(--bg-card-border);
+            padding-bottom: 12px;
+        }
+
+        .secao-header h2 {
+            font-family: var(--font-head);
+            font-size: 2.2rem;
+            letter-spacing: 1.5px;
+            color: #FFF;
+            text-transform: uppercase;
+        }
+
+        .secao-header .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--gold-primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--gold-primary);
+        }
+
+        /* LISTA E CARDS DE CAMPEONATO */
         .container-campeonatos {
             display: flex;
             flex-direction: column;
-            gap: 25px;
-            max-width: 900px;
-            margin: 0 auto;
+            gap: 30px;
         }
 
         .card-noticia {
-            background: #1c1c1c;
-            border: 1px solid #333;
-            border-radius: 12px;
-            padding: 25px;
-            text-align: left;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 20px;
+            padding: 35px;
+            backdrop-filter: blur(12px);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .card-noticia:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
         }
 
         .card-noticia.proximo {
-            border-left: 5px solid #d4af37;
+            border-left: 4px solid var(--gold-primary);
         }
 
         .card-noticia.realizado {
-            border-left: 5px solid #4caf50;
+            border-left: 4px solid var(--green-status);
         }
 
+        /* BADGES DE STATUS */
         .tag-status {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 14px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
             text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-
-        .tag-proximo { background: #d4af37; color: #000; }
-        .tag-realizado { background: #4caf50; color: #fff; }
-
-        .noticia-meta {
-            color: #aaa;
-            font-size: 14px;
+            letter-spacing: 1.5px;
             margin-bottom: 15px;
         }
 
+        .tag-proximo {
+            background: rgba(212, 175, 55, 0.12);
+            color: var(--gold-primary);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .tag-realizado {
+            background: var(--green-glow);
+            color: var(--green-status);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .card-noticia h3 {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            letter-spacing: 1px;
+            color: #FFF;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .noticia-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .noticia-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .noticia-meta strong {
+            color: #FFF;
+        }
+
+        .card-noticia p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* GALERIA DE ATLETAS */
         .galeria-atletas {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 12px;
-            margin-top: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .galeria-atletas-img-box {
+            height: 130px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--bg-card-border);
+            position: relative;
         }
 
         .galeria-atletas img {
             width: 100%;
-            height: 120px;
+            height: 100%;
             object-fit: cover;
-            border-radius: 8px;
-            border: 1px solid #444;
-            transition: transform 0.2s ease;
+            transition: transform 0.5s ease;
         }
 
-        .galeria-atletas img:hover {
-            transform: scale(1.05);
+        .galeria-atletas-img-box:hover img {
+            transform: scale(1.08);
         }
 
+        /* BOTÃO ÁLBUM */
         .btn-galeria {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 8px 16px;
-            background: transparent;
-            border: 1px solid #d4af37;
-            color: #d4af37;
-            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 25px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-primary);
+            border-radius: 100px;
             text-decoration: none;
-            font-weight: bold;
-            font-size: 14px;
-            transition: 0.3s;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
         }
 
         .btn-galeria:hover {
-            background: #d4af37;
+            background: var(--gold-primary);
             color: #000;
+            transform: translateX(4px);
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--bg-card-border);
+            padding: 50px 20px;
+            text-align: center;
+            background: #000;
+        }
+
+        footer h2 {
+            font-family: var(--font-head);
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            color: var(--gold-primary);
+            margin-bottom: 8px;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .card-noticia {
+                padding: 25px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <header>
-           <nav>
-    <a href="index.html">Início</a>
-    <a href="historia.html">Nossa História</a>
-    <a href="professores.html">Professores</a>
-    <a href="horarios.html">Horários</a>
-    <a href="eventos.html">Eventos</a>
-    <a href="graduacoes.html">Graduaçoes</a>
-    <a href="galeria.html">Galeria</a>
-    <a href="contato.html">Contato</a>
-    <a href="login.html">Login</a>
-</nav>
+    <div class="glow-bg"></div>
 
-        <h1>ALFA JIU JITSU ACADEMY</h1>
-        <p>Disciplina • Respeito • Evolução</p>
+    <!-- HEADER -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">ALFA<span>HQ</span></a>
+            <nav>
+                <a href="index.html">Início</a>
+                <a href="historia.html">História</a>
+                <a href="professores.html">Professores</a>
+                <a href="horarios.html">Horários</a>
+                <a href="eventos.html" class="active">Eventos</a>
+                <a href="graduacoes.html">Graduações</a>
+                <a href="galeria.html">Galeria</a>
+                <a href="contato.html">Contato</a>
+            </nav>
+        </div>
     </header>
 
-    <main>
-        <h2>🏆 Campeonatos & Competições</h2>
-        <p>Acompanhe a agenda de torneios da nossa equipe e o desempenho dos nossos atletas nos tatames.</p>
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <span class="hero-badge">Arena & Performance</span>
+        <h1>Campeonatos & Torneios</h1>
+        <p>Acompanhe a agenda dos próximos desafios da nossa equipe e os resultados conquistados pelos nossos atletas nos tatames.</p>
+    </section>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="container">
 
         <!-- SEÇÃO 1: PRÓXIMOS CAMPEONATOS -->
-        <h3 class="secao-titulo">📌 Próximos Campeonatos</h3>
-        <div class="container-campeonatos">
+        <div class="secao-header">
+            <div class="dot"></div>
+            <h2>Próximos Desafios</h2>
+        </div>
 
-            <div class="card-noticia proximo">
-                <span class="tag-status tag-proximo">Inscrições Abertas</span>
+        <div class="container-campeonatos">
+            <article class="card-noticia proximo">
+                <span class="tag-status tag-proximo">⚡ Inscrições Abertas</span>
                 <h3>Campeonato Catarinense de Jiu Jitsu 2026</h3>
                 <div class="noticia-meta">
-                    📅 <strong>Data:</strong> 20 de Setembro de 2026 | 📍 <strong>Local:</strong> Joinville/SC
+                    <span>📅 <strong>Data:</strong> 20 de Setembro de 2026</span>
+                    <span>📍 <strong>Local:</strong> Joinville / SC</span>
                 </div>
-                <p>Nossa equipe estará presente em peso com as turmas Kids e Adulto. Os treinos específicos para a competição já começaram!</p>
-            </div>
-
+                <p>Nossa equipe estará presente em peso com as turmas Kids e Adulto. Os treinos específicos e o camp focado para a competição já estão em andamento!</p>
+            </article>
         </div>
 
         <!-- SEÇÃO 2: CAMPEONATOS REALIZADOS -->
-        <h3 class="secao-titulo">✅ Campeonatos Realizados</h3>
-        <div class="container-campeonatos">
+        <div class="secao-header">
+            <div class="dot" style="background: var(--green-status); box-shadow: 0 0 10px var(--green-status);"></div>
+            <h2>Resultados & Histórico</h2>
+        </div>
 
-            <div class="card-noticia realizado">
-                <span class="tag-status tag-realizado">Concluído</span>
+        <div class="container-campeonatos">
+            <article class="card-noticia realizado">
+                <span class="tag-status tag-realizado">✓ Concluído</span>
                 <h3>Open Joinville BJJ 2026</h3>
                 <div class="noticia-meta">
-                    📅 <strong>Data:</strong> 15 de Maio de 2026 | 🏅 <strong>Resultado:</strong> 5 Ouros, 3 Pratas e 2 Bronzes
+                    <span>📅 <strong>Data:</strong> 15 de Maio de 2026</span>
+                    <span>🏅 <strong>Quadro de Medalhas:</strong> 5 Ouros, 3 Pratas e 2 Bronzes</span>
                 </div>
-                <p>Parabéns a todos os atletas que representaram o escudo da Alfa Jiu Jitsu Academy no tatame com muita garra e disciplina!</p>
+                <p>Parabéns a todos os atletas que representaram o escudo da Alfa Jiu Jitsu Academy no tatame com extrema garra, técnica e disciplina!</p>
 
-                <!-- Fotos dos Atletas que participaram -->
+                <!-- Fotos dos Atletas -->
                 <div class="galeria-atletas">
-                    <!-- Substitua os 'src' abaixo pelas URLs das fotos dos atletas -->
-                    <img src="https://via.placeholder.com/300x200" alt="Atleta no Pódio">
-                    <img src="https://via.placeholder.com/300x200" alt="Equipe no Evento">
-                    <img src="https://via.placeholder.com/300x200" alt="Luta Atleta">
+                    <div class="galeria-atletas-img-box">
+                        <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=400&auto=format&fit=crop" alt="Atleta no Pódio">
+                    </div>
+                    <div class="galeria-atletas-img-box">
+                        <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?q=80&w=400&auto=format&fit=crop" alt="Equipe no Evento">
+                    </div>
+                    <div class="galeria-atletas-img-box">
+                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=400&auto=format&fit=crop" alt="Luta Atleta">
+                    </div>
                 </div>
 
-                <a href="galeria.html?categoria=campeonatos" class="btn-galeria">Ver todas as fotos no Álbum</a>
-            </div>
-
+                <a href="galeria.html?categoria=campeonatos" class="btn-galeria">
+                    Ver Álbum Completo 
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </a>
+            </article>
         </div>
+
     </main>
 
+    <!-- FOOTER -->
     <footer>
-        <p>© 2026 Alfa Jiu Jitsu Academy</p>
+        <h2>ALFA JIU JITSU ACADEMY</h2>
+        <p>Joinville • Santa Catarina</p>
+        <p style="margin-top: 15px; opacity: 0.5;">© 2026 Todos os direitos reservados.</p>
     </footer>
 
 </body>
