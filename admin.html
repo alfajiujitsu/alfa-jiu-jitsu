@@ -167,11 +167,12 @@
     <header>
         <nav>
             <a href="index.html">Início</a>
+            <a href="index.html#metodologia">Metodologia</a>
             <a href="historia.html">Nossa História</a>
             <a href="professores.html">Professores</a>
             <a href="horarios.html">Horários</a>
             <a href="eventos.html">Eventos</a>
-            <a href="graduacoes.html">Graduaçoes</a>
+            <a href="graduacoes.html">Graduações</a>
             <a href="galeria.html">Galeria</a>
             <a href="contato.html">Contato</a>
             <a href="login.html">Login</a>
@@ -190,7 +191,8 @@
         <!-- BOTOES DE NAVEGAÇÃO ENTRE AS ABAS -->
         <div class="tabs-admin">
             <button class="tab-btn-adm active" onclick="trocarAba('shop')">🛍️ Shop / Loja</button>
-            <button class="tab-btn-adm" onclick="trocarAba('graduacoes')">🥋 Graduações</button>
+            <button class="tab-btn-adm" onclick="trocarAba('metodologia')">🥋 Metodologia & Turmas</button>
+            <button class="tab-btn-adm" onclick="trocarAba('graduacoes')">🎖️ Graduações</button>
             <button class="tab-btn-adm" onclick="trocarAba('eventos')">🏆 Eventos & Campeonatos</button>
             <button class="tab-btn-adm" onclick="trocarAba('galeria')">📸 Galeria de Fotos</button>
         </div>
@@ -232,9 +234,36 @@
             <div id="listaProdutosAdmin" class="grid-itens-cadastrados"></div>
         </div>
 
-        <!-- ================= ABA 2: GRADUAÇÕES ================= -->
+        <!-- ================= ABA 2: METODOLOGIA ================= -->
+        <div id="aba-metodologia" class="secao-adm">
+            <h3>🥋 Cadastrar Módulo de Metodologia / Turma</h3>
+            <form id="formMetodologia">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="metTitulo">Título da Turma / Metodologia</label>
+                        <input type="text" id="metTitulo" placeholder="Ex: Metodologia Kids, Módulo Iniciantes" required>
+                    </div>
+
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label for="metDescricao">Descrição Detalhada</label>
+                        <textarea id="metDescricao" rows="4" placeholder="Descreva os objetivos, para quem é direcionado, método de ensino, etc." required></textarea>
+                    </div>
+
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label for="metFoto">Foto Ilustrativa</label>
+                        <input type="file" id="metFoto" accept="image/*" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-salvar">Salvar na Metodologia</button>
+            </form>
+
+            <h3 style="margin-top: 30px;">📖 Módulos Cadastrados</h3>
+            <div id="listaMetodologiaAdmin" class="grid-itens-cadastrados"></div>
+        </div>
+
+        <!-- ================= ABA 3: GRADUAÇÕES ================= -->
         <div id="aba-graduacoes" class="secao-adm">
-            <h3>🥋 Cadastrar Graduação de Aluno</h3>
+            <h3>🎖️ Cadastrar Graduação de Aluno</h3>
             <form id="formGraduacao">
                 <div class="form-grid">
                     <div class="form-group">
@@ -273,7 +302,7 @@
             <div id="listaGraduacoesAdmin" class="grid-itens-cadastrados"></div>
         </div>
 
-        <!-- ================= ABA 3: EVENTOS ================= -->
+        <!-- ================= ABA 4: EVENTOS ================= -->
         <div id="aba-eventos" class="secao-adm">
             <h3>🏆 Cadastrar Evento ou Campeonato</h3>
             <form id="formEvento">
@@ -305,7 +334,7 @@
             <div id="listaEventosAdmin" class="grid-itens-cadastrados"></div>
         </div>
 
-        <!-- ================= ABA 4: GALERIA DE FOTOS ================= -->
+        <!-- ================= ABA 5: GALERIA DE FOTOS ================= -->
         <div id="aba-galeria" class="secao-adm">
             <h3>📸 Adicionar Foto na Galeria</h3>
             <form id="formGaleria">
@@ -357,6 +386,7 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             carregarProdutosAdmin();
+            carregarMetodologiaAdmin();
             carregarGraduacoesAdmin();
             carregarEventosAdmin();
             carregarGaleriaAdmin();
@@ -409,7 +439,40 @@
             });
         }
 
-        // ================= 2. GRADUAÇÕES =================
+        // ================= 2. METODOLOGIA =================
+        document.getElementById('formMetodologia').addEventListener('submit', function(e) {
+            e.preventDefault();
+            lerImagem(document.getElementById('metFoto'), foto => {
+                const item = {
+                    id: Date.now(),
+                    titulo: document.getElementById('metTitulo').value,
+                    descricao: document.getElementById('metDescricao').value,
+                    foto: foto
+                };
+                let banco = JSON.parse(localStorage.getItem('metodologiaItems')) || [];
+                banco.push(item);
+                localStorage.setItem('metodologiaItems', JSON.stringify(banco));
+                document.getElementById('formMetodologia').reset();
+                carregarMetodologiaAdmin();
+            });
+        });
+
+        function carregarMetodologiaAdmin() {
+            const c = document.getElementById('listaMetodologiaAdmin');
+            const items = JSON.parse(localStorage.getItem('metodologiaItems')) || [];
+            c.innerHTML = items.length ? '' : '<p style="color:#888;">Nenhum conteúdo de metodologia cadastrado.</p>';
+            items.forEach(m => {
+                c.innerHTML += `
+                    <div class="card-adm-item">
+                        <img src="${m.foto}">
+                        <h4 style="color:#d4af37; margin:5px 0;">${m.titulo}</h4>
+                        <p style="margin:5px 0; color:#aaa; font-size:13px;">${m.descricao}</p>
+                        <button onclick="excluirItem('metodologiaItems', ${m.id}, carregarMetodologiaAdmin)" class="btn-excluir">Excluir</button>
+                    </div>`;
+            });
+        }
+
+        // ================= 3. GRADUAÇÕES =================
         document.getElementById('formGraduacao').addEventListener('submit', function(e) {
             e.preventDefault();
             lerImagem(document.getElementById('gradFoto'), foto => {
@@ -445,7 +508,7 @@
             });
         }
 
-        // ================= 3. EVENTOS =================
+        // ================= 4. EVENTOS =================
         document.getElementById('formEvento').addEventListener('submit', function(e) {
             e.preventDefault();
             const item = {
@@ -477,7 +540,7 @@
             });
         }
 
-        // ================= 4. GALERIA =================
+        // ================= 5. GALERIA =================
         document.getElementById('formGaleria').addEventListener('submit', function(e) {
             e.preventDefault();
             lerImagem(document.getElementById('galFoto'), foto => {
