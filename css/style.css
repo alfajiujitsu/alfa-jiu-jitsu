@@ -1141,3 +1141,49 @@ a.evento {
 a.evento p {
     color: #d6d6d6;
 }
+/* ===== BOTÃO HERO DO WHATSAPP ===== */
+.btn-whatsapp-hero {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 16px 32px;
+    background: #d4af37;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 50px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+}
+
+.btn-whatsapp-hero:hover {
+    background: #ffffff;
+    color: #000;
+    transform: scale(1.05);
+}
+
+/* ===== BOTÃO FLUTUANTE DO WHATSAPP (ACOMPANHA A TELA) ===== */
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 25px;
+    right: 25px;
+    background-color: #25d366;
+    color: #FFF;
+    border-radius: 50px;
+    text-align: center;
+    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.12);
+    background-color: #20ba5a;
+    color: #fff;
+}
