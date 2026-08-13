@@ -4,153 +4,352 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Black Belts - Alfa Jiu Jitsu</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/animacoes.css">
-    <link rel="stylesheet" href="css/responsivo.css">
+    <title>Black Belts | Alfa Jiu Jitsu Academy</title>
+    
+    <!-- Google Fonts: Bebas Neue (Títulos Brutalistas) + Plus Jakarta Sans (Texto Ultra Clean) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <style>
-        body {
-            background-color: #111;
-            color: #fff;
-            font-family: Arial, sans-serif;
+        :root {
+            --bg-body: #050505;
+            --bg-card: rgba(18, 18, 20, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.08);
+            --gold-primary: #D4AF37;
+            --gold-glow: rgba(212, 175, 55, 0.2);
+            --red-belt: #B22222;
+            --text-main: #F4F4F5;
+            --text-muted: #A1A1AA;
+            --font-head: 'Bebas Neue', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
-        .container-bb {
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 0 20px;
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .header-voltar {
+        /* --- BACKGROUND GLOW EFFECT --- */
+        .glow-bg {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 900px;
+            height: 450px;
+            background: radial-gradient(circle, var(--gold-glow) 0%, rgba(0,0,0,0) 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* --- HEADER NAVIGATION --- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--bg-card-border);
+            padding: 18px 40px;
+        }
+
+        .header-container {
+            max-width: 1250px;
+            margin: 0 auto;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            margin-bottom: 40px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 20px;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            letter-spacing: 2px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--gold-primary);
         }
 
         .btn-voltar {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: #1c1c1c;
-            color: #d4af37;
-            border: 1px solid #d4af37;
-            padding: 10px 20px;
-            border-radius: 6px;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-main);
+            border: 1px solid var(--bg-card-border);
+            padding: 10px 22px;
+            border-radius: 100px;
             text-decoration: none;
-            font-weight: bold;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             transition: all 0.3s ease;
         }
 
         .btn-voltar:hover {
-            background: #d4af37;
-            color: #000;
+            border-color: var(--gold-primary);
+            color: var(--gold-primary);
+            background: rgba(212, 175, 55, 0.08);
+            transform: translateX(-3px);
         }
 
-        .titulo-pagina {
+        /* --- HERO HEADER --- */
+        .hero {
+            position: relative;
+            padding: 80px 20px 40px 20px;
             text-align: center;
-            color: #d4af37;
-            font-size: 2.5rem;
-            margin-bottom: 40px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            z-index: 1;
         }
 
+        .hero-badge {
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 100px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-primary);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-family: var(--font-head);
+            font-size: clamp(3.2rem, 7vw, 5.5rem);
+            line-height: 0.95;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            background: linear-gradient(180deg, #FFFFFF 0%, #A1A1AA 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        /* --- CONTAINER PRINCIPAL --- */
+        .container {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 40px 20px 100px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- GRID DE BLACK BELTS --- */
         .grid-blackbelts {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 35px;
         }
 
+        /* --- CARD FAIXA PRETA --- */
         .card-bb {
-            background: #1c1c1c;
-            border: 1px solid #333;
-            border-radius: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 24px;
             overflow: hidden;
-            transition: transform 0.3s ease, border-color 0.3s ease;
+            backdrop-filter: blur(12px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             display: flex;
             flex-direction: column;
+            position: relative;
         }
 
         .card-bb:hover {
-            transform: translateY(-5px);
-            border-color: #d4af37;
+            transform: translateY(-10px);
+            border-color: rgba(212, 175, 55, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+        }
+
+        .card-bb-img-wrapper {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            overflow: hidden;
+            background-color: #0d0d0f;
         }
 
         .card-bb-img {
             width: 100%;
-            height: 320px;
+            height: 100%;
             object-fit: cover;
-            border-bottom: 3px solid #d4af37;
+            object-position: center top;
+            transition: transform 0.6s ease;
+        }
+
+        .card-bb:hover .card-bb-img {
+            transform: scale(1.06);
+        }
+
+        /* Sombreamento suave sobre a imagem */
+        .card-bb-img-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(180deg, transparent 0%, rgba(18, 18, 20, 0.95) 100%);
         }
 
         .card-bb-corpo {
-            padding: 25px;
+            padding: 30px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
+            margin-top: -30px;
+            position: relative;
+            z-index: 2;
         }
 
         .card-bb-nome {
-            color: #fff;
-            font-size: 1.5rem;
-            margin: 0 0 5px 0;
+            font-family: var(--font-head);
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+            color: #FFF;
+            line-height: 1.1;
+            margin-bottom: 12px;
+            text-transform: uppercase;
         }
 
+        /* TARJA RED BELT ESTILO JIU-JITSU */
         .card-bb-badge {
-            display: inline-block;
-            background: rgba(212, 175, 55, 0.15);
-            color: #d4af37;
-            border: 1px solid #d4af37;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: bold;
-            margin-bottom: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(90deg, #111 0%, #1a1a1a 100%);
+            border-left: 5px solid var(--red-belt);
+            border-top: 1px solid var(--bg-card-border);
+            border-right: 1px solid var(--bg-card-border);
+            border-bottom: 1px solid var(--bg-card-border);
+            padding: 6px 14px;
+            border-radius: 4px;
+            color: var(--gold-primary);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
             align-self: flex-start;
         }
 
         .card-bb-historia {
-            color: #ccc;
-            font-size: 14px;
-            line-height: 1.6;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            font-weight: 400;
             white-space: pre-line;
         }
 
+        /* MENAGEM VAZIA */
         .sem-registros {
             text-align: center;
-            color: #888;
+            color: var(--text-muted);
             grid-column: 1 / -1;
+            padding: 80px 20px;
+            background: var(--bg-card);
+            border: 1px dashed var(--bg-card-border);
+            border-radius: 24px;
+        }
+
+        .sem-registros p {
             font-size: 1.2rem;
-            padding: 60px 0;
+            font-weight: 300;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--bg-card-border);
+            padding: 50px 20px;
+            text-align: center;
+            background: #000;
+        }
+
+        footer h2 {
+            font-family: var(--font-head);
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            color: var(--gold-primary);
+            margin-bottom: 8px;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+            .card-bb-img-wrapper {
+                height: 320px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <main class="container-bb">
-        <div class="header-voltar">
-            <a href="index.html" class="btn-voltar">← Voltar para o Início</a>
-            <span style="color: #666; font-size: 14px;">Alfa Jiu Jitsu Academy</span>
+    <div class="glow-bg"></div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">ALFA<span>HQ</span></a>
+            <a href="index.html" class="btn-voltar">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Voltar ao Início
+            </a>
         </div>
+    </header>
 
-        <h1 class="titulo-pagina">🥋 Hall dos Black Belts</h1>
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <span class="hero-badge">Legado & Liderança</span>
+        <h1>Hall dos Black Belts</h1>
+        <p>Os mestres e professores que carregam a tradição, o conhecimento e a responsabilidade de guiar a Alfa Jiu Jitsu Academy.</p>
+    </section>
 
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="container">
         <div id="gridBlackBelts" class="grid-blackbelts">
-            <!-- Cards renderizados dinamicamente via JS -->
+            <!-- Os cards continuam sendo inseridos dinamicamente via JavaScript -->
         </div>
     </main>
 
-    <footer style="text-align: center; padding: 30px; color: #666; border-top: 1px solid #222; margin-top: 60px;">
-        <p>© 2026 Alfa Jiu Jitsu Academy. Todos os direitos reservados.</p>
+    <!-- FOOTER -->
+    <footer>
+        <h2>ALFA JIU JITSU ACADEMY</h2>
+        <p>Joinville • Santa Catarina</p>
+        <p style="margin-top: 15px; opacity: 0.5;">© 2026 Todos os direitos reservados.</p>
     </footer>
 
+    <!-- JAVASCRIPT REESTRUTURADO -->
     <script>
         document.addEventListener('DOMContentLoaded', carregarBlackBelts);
 
@@ -167,14 +366,19 @@
             }
 
             container.innerHTML = lista.map(bb => `
-                <div class="card-bb">
-                    <img src="${bb.foto}" alt="${bb.nome}" class="card-bb-img">
+                <article class="card-bb">
+                    <div class="card-bb-img-wrapper">
+                        <img src="${bb.foto}" alt="${bb.nome}" class="card-bb-img" onerror="this.src='https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=600&auto=format&fit=crop'">
+                    </div>
                     <div class="card-bb-corpo">
                         <h3 class="card-bb-nome">${bb.nome}</h3>
-                        <div class="card-bb-badge">Faixa Preta desde ${bb.ano} ${bb.grau ? '• ' + bb.grau : ''}</div>
+                        <div class="card-bb-badge">
+                            <span>Faixa Preta • ${bb.ano}</span>
+                            ${bb.grau ? '<span>(' + bb.grau + ')</span>' : ''}
+                        </div>
                         <p class="card-bb-historia">${bb.historia}</p>
                     </div>
-                </div>
+                </article>
             `).join('');
         }
     </script>
