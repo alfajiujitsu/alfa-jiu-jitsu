@@ -1,25 +1,25 @@
 /* ==========================================================================
    ALFA JIU JITSU ACADEMY - GLOBAL STYLE SHEET
-   Versão: 3.1 Dark Gold Premium Otimizado
+   Versão: 3.2 Light Gold Premium
    ========================================================================== */
 
 /* --- IMPORTAÇÃO DE FONTES GOOGLE --- */
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
-/* --- VARIÁVEIS DO TEMA --- */
+/* --- VARIÁVEIS DO TEMA (LIGHT MODE) --- */
 :root {
-    --bg-body: #050505;
-    --bg-surface: #0e0e10;
-    --bg-card: rgba(18, 18, 20, 0.85);
-    --bg-card-border: rgba(255, 255, 255, 0.08);
+    --bg-body: #F8F9FA;            /* Fundo principal claro */
+    --bg-surface: #FFFFFF;         /* Superfícies em branco puro */
+    --bg-card: #FFFFFF;            /* Cards com fundo branco */
+    --bg-card-border: rgba(0, 0, 0, 0.08); /* Bordas suaves e discretas */
     
-    --gold-primary: #D4AF37;
-    --gold-hover: #B49329;
-    --gold-glow: rgba(212, 175, 55, 0.2);
+    --gold-primary: #C59B27;       /* Dourado um pouco mais escuro para melhor contraste */
+    --gold-hover: #A37F1E;
+    --gold-glow: rgba(197, 155, 39, 0.25);
     
-    --text-main: #F4F4F5;
-    --text-muted: #A1A1AA;
-    --text-dark: #000000;
+    --text-main: #18181B;          /* Texto principal bem escuro (fácil leitura) */
+    --text-muted: #52525B;         /* Subtítulos e parágrafos em cinza médio */
+    --text-dark: #FFFFFF;          /* Texto sobre botões dourados */
     
     --green-accent: #25d366;
     --red-accent: #ff6b6b;
@@ -63,9 +63,9 @@ h1, h2, h3, h4, h5, h6 {
     text-transform: uppercase;
 }
 
-h1 { font-size: clamp(2.5rem, 5vw, 4rem); color: #ffffff; }
+h1 { font-size: clamp(2.5rem, 5vw, 4rem); color: #18181B; }
 h2 { font-size: clamp(2rem, 4vw, 3rem); color: var(--gold-primary); }
-h3 { font-size: clamp(1.4rem, 3vw, 1.8rem); color: #ffffff; }
+h3 { font-size: clamp(1.4rem, 3vw, 1.8rem); color: #18181B; }
 
 p {
     color: var(--text-muted);
@@ -94,7 +94,7 @@ main {
 
 /* --- HEADER & MENU DE NAVEGAÇÃO --- */
 header {
-    background: #000000;
+    background: #FFFFFF;
     text-align: center;
     padding: 30px 20px;
     border-bottom: 1px solid var(--bg-card-border);
@@ -112,7 +112,7 @@ header p {
 }
 
 nav {
-    background: rgba(5, 5, 5, 0.92);
+    background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--bg-card-border);
@@ -138,7 +138,6 @@ nav a {
 
 nav a:hover, nav a.active {
     color: var(--gold-primary);
-    text-shadow: 0 0 10px var(--gold-glow);
 }
 
 /* --- SEÇÃO HERO --- */
@@ -150,8 +149,8 @@ nav a:hover, nav a.active {
     align-items: center;
     text-align: center;
     padding: 60px 20px;
-    background-color: var(--bg-body);
-    background: linear-gradient(180deg, rgba(5,5,5,0.7) 0%, rgba(5,5,5,0.95) 100%),
+    background-color: var(--bg-surface);
+    background: linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(248,249,250,0.95) 100%),
                 url("../imagens/banner.jpg") center/cover no-repeat;
     position: relative;
 }
@@ -161,12 +160,13 @@ nav a:hover, nav a.active {
     max-width: 80%;
     height: auto;
     margin-bottom: 20px;
-    filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.3));
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.1));
 }
 
 .hero h1 {
     line-height: 1.1;
     margin-bottom: 10px;
+    color: #18181B;
 }
 
 .hero h2 {
@@ -178,14 +178,14 @@ nav a:hover, nav a.active {
 .hero p {
     max-width: 650px;
     font-size: 1.1rem;
-    color: var(--text-main);
+    color: var(--text-muted);
 }
 
 /* --- BOTÕES --- */
 .botao, .btn-whatsapp-hero {
     display: inline-block;
     background: var(--gold-primary);
-    color: var(--text-dark);
+    color: #FFFFFF;
     padding: 16px 36px;
     margin-top: 25px;
     border-radius: 50px;
@@ -195,16 +195,16 @@ nav a:hover, nav a.active {
     text-transform: uppercase;
     letter-spacing: 1px;
     transition: var(--transition-normal);
-    box-shadow: 0 4px 20px var(--gold-glow);
+    box-shadow: 0 4px 15px var(--gold-glow);
     border: none;
     cursor: pointer;
 }
 
 .botao:hover, .btn-whatsapp-hero:hover {
-    background: #ffffff;
-    color: var(--text-dark);
+    background: #18181B;
+    color: #FFFFFF;
     transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 6px 25px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 .instagram-chamada {
@@ -216,7 +216,7 @@ nav a:hover, nav a.active {
 }
 
 .instagram-chamada:hover {
-    color: #ffffff;
+    color: #18181B;
 }
 
 /* --- CARDS GERENCIAIS --- */
@@ -235,17 +235,15 @@ nav a:hover, nav a.active {
     width: 320px;
     max-width: 100%;
     border-radius: var(--radius-md);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
     transition: var(--transition-normal);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     text-align: left;
 }
 
 .card:hover, .turma:hover, .turma-card:hover, .evento:hover {
     transform: translateY(-8px);
-    border-color: rgba(212, 175, 55, 0.4);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+    border-color: var(--gold-primary);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
 }
 
 .card h3, .turma h3, .turma-card h3, .evento h3 {
@@ -275,7 +273,7 @@ a.evento {
     height: auto;
     border-radius: var(--radius-lg);
     border: 1px solid var(--bg-card-border);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .sobre-texto {
@@ -287,7 +285,7 @@ a.evento {
 }
 
 .sobre-texto h3 {
-    color: #fff;
+    color: #18181B;
     margin-bottom: 20px;
 }
 
@@ -309,7 +307,7 @@ a.evento {
 }
 
 .numero {
-    background: var(--bg-card);
+    background: var(--bg-body);
     width: 220px;
     max-width: 100%;
     padding: 30px 20px;
@@ -321,6 +319,7 @@ a.evento {
 .numero:hover {
     transform: translateY(-6px);
     border-color: var(--gold-primary);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
 }
 
 .numero h3 {
@@ -351,11 +350,12 @@ table {
     overflow: hidden;
     border: 1px solid var(--bg-card-border);
     background: var(--bg-card);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
 }
 
 th {
     background: var(--gold-primary);
-    color: var(--text-dark);
+    color: #FFFFFF;
     padding: 16px;
     font-family: var(--font-head);
     font-size: 1.3rem;
@@ -375,11 +375,11 @@ tr:last-child td {
 }
 
 tr:nth-child(even) {
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(0, 0, 0, 0.02);
 }
 
 tr:hover {
-    background: rgba(212, 175, 55, 0.05);
+    background: rgba(197, 155, 39, 0.06);
 }
 
 /* --- GALERIA DE FOTOS --- */
@@ -403,11 +403,12 @@ tr:hover {
     text-transform: uppercase;
     cursor: pointer;
     transition: var(--transition-normal);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .filtros button:hover, .filtros button.active {
     background: var(--gold-primary);
-    color: var(--text-dark);
+    color: #FFFFFF;
     border-color: var(--gold-primary);
 }
 
@@ -424,6 +425,7 @@ tr:hover {
     border-radius: var(--radius-md);
     border: 1px solid var(--bg-card-border);
     cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 .foto img {
@@ -446,9 +448,9 @@ tr:hover {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.95);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     z-index: 9999;
     justify-content: center;
     align-items: center;
@@ -460,7 +462,7 @@ tr:hover {
     max-height: 80vh;
     object-fit: contain;
     border-radius: var(--radius-sm);
-    box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 
 .fechar {
@@ -486,7 +488,7 @@ tr:hover {
     width: 55px;
     height: 55px;
     background: var(--gold-primary);
-    color: var(--text-dark);
+    color: #FFFFFF;
     border: none;
     border-radius: 50%;
     font-size: 24px;
@@ -504,7 +506,7 @@ tr:hover {
 
 .visualizador .anterior:hover,
 .visualizador .proxima:hover {
-    background: #ffffff;
+    background: #18181B;
     transform: translateY(-50%) scale(1.1);
 }
 
@@ -527,7 +529,7 @@ tr:hover {
     align-items: center;
     justify-content: center;
     color: #ffffff;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
     transition: var(--transition-normal);
 }
 
@@ -550,7 +552,7 @@ tr:hover {
 
 /* --- FOOTER --- */
 footer {
-    background: #000000;
+    background: #FFFFFF;
     padding: 40px 20px;
     text-align: center;
     border-top: 1px solid var(--bg-card-border);
