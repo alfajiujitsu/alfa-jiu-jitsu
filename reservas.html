@@ -4,142 +4,366 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Área do Aluno & Shop - Alfa Jiu Jitsu</title>
-    
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/animacoes.css">
-    <link rel="stylesheet" href="css/responsivo.css">
+    <title>Área do Aluno & Shop | Alfa Jiu Jitsu Academy</title>
+
+    <!-- Google Fonts: Bebas Neue + Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        .reserva-container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 20px;
+        :root {
+            --bg-body: #050505;
+            --bg-card: rgba(18, 18, 20, 0.85);
+            --bg-card-border: rgba(255, 255, 255, 0.08);
+            --gold-primary: #D4AF37;
+            --gold-hover: #b49329;
+            --gold-glow: rgba(212, 175, 55, 0.15);
+            --text-main: #F4F4F5;
+            --text-muted: #A1A1AA;
+            --font-head: 'Bebas Neue', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --green-price: #25d366;
+            --red-alert: #ff6b6b;
         }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- GLOW BACKGROUND EFFECT --- */
+        .glow-bg {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 900px;
+            height: 500px;
+            background: radial-gradient(circle, var(--gold-glow) 0%, rgba(0,0,0,0) 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* --- HEADER NAVIGATION --- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--bg-card-border);
+            padding: 18px 40px;
+        }
+
+        .nav-container {
+            max-width: 1250px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            letter-spacing: 2px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--gold-primary);
+        }
+
+        nav {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--gold-primary);
+        }
+
+        /* --- MAIN CONTAINER --- */
+        .reserva-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1150px;
+            width: 100%;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* --- HEADER PAINEL DO ALUNO --- */
         .header-painel {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #1c1c1c;
-            padding: 15px 25px;
-            border-radius: 10px;
-            border: 1px solid #333;
-            margin-bottom: 30px;
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            padding: 20px 30px;
+            border-radius: 16px;
+            backdrop-filter: blur(16px);
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
+        .header-painel h2 {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            letter-spacing: 1.5px;
+            color: #fff;
+            font-weight: 400;
+        }
+
+        .header-painel h2 span {
+            color: var(--gold-primary);
+        }
+
+        .btn-logout {
+            background-color: rgba(255, 107, 107, 0.15);
+            color: var(--red-alert);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            padding: 10px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background-color: var(--red-alert);
+            color: #fff;
+            box-shadow: 0 0 15px rgba(255, 107, 107, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* --- SHOP SECTION TITLE --- */
+        .section-header {
+            margin-bottom: 25px;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-head);
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            color: var(--gold-primary);
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* --- GRID SHOP --- */
         .grid-shop {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
             margin-top: 20px;
         }
 
         .card-shop {
-            background: #1c1c1c;
-            border: 1px solid #333;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: left;
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 16px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(16px);
+        }
+
+        .card-shop:hover {
+            transform: translateY(-6px);
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
         }
 
         .card-shop img {
             width: 100%;
             height: 220px;
             object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 12px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .card-shop h3 {
-            color: #d4af37;
-            margin: 0 0 8px 0;
+            font-family: var(--font-head);
+            font-size: 1.6rem;
+            letter-spacing: 1px;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .card-shop .info-tag {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .card-shop .info-tag strong {
+            color: var(--text-main);
         }
 
         .card-shop .preco {
-            font-size: 18px;
-            font-weight: bold;
-            color: #25d366;
-            margin: 5px 0;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--green-price);
+            margin: 12px 0 15px 0;
         }
 
         .btn-reservar {
             width: 100%;
-            padding: 12px;
-            background-color: #d4af37;
+            padding: 13px;
+            background-color: var(--gold-primary);
             color: #000;
             border: none;
-            border-radius: 6px;
-            font-weight: bold;
+            border-radius: 10px;
+            font-family: var(--font-body);
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             cursor: pointer;
-            margin-top: 15px;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
         }
 
-        .btn-reservar:hover {
-            background-color: #b49329;
+        .btn-reservar:hover:not(:disabled) {
+            background-color: var(--gold-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
         }
 
         .btn-reservar:disabled {
-            background-color: #555;
-            color: #888;
+            background-color: rgba(255, 255, 255, 0.08);
+            color: #666;
+            border: 1px solid rgba(255, 255, 255, 0.05);
             cursor: not-allowed;
+            box-shadow: none;
         }
 
-        .btn-logout {
-            background-color: #e74c3c;
-            color: white;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
+        .empty-msg {
+            color: var(--text-muted);
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px 20px;
+            background: var(--bg-card);
+            border: 1px dashed var(--bg-card-border);
+            border-radius: 16px;
+            font-size: 1rem;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            border-top: 1px solid var(--bg-card-border);
+            padding: 30px 20px;
+            text-align: center;
+            background: #000;
+            margin-top: 60px;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            .nav-container { flex-direction: column; gap: 15px; }
+            .header-painel { flex-direction: column; gap: 15px; text-align: center; }
         }
     </style>
 </head>
 
 <body>
 
-    <header>
-        <nav>
-            <a href="index.html">Início</a>
-            <a href="historia.html">Nossa História</a>
-            <a href="professores.html">Professores</a>
-            <a href="horarios.html">Horários</a>
-            <a href="eventos.html">Eventos</a>
-            <a href="graduacoes.html">Graduações</a>
-            <a href="galeria.html">Galeria</a>
-            <a href="contato.html">Contato</a>
-            <a href="login.html">Login</a>
-        </nav>
+    <div class="glow-bg"></div>
 
-        <h1>ALFA JIU JITSU ACADEMY</h1>
-        <p>Área de Reservas e Shop</p>
+    <!-- HEADER NAVIGATION -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">ALFA<span>HQ</span></a>
+            <nav>
+                <a href="index.html">Início</a>
+                <a href="index.html#metodologia">Metodologia</a>
+                <a href="historia.html">História</a>
+                <a href="professores.html">Professores</a>
+                <a href="horarios.html">Horários</a>
+                <a href="eventos.html">Eventos</a>
+                <a href="graduacoes.html">Graduações</a>
+                <a href="blackbelts.html">Black Belts</a>
+                <a href="galeria.html">Galeria</a>
+                <a href="contato.html">Contato</a>
+                <a href="reservas.html" class="active">Shop & Área do Aluno</a>
+            </nav>
+        </div>
     </header>
 
     <main class="reserva-container">
+        <!-- PAINEL DO ALUNO LOGADO -->
         <div class="header-painel">
-            <h2 style="margin: 0; color: #fff;">Bem-vindo(a), <span id="nomeAluno" style="color: #d4af37;">Aluno</span>!</h2>
-            <button onclick="logout()" class="btn-logout">Sair</button>
+            <h2>Bem-vindo(a), <span id="nomeAluno">Aluno</span>!</h2>
+            <button onclick="logout()" class="btn-logout">Encerrar Sessão</button>
         </div>
 
-        <h2 style="color: #d4af37; text-align: left; margin-bottom: 5px;">🛍️ Shop Alfa Jiu Jitsu</h2>
-        <p style="text-align: left; color: #aaa; margin-top: 0;">Reserve os itens desejados abaixo para realizar o pagamento e a retirada diretamente na academia.</p>
+        <!-- TÍTULO DA SEÇÃO DE SHOP -->
+        <div class="section-header">
+            <h2>🛍️ Shop Alfa Jiu Jitsu</h2>
+            <p>Reserve os itens desejados abaixo para realizar o pagamento e a retirada diretamente na recepção da academia.</p>
+        </div>
 
+        <!-- GRID DE PRODUTOS DO SHOP -->
         <div id="gridShop" class="grid-shop">
-            <!-- Produtos cadastrados pelo Admin aparecerão aqui -->
+            <!-- Produtos cadastrados via Admin aparecerão aqui dinamicamente -->
         </div>
     </main>
 
+    <!-- FOOTER -->
     <footer>
         <p>© 2026 Alfa Jiu Jitsu Academy. Todos os direitos reservados.</p>
     </footer>
 
+    <!-- SCRIPT DE GERENCIAMENTO DE SESSÃO E RESERVAS -->
     <script>
-        // Identifica o aluno
+        // Identifica o aluno logado na sessão
         const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
         if (usuarioLogado && usuarioLogado.nome) {
             document.getElementById('nomeAluno').innerText = usuarioLogado.nome;
@@ -152,23 +376,23 @@
             const produtos = JSON.parse(localStorage.getItem('produtosShop')) || [];
 
             if (produtos.length === 0) {
-                container.innerHTML = '<p style="color: #888;">Nenhum produto disponível na loja no momento.</p>';
+                container.innerHTML = '<div class="empty-msg">Nenhum produto disponível na loja no momento. Volte em breve!</div>';
                 return;
             }
 
             container.innerHTML = '';
             produtos.forEach(prod => {
                 const desabilitado = prod.qtd <= 0 ? 'disabled' : '';
-                const textoBotao = prod.qtd > 0 ? 'Reservar e Retirar na Academia' : 'Esgotado';
+                const textoBotao = prod.qtd > 0 ? 'Reservar e Retirar na Academia' : 'Produto Esgotado';
 
                 container.innerHTML += `
                     <div class="card-shop">
                         <div>
-                            <img src="${prod.foto}" alt="${prod.nome}">
+                            <img src="${prod.foto}" alt="${prod.nome}" onerror="this.src='https://via.placeholder.com/300x220?text=Produto+Alfa'">
                             <h3>${prod.nome}</h3>
-                            <p style="margin: 3px 0; color: #ccc;">Tamanho: <strong>${prod.tamanho}</strong></p>
-                            <p style="margin: 3px 0; color: #ccc;">Disponível: <strong>${prod.qtd} unidade(s)</strong></p>
-                            <div class="preco">R$ ${prod.preco}</div>
+                            <p class="info-tag">Tamanho: <strong>${prod.tamanho}</strong></p>
+                            <p class="info-tag">Disponível: <strong>${prod.qtd} unidade(s)</strong></p>
+                            <div class="preco">R$ ${parseFloat(prod.preco).toFixed(2).replace('.', ',')}</div>
                         </div>
                         <button onclick="fazerReserva(${prod.id})" class="btn-reservar" ${desabilitado}>
                             ${textoBotao}
@@ -188,7 +412,7 @@
 
                 alert(`Reserva do item "${produtos[index].nome}" solicitada com sucesso!\n\nPor favor, dirija-se à recepção da academia para efetuar o pagamento e retirar seu produto.`);
                 
-                carregarShopAluno(); // Atualiza a tela
+                carregarShopAluno(); // Atualiza a tela em tempo real
             }
         }
 
