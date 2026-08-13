@@ -4,104 +4,408 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eventos - Alfa Jiu Jitsu Academy</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Eventos & Competições | Alfa Jiu Jitsu Academy</title>
+    
+    <!-- Google Fonts: Bebas Neue + Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        .eventos {
+        :root {
+            --bg-body: #050505;
+            --bg-card: rgba(18, 18, 20, 0.75);
+            --bg-card-border: rgba(255, 255, 255, 0.08);
+            --gold-primary: #D4AF37;
+            --gold-glow: rgba(212, 175, 55, 0.2);
+            --text-main: #F4F4F5;
+            --text-muted: #A1A1AA;
+            --font-head: 'Bebas Neue', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- BACKGROUND GLOW EFFECT --- */
+        .glow-bg {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 900px;
+            height: 450px;
+            background: radial-gradient(circle, var(--gold-glow) 0%, rgba(0,0,0,0) 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* --- HEADER NAVIGATION --- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--bg-card-border);
+            padding: 18px 40px;
+        }
+
+        .nav-container {
+            max-width: 1250px;
+            margin: 0 auto;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            letter-spacing: 2px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--gold-primary);
+        }
+
+        nav {
+            display: flex;
             gap: 20px;
             flex-wrap: wrap;
-            margin-top: 30px;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--gold-primary);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            padding: 80px 20px 40px 20px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 6px 18px;
+            border-radius: 100px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-primary);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-family: var(--font-head);
+            font-size: clamp(3.2rem, 7vw, 5.5rem);
+            line-height: 0.95;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            background: linear-gradient(180deg, #FFFFFF 0%, #A1A1AA 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        /* --- MAIN CONTAINER --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px 20px 100px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* GRID DE EVENTOS */
+        .eventos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
         }
 
         .evento-link {
             text-decoration: none;
             color: inherit;
-            display: block;
+            display: flex;
         }
 
-        .evento {
-            background: #222;
-            border: 1px solid #333;
-            border-radius: 12px;
-            padding: 25px;
-            width: 280px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            transition: transform 0.2s ease, border-color 0.2s ease;
-            cursor: pointer;
-            height: 100%;
-            box-sizing: border-box;
+        .evento-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 20px;
+            padding: 35px;
+            backdrop-filter: blur(12px);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .evento:hover {
-            transform: translateY(-5px);
-            border-color: #d4af37;
+        .evento-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
         }
 
-        .evento h3 {
-            color: #d4af37;
-            margin-top: 0;
+        .evento-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+
+        .evento-card:hover::before {
+            opacity: 1;
+        }
+
+        .icon-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .icon-box {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-primary);
+        }
+
+        .badge-categoria {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 4px 12px;
+            border-radius: 100px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .evento-card h3 {
+            font-family: var(--font-head);
+            font-size: 2.2rem;
+            letter-spacing: 1.5px;
+            color: #FFF;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .evento-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .card-footer-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gold-primary);
+            transition: gap 0.3s ease;
+        }
+
+        .evento-card:hover .card-footer-link {
+            gap: 12px;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--bg-card-border);
+            padding: 50px 20px;
+            text-align: center;
+            background: #000;
+        }
+
+        footer h2 {
+            font-family: var(--font-head);
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            color: var(--gold-primary);
+            margin-bottom: 8px;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .evento-card {
+                padding: 28px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <header>
-          <nav>
-    <a href="index.html">Início</a>
-    <a href="historia.html">Nossa História</a>
-    <a href="professores.html">Professores</a>
-    <a href="horarios.html">Horários</a>
-    <a href="eventos.html">Eventos</a>
-    <a href="graduacoes.html">Graduaçoes</a>
-    <a href="galeria.html">Galeria</a>
-    <a href="contato.html">Contato</a>
-    <a href="login.html">Login</a>
-</nav>
+    <div class="glow-bg"></div>
 
-        <h1>ALFA JIU JITSU ACADEMY</h1>
-        <p>Disciplina • Respeito • Evolução</p>
+    <!-- HEADER NAVIGATION -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">ALFA<span>HQ</span></a>
+            <nav>
+                <a href="index.html">Início</a>
+                <a href="historia.html">História</a>
+                <a href="professores.html">Professores</a>
+                <a href="horarios.html">Horários</a>
+                <a href="eventos.html" class="active">Eventos</a>
+                <a href="graduacoes.html">Graduações</a>
+                <a href="galeria.html">Galeria</a>
+                <a href="contato.html">Contato</a>
+                <a href="login.html">Login</a>
+            </nav>
+        </div>
     </header>
 
-    <main>
-        <section>
-            <h2>Eventos e Competições</h2>
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <span class="hero-badge">Ações & Vivências</span>
+        <h1>Eventos e Competições</h1>
+        <p>Acompanhe a trajetória da Alfa Jiu Jitsu Academy dentro e fora dos tatames. Escolha uma das categorias abaixo para explorar.</p>
+    </section>
 
-            <div class="eventos">
+    <!-- MAIN CONTAINER -->
+    <main class="container">
+        <div class="eventos-grid">
 
-                <!-- CARD CAMPEONATO (Abre a página de notícias/campeonatos) -->
-                <a href="campeonatos.html" class="evento-link">
-                    <div class="evento">
-                        <h3>🏆 Campeonato</h3>
-                        <p>Participação dos atletas da Alfa Jiu Jitsu Academy em competições regionais.</p>
+            <!-- CARD CAMPEONATO -->
+            <a href="campeonatos.html" class="evento-link">
+                <article class="evento-card">
+                    <div>
+                        <div class="icon-header">
+                            <div class="icon-box">
+                                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"></path></svg>
+                            </div>
+                            <span class="badge-categoria">Competição</span>
+                        </div>
+                        <h3>Campeonatos</h3>
+                        <p>Acompanhe a participação dos nossos atletas e equipes nos principais torneios estaduais e nacionais de Jiu-Jitsu.</p>
                     </div>
-                </a>
-
-                <!-- CARD GRADUAÇÕES (Direciona para a Galeria filtrada) -->
-                <a href="galeria.html?categoria=graduacoes" class="evento-link">
-                    <div class="evento">
-                        <h3>🥋 Graduações</h3>
-                        <p>Momentos de evolução dos alunos através das graduações de faixa.</p>
+                    <div class="card-footer-link">
+                        Ver Calendário & Resultados
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                     </div>
-                </a>
+                </article>
+            </a>
 
-                <!-- CARD SEMINÁRIOS (Direciona para a Galeria filtrada) -->
-                <a href="galeria.html?categoria=eventos" class="evento-link">
-                    <div class="evento">
-                        <h3>🔥 Seminários</h3>
-                        <p>Treinos especiais com professores convidados e grandes experiências.</p>
+            <!-- CARD GRADUAÇÕES -->
+            <a href="galeria.html?categoria=graduacoes" class="evento-link">
+                <article class="evento-card">
+                    <div>
+                        <div class="icon-header">
+                            <div class="icon-box">
+                                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                            </div>
+                            <span class="badge-categoria">Evolução</span>
+                        </div>
+                        <h3>Graduações</h3>
+                        <p>Celebre as conquistas e momentos de troca de faixa que marcam o avanço técnico e moral de cada aluno na academia.</p>
                     </div>
-                </a>
+                    <div class="card-footer-link">
+                        Ver Galeria de Graduações
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </div>
+                </article>
+            </a>
 
-            </div>
-        </section>
+            <!-- CARD SEMINÁRIOS -->
+            <a href="galeria.html?categoria=eventos" class="evento-link">
+                <article class="evento-card">
+                    <div>
+                        <div class="icon-header">
+                            <div class="icon-box">
+                                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                            </div>
+                            <span class="badge-categoria">Capacitação</span>
+                        </div>
+                        <h3>Seminários</h3>
+                        <p>Aulas magnas, treinos especiais e seminários técnicos ministrados por professores convidados e grandes mestres.</p>
+                    </div>
+                    <div class="card-footer-link">
+                        Ver Registros dos Seminários
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </div>
+                </article>
+            </a>
+
+        </div>
     </main>
 
+    <!-- FOOTER -->
     <footer>
-        <p>© 2026 Alfa Jiu Jitsu Academy</p>
+        <h2>ALFA JIU JITSU ACADEMY</h2>
+        <p>Disciplina • Respeito • Evolução</p>
+        <p style="margin-top: 5px;">Joinville - Santa Catarina</p>
+        <p style="margin-top: 15px; opacity: 0.5;">© 2026 Todos os direitos reservados.</p>
     </footer>
 
 </body>
