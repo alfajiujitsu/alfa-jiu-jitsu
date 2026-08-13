@@ -366,6 +366,43 @@
             <div id="listaGaleriaAdmin" class="grid-itens-cadastrados"></div>
         </div>
 
+        <!-- ================= ABA 6: BLACK BELTS ================= -->
+        <div id="aba-blackbelts" class="secao-adm">
+            <h3>🥋 Cadastrar Faixa Preta (Black Belt)</h3>
+            <form id="formBlackBelt">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="bbNome">Nome Completo</label>
+                        <input type="text" id="bbNome" placeholder="Ex: Vilson Fajardo" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bbAno">Ano da Faixa Preta</label>
+                        <input type="number" id="bbAno" placeholder="Ex: 2018" min="1950" max="2030" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bbGrau">Grau Atual (Opcional)</label>
+                        <input type="text" id="bbGrau" placeholder="Ex: 2º Grau">
+                    </div>
+
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label for="bbHistoria">História / Biografia</label>
+                        <textarea id="bbHistoria" rows="4" placeholder="Conte brevemente a trajetória nas artes marciais..." required></textarea>
+                    </div>
+
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label for="bbFoto">Foto Oficial</label>
+                        <input type="file" id="bbFoto" accept="image/*" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-salvar">Cadastrar Black Belt</button>
+            </form>
+
+            <h3 style="margin-top: 30px;">🥋 Black Belts Cadastrados</h3>
+            <div id="listaBlackBeltsAdmin" class="grid-itens-cadastrados"></div>
+        </div>
+
     </main>
 
     <footer>
@@ -391,6 +428,7 @@
             carregarGraduacoesAdmin();
             carregarEventosAdmin();
             carregarGaleriaAdmin();
+            carregarBlackBeltsAdmin();
         });
 
         // Helper para ler arquivos de imagem
@@ -570,6 +608,43 @@
                         <h4 style="color:#d4af37; margin:5px 0;">${g.titulo}</h4>
                         <p style="margin:2px; color:#aaa;">Categoria: ${g.categoria}</p>
                         <button onclick="excluirItem('galeriaFotos', ${g.id}, carregarGaleriaAdmin)" class="btn-excluir">Excluir</button>
+                    </div>`;
+            });
+        }
+
+        // ================= 6. BLACK BELTS =================
+        document.getElementById('formBlackBelt').addEventListener('submit', function(e) {
+            e.preventDefault();
+            lerImagem(document.getElementById('bbFoto'), foto => {
+                const item = {
+                    id: Date.now(),
+                    nome: document.getElementById('bbNome').value,
+                    ano: document.getElementById('bbAno').value,
+                    grau: document.getElementById('bbGrau').value || 'Faixa Preta',
+                    historia: document.getElementById('bbHistoria').value,
+                    foto: foto
+                };
+                let banco = JSON.parse(localStorage.getItem('blackBelts')) || [];
+                banco.push(item);
+                localStorage.setItem('blackBelts', JSON.stringify(banco));
+                document.getElementById('formBlackBelt').reset();
+                carregarBlackBeltsAdmin();
+            });
+        });
+
+        function carregarBlackBeltsAdmin() {
+            const c = document.getElementById('listaBlackBeltsAdmin');
+            if (!c) return;
+            const items = JSON.parse(localStorage.getItem('blackBelts')) || [];
+            c.innerHTML = items.length ? '' : '<p style="color:#888;">Nenhum faixa preta cadastrado.</p>';
+            items.forEach(bb => {
+                c.innerHTML += `
+                    <div class="card-adm-item">
+                        <img src="${bb.foto}">
+                        <h4 style="color:#d4af37; margin:5px 0;">${bb.nome}</h4>
+                        <p style="margin:2px; color:#ccc;">Graduação: ${bb.ano} (${bb.grau})</p>
+                        <p style="margin:5px 0; color:#aaa; font-size:12px; text-align:left;">${bb.historia}</p>
+                        <button onclick="excluirItem('blackBelts', ${bb.id}, carregarBlackBeltsAdmin)" class="btn-excluir">Excluir</button>
                     </div>`;
             });
         }
