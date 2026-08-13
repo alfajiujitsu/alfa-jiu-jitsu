@@ -7,7 +7,500 @@
     <title>Login / Cadastro - Alfa Jiu Jitsu Academy</title>
     
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/animacoes.css">
+    <link rel="stylesheet" href="css/animacoes.css"><!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Cadastro | Alfa Jiu Jitsu Academy</title>
+
+    <!-- Google Fonts: Bebas Neue + Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-body: #050505;
+            --bg-card: rgba(18, 18, 20, 0.85);
+            --bg-card-border: rgba(255, 255, 255, 0.08);
+            --gold-primary: #D4AF37;
+            --gold-hover: #b49329;
+            --gold-glow: rgba(212, 175, 55, 0.18);
+            --text-main: #F4F4F5;
+            --text-muted: #A1A1AA;
+            --font-head: 'Bebas Neue', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- BACKGROUND GLOW EFFECT --- */
+        .glow-bg {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 450px;
+            background: radial-gradient(circle, var(--gold-glow) 0%, rgba(0,0,0,0) 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* --- HEADER NAVIGATION --- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--bg-card-border);
+            padding: 18px 40px;
+        }
+
+        .nav-container {
+            max-width: 1250px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            letter-spacing: 2px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--gold-primary);
+        }
+
+        nav {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--gold-primary);
+        }
+
+        /* --- MAIN CONTENT & CONTAINER LOGIN --- */
+        main {
+            position: relative;
+            z-index: 1;
+            padding: 40px 20px 80px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 460px;
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 20px;
+            padding: 35px 30px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s ease;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .login-header h2 {
+            font-family: var(--font-head);
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            color: var(--gold-primary);
+            text-transform: uppercase;
+        }
+
+        .login-header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* --- TABS --- */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--bg-card-border);
+            margin-bottom: 25px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .tab-btn.active {
+            color: var(--gold-primary);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--gold-primary);
+            box-shadow: 0 0 10px var(--gold-primary);
+        }
+
+        /* --- FORMULÁRIO --- */
+        .form-section {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 10px;
+            color: #fff;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.2);
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: var(--gold-primary);
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            font-family: var(--font-body);
+            font-weight: 800;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+        }
+
+        .btn-submit:hover {
+            background: var(--gold-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+        }
+
+        .msg-status {
+            font-size: 0.88rem;
+            text-align: center;
+            margin-top: 18px;
+            padding: 10px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .msg-erro {
+            background: rgba(255, 85, 85, 0.1);
+            border: 1px solid rgba(255, 85, 85, 0.3);
+            color: #ff6b6b;
+        }
+
+        .msg-sucesso {
+            background: rgba(37, 211, 102, 0.1);
+            border: 1px solid rgba(37, 211, 102, 0.3);
+            color: #25d366;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            border-top: 1px solid var(--bg-card-border);
+            padding: 30px 20px;
+            text-align: center;
+            background: #000;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            .nav-container { flex-direction: column; gap: 15px; }
+            .login-container { padding: 25px 20px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="glow-bg"></div>
+
+    <!-- HEADER NAVIGATION -->
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">ALFA<span>HQ</span></a>
+            <nav>
+                <a href="index.html">Início</a>
+                <a href="index.html#metodologia">Metodologia</a>
+                <a href="historia.html">História</a>
+                <a href="professores.html">Professores</a>
+                <a href="horarios.html">Horários</a>
+                <a href="eventos.html">Eventos</a>
+                <a href="graduacoes.html">Graduações</a>
+                <a href="blackbelts.html">Black Belts</a>
+                <a href="galeria.html">Galeria</a>
+                <a href="contato.html">Contato</a>
+                <a href="login.html" class="active">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="login-container">
+            <div class="login-header">
+                <h2>Portal do Aluno</h2>
+                <p>Acesse sua conta ou faça seu cadastro</p>
+            </div>
+
+            <!-- ABAS PARA ALTERNAR ENTRE LOGIN E CADASTRO -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('login')">Entrar</button>
+                <button class="tab-btn" onclick="switchTab('cadastro')">Cadastrar Aluno</button>
+            </div>
+
+            <!-- FORMULÁRIO DE LOGIN -->
+            <form id="formLogin" class="form-section active">
+                <div class="form-group">
+                    <label for="loginTipo">Tipo de Acesso</label>
+                    <select id="loginTipo">
+                        <option value="aluno">Aluno</option>
+                        <option value="admin">Administrador</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginEmail">E-mail</label>
+                    <input type="email" id="loginEmail" placeholder="seu@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginSenha">Senha</label>
+                    <input type="password" id="loginSenha" placeholder="Digite sua senha" required>
+                </div>
+
+                <button type="submit" class="btn-submit">Entrar no Sistema</button>
+                <div id="msgLogin" class="msg-status msg-erro"></div>
+            </form>
+
+            <!-- FORMULÁRIO DE CADASTRO -->
+            <form id="formCadastro" class="form-section">
+                <div class="form-group">
+                    <label for="cadNome">Nome Completo</label>
+                    <input type="text" id="cadNome" placeholder="Digite seu nome completo" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cadEmail">E-mail</label>
+                    <input type="email" id="cadEmail" placeholder="seu@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cadSenha">Senha</label>
+                    <input type="password" id="cadSenha" placeholder="Crie uma senha" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="cadConfirmaSenha">Confirme a Senha</label>
+                    <input type="password" id="cadConfirmaSenha" placeholder="Repita a senha" required>
+                </div>
+
+                <button type="submit" class="btn-submit">Criar Minha Conta</button>
+                <div id="msgCadastro" class="msg-status"></div>
+            </form>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 Alfa Jiu Jitsu Academy. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- SCRIPT DE NAVEGAÇÃO E LOGICA DE LOGIN/CADASTRO -->
+    <script>
+        // Função para alternar as abas
+        function switchTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const forms = document.querySelectorAll('.form-section');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            forms.forEach(form => form.classList.remove('active'));
+
+            if (tabName === 'login') {
+                tabs[0].classList.add('active');
+                document.getElementById('formLogin').classList.add('active');
+            } else {
+                tabs[1].classList.add('active');
+                document.getElementById('formCadastro').classList.add('active');
+            }
+        }
+
+        // --- LÓGICA DE CADASTRO DE ALUNO ---
+        document.getElementById('formCadastro').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nome = document.getElementById('cadNome').value;
+            const email = document.getElementById('cadEmail').value;
+            const senha = document.getElementById('cadSenha').value;
+            const confirmaSenha = document.getElementById('cadConfirmaSenha').value;
+            const msgCadastro = document.getElementById('msgCadastro');
+
+            if (senha !== confirmaSenha) {
+                msgCadastro.className = "msg-status msg-erro";
+                msgCadastro.innerText = "As senhas não coincidem! Tente novamente.";
+                msgCadastro.style.display = "block";
+                return;
+            }
+
+            // Busca os alunos cadastrados no localStorage
+            let alunos = JSON.parse(localStorage.getItem('alunosCadastrados')) || [];
+
+            // Verifica se o e-mail já existe
+            const emailExiste = alunos.some(aluno => aluno.email === email);
+            if (emailExiste) {
+                msgCadastro.className = "msg-status msg-erro";
+                msgCadastro.innerText = "Este e-mail já está cadastrado!";
+                msgCadastro.style.display = "block";
+                return;
+            }
+
+            // Salva o novo aluno
+            alunos.push({ nome, email, senha });
+            localStorage.setItem('alunosCadastrados', JSON.stringify(alunos));
+
+            msgCadastro.className = "msg-status msg-sucesso";
+            msgCadastro.innerText = "Cadastro realizado com sucesso! Alterne para 'Entrar' e faça seu login.";
+            msgCadastro.style.display = "block";
+            document.getElementById('formCadastro').reset();
+        });
+
+        // --- LÓGICA DE LOGIN ---
+        document.getElementById('formLogin').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const tipo = document.getElementById('loginTipo').value;
+            const email = document.getElementById('loginEmail').value;
+            const senha = document.getElementById('loginSenha').value;
+            const msgLogin = document.getElementById('msgLogin');
+
+            msgLogin.style.display = "none";
+
+            // VALIDAÇÃO DE ADMINISTRADOR
+            if (tipo === 'admin') {
+                if (email === 'jean.carlos.andrade.94@gmail.com' && senha === '@Codd20@20') {
+                    localStorage.setItem('usuarioLogado', JSON.stringify({ tipo: 'admin', nome: 'Administrador' }));
+                    window.location.href = 'admin.html';
+                } else {
+                    msgLogin.innerText = "E-mail ou senha de Administrador incorretos!";
+                    msgLogin.style.display = "block";
+                }
+            } 
+            // VALIDAÇÃO DE ALUNO
+            else if (tipo === 'aluno') {
+                let alunos = JSON.parse(localStorage.getItem('alunosCadastrados')) || [];
+                const alunoEncontrado = alunos.find(aluno => aluno.email === email && aluno.senha === senha);
+
+                if (alunoEncontrado) {
+                    localStorage.setItem('usuarioLogado', JSON.stringify({ tipo: 'aluno', nome: alunoEncontrado.nome }));
+                    window.location.href = 'reservas.html';
+                } else {
+                    msgLogin.innerText = "Aluno não encontrado ou senha incorreta! Faça o cadastro primeiro.";
+                    msgLogin.style.display = "block";
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>
     <link rel="stylesheet" href="css/responsivo.css">
 
     <style>
