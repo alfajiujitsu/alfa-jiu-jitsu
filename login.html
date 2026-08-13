@@ -202,17 +202,12 @@
             tabs.forEach(tab => tab.classList.remove('active'));
             forms.forEach(form => form.classList.remove('active'));
 
-            // VALIDAÇÃO DE ADMINISTRADOR
-if (tipo === 'admin') {
-    // Insira seu e-mail e senha aqui:
-    if (email === 'jean.carlos.andrade.94@gmail.com' && senha === '@Codd20@20') {
-        localStorage.setItem('usuarioLogado', JSON.stringify({ tipo: 'admin', nome: 'Administrador' }));
-        window.location.href = 'admin.html';
-    } else {
-        msgLogin.innerText = "E-mail ou senha de Administrador incorretos!";
-        msgLogin.style.display = "block";
-    }
-});
+            if (tabName === 'login') {
+                tabs[0].classList.add('active');
+                document.getElementById('formLogin').classList.add('active');
+            } else {
+                tabs[1].classList.add('active');
+                document.getElementById('formCadastro').classList.add('active');
             }
         }
 
@@ -269,7 +264,7 @@ if (tipo === 'admin') {
             // VALIDAÇÃO DE ADMINISTRADOR
             if (tipo === 'admin') {
                 // Insira abaixo o e-mail e a senha que você deseja usar para o ADM:
-                if (email === 'admin@alfajiujitsu.com' && senha === 'admin123') {
+                if (email === 'jean.carlos.andrade.94@gmail.com' && senha === '@Codd20@20') {
                     localStorage.setItem('usuarioLogado', JSON.stringify({ tipo: 'admin', nome: 'Administrador' }));
                     window.location.href = 'admin.html';
                 } else {
