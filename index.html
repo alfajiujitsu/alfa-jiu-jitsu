@@ -300,86 +300,80 @@
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
         }
 
-        /* --- SEÇÃO BLACK BELTS LADO A LADO --- */
-        .section-blackbelts-grid {
-            background: rgba(12, 12, 14, 0.8);
-            border-top: 1px solid var(--bg-card-border);
-            border-bottom: 1px solid var(--bg-card-border);
-            padding: 70px 20px;
+        /* --- BANNER QUADRADO BLACK BELTS COM MINIATURAS LADO A LADO --- */
+        .section-blackbelts-box {
+            padding: 80px 20px;
         }
 
-        .blackbelts-container {
-            max-width: 1250px;
+        .banner-box {
+            background: rgba(18, 18, 20, 0.85);
+            border: 1px solid var(--gold-primary);
+            border-radius: 16px;
+            padding: 45px 25px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.7);
+            text-align: center;
+            max-width: 1050px;
             margin: 0 auto;
         }
 
-        .blackbelts-cards {
+        .bb-thumbs-container {
             display: flex;
             justify-content: center;
-            align-items: stretch;
-            gap: 20px;
+            align-items: center;
+            gap: 15px;
             flex-wrap: wrap;
-            margin-top: 35px;
+            margin: 30px 0;
         }
 
-        .bb-card {
-            background: var(--bg-card);
-            border: 1px solid var(--bg-card-border);
-            border-radius: 16px;
-            overflow: hidden;
-            width: 220px;
-            text-align: center;
-            transition: all 0.4s ease;
+        .bb-thumb-item {
             display: flex;
             flex-direction: column;
+            align-items: center;
+            width: 150px;
         }
 
-        .bb-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--gold-primary);
-            box-shadow: 0 12px 30px rgba(212, 175, 55, 0.2);
-        }
-
-        .bb-img-wrapper {
-            width: 100%;
-            height: 280px;
-            background: #000;
+        .bb-thumb-img {
+            width: 140px;
+            height: 170px;
+            border-radius: 12px;
+            border: 1px solid var(--bg-card-border);
             overflow: hidden;
+            background-color: #0a0a0c;
+            transition: all 0.3s ease;
         }
 
-        .bb-img-wrapper img {
+        .bb-thumb-img img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Mantém a imagem inteira sem cortar */
-            object-position: center top;
+            object-fit: cover;
+            object-position: center 15%; /* Foco na parte superior (rosto/peito) */
             transition: transform 0.4s ease;
         }
 
-        .bb-card:hover .bb-img-wrapper img {
-            transform: scale(1.05);
+        .bb-thumb-item:hover .bb-thumb-img {
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+            transform: translateY(-4px);
         }
 
-        .bb-info {
-            padding: 15px 12px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        .bb-thumb-item:hover img {
+            transform: scale(1.08);
         }
 
-        .bb-info h3 {
+        .bb-thumb-name {
+            margin-top: 10px;
             font-family: var(--font-head);
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             color: #fff;
             letter-spacing: 1px;
-            margin-bottom: 4px;
         }
 
-        .bb-info p {
+        .bb-thumb-role {
+            font-size: 0.75rem;
             color: var(--gold-primary);
-            font-size: 0.82rem;
-            font-weight: 700;
             text-transform: uppercase;
+            font-weight: 700;
             letter-spacing: 0.5px;
         }
 
@@ -483,8 +477,8 @@
             nav { justify-content: center; gap: 12px; }
             nav a { font-size: 0.75rem; }
             .turma-card { width: 100%; }
-            .bb-card { width: 45%; min-width: 150px; }
-            .bb-img-wrapper { height: 210px; }
+            .bb-thumb-item { width: 42%; }
+            .bb-thumb-img { width: 100%; height: 150px; }
         }
     </style>
 </head>
@@ -563,71 +557,62 @@
             </div>
         </section>
 
-        <!-- SEÇÃO BLACK BELTS LADO A LADO -->
-        <section class="section-blackbelts-grid">
-            <div class="blackbelts-container">
-                <h2 class="section-title">🥋 Nossos Black Belts</h2>
-                <p class="section-subtitle">
+        <!-- SEÇÃO QUADRADO DE FUNDO COM OS 5 FAIXAS PRETAS EM ORDEM -->
+        <section class="section-blackbelts-box">
+            <div class="banner-box">
+                <h2 class="section-title" style="margin-bottom: 8px;">🥋 Nossos Black Belts</h2>
+                <p class="section-subtitle" style="margin-bottom: 20px;">
                     Conheça os mestres e professores graduados que lideram nossa jornada no Jiu Jitsu.
                 </p>
 
-                <div class="blackbelts-cards">
-                    <div class="bb-card">
-                        <div class="bb-img-wrapper">
-                            <img src="imagens/jean.jpeg" alt="Jean Andrade">
-                        </div>
-                        <div class="bb-info">
-                            <h3>Jean Andrade</h3>
-                            <p>Faixa Preta</p>
-                        </div>
-                    </div>
-
-                    <div class="bb-card">
-                        <div class="bb-img-wrapper">
-                            <img src="imagens/jeff.jpeg" alt="Jefferson">
-                        </div>
-                        <div class="bb-info">
-                            <h3>Jefferson</h3>
-                            <p>Faixa Preta</p>
-                        </div>
-                    </div>
-
-                    <div class="bb-card">
-                        <div class="bb-img-wrapper">
-                            <img src="imagens/naldo.jpeg" alt="Naldo">
-                        </div>
-                        <div class="bb-info">
-                            <h3>Naldo</h3>
-                            <p>Faixa Preta</p>
-                        </div>
-                    </div>
-
-                    <div class="bb-card">
-                        <div class="bb-img-wrapper">
+                <!-- ORDEM SOLICITADA: Vilson / Zeca / Jean / Jeff / Naldo -->
+                <div class="bb-thumbs-container">
+                    
+                    <div class="bb-thumb-item">
+                        <div class="bb-thumb-img">
                             <img src="imagens/vilson.jpeg" alt="Vilson Fajardo">
                         </div>
-                        <div class="bb-info">
-                            <h3>Vilson Fajardo</h3>
-                            <p>Faixa Preta</p>
-                        </div>
+                        <span class="bb-thumb-name">Vilson Fajardo</span>
+                        <span class="bb-thumb-role">Faixa Preta</span>
                     </div>
 
-                    <div class="bb-card">
-                        <div class="bb-img-wrapper">
+                    <div class="bb-thumb-item">
+                        <div class="bb-thumb-img">
                             <img src="imagens/zeca.jpeg" alt="Zeca">
                         </div>
-                        <div class="bb-info">
-                            <h3>Zeca</h3>
-                            <p>Faixa Preta</p>
-                        </div>
+                        <span class="bb-thumb-name">Zeca</span>
+                        <span class="bb-thumb-role">Faixa Preta</span>
                     </div>
+
+                    <div class="bb-thumb-item">
+                        <div class="bb-thumb-img">
+                            <img src="imagens/jean.jpeg" alt="Jean Andrade">
+                        </div>
+                        <span class="bb-thumb-name">Jean Andrade</span>
+                        <span class="bb-thumb-role">Faixa Preta</span>
+                    </div>
+
+                    <div class="bb-thumb-item">
+                        <div class="bb-thumb-img">
+                            <img src="imagens/jeff.jpeg" alt="Jefferson">
+                        </div>
+                        <span class="bb-thumb-name">Jefferson</span>
+                        <span class="bb-thumb-role">Faixa Preta</span>
+                    </div>
+
+                    <div class="bb-thumb-item">
+                        <div class="bb-thumb-img">
+                            <img src="imagens/naldo.jpeg" alt="Naldo">
+                        </div>
+                        <span class="bb-thumb-name">Naldo</span>
+                        <span class="bb-thumb-role">Faixa Preta</span>
+                    </div>
+
                 </div>
 
-                <div style="text-align: center; margin-top: 35px;">
-                    <a href="blackbelts.html" class="botao" style="display: inline-block; padding: 14px 32px;">
-                        Ver Histórias e Detalhes
-                    </a>
-                </div>
+                <a href="blackbelts.html" class="botao" style="display: inline-block; padding: 14px 32px; margin-top: 15px;">
+                    Ver Biografia Completa
+                </a>
             </div>
         </section>
 
