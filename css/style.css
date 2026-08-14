@@ -1,27 +1,27 @@
 /* ==========================================================================
-   ALFA JIU JITSU ACADEMY - PREMIUM ONYX & GOLD THEME
+   ALFA JIU JITSU ACADEMY - CLEAN LIGHT & GOLD THEME
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-    /* Cores de Fundo (Preto Profundo + Grafite) */
-    --bg-body: #0A0A0C;
-    --bg-surface: #121215;
-    --bg-card: #18181C;
-    --bg-card-border: rgba(255, 255, 255, 0.08);
+    /* Cores de Fundo (Clean Light) */
+    --bg-body: #F8F9FA;
+    --bg-surface: #FFFFFF;
+    --bg-card: #FFFFFF;
+    --bg-card-border: #E2E8F0;
     
-    /* Dourado Nobre */
-    --gold-primary: #D4AF37;
-    --gold-hover: #F3E5AB;
-    --gold-glow: rgba(212, 175, 55, 0.25);
+    /* Dourado & Acentos */
+    --gold-primary: #C5A059;
+    --gold-dark: #A37F3E;
+    --gold-glow: rgba(197, 160, 89, 0.25);
     
-    /* Textos (Alto Contraste) */
-    --text-main: #FFFFFF;
-    --text-muted: #A1A1AA;
-    --text-dark: #0A0A0C;
+    /* Textos Clean (Alto Contraste) */
+    --text-main: #1A1D20;
+    --text-muted: #5A626A;
+    --text-light: #FFFFFF;
     
-    --green-accent: #25d366;
+    --green-accent: #25D366;
     
     --font-head: 'Bebas Neue', cursive, sans-serif;
     --font-body: 'Plus Jakarta Sans', sans-serif;
@@ -53,19 +53,21 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* --- HEADER & NAVEGAÇÃO INTEGRADOS --- */
+/* --- HEADER & MENU TRANSPARENTE SOBRE O VÍDEO --- */
 header {
-    background: #000000;
-    border-bottom: 1px solid var(--bg-card-border);
-    position: sticky;
+    position: absolute; /* Fica por cima do vídeo */
     top: 0;
+    left: 0;
+    width: 100%;
     z-index: 1000;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 100%);
+    padding: 10px 0;
 }
 
 nav {
     max-width: 1300px;
     margin: 0 auto;
-    padding: 18px 24px;
+    padding: 15px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -76,7 +78,7 @@ nav {
 /* Marca / Logo na navbar */
 .nav-brand, header h1 {
     font-family: var(--font-head);
-    font-size: 1.8rem;
+    font-size: 2rem;
     color: #FFFFFF;
     letter-spacing: 2px;
 }
@@ -88,12 +90,12 @@ nav {
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 22px;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
 nav a {
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.9);
     font-size: 0.82rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -103,61 +105,93 @@ nav a {
 
 nav a:hover, nav a.active {
     color: var(--gold-primary);
-    text-shadow: 0 0 10px var(--gold-glow);
+    text-shadow: 0 0 10px rgba(197, 160, 89, 0.5);
 }
 
-/* --- SEÇÃO HERO --- */
+/* --- SEÇÃO HERO COM VÍDEO DE FUNDO TOTAL --- */
 .hero {
-    min-height: 85vh;
+    position: relative;
+    min-height: 90vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 80px 20px;
-    background: linear-gradient(180deg, rgba(10, 10, 12, 0.75) 0%, rgba(10, 10, 12, 0.98) 100%),
-                url("../imagens/banner.jpg") center/cover no-repeat;
-    position: relative;
+    padding: 120px 20px 80px 20px;
+    overflow: hidden;
 }
 
-.hero img {
-    width: 190px;
+.hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+}
+
+/* Overlay sutil para destacar os textos sobre o vídeo */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 12, 15, 0.45); /* Escurece levemente o vídeo sem tirar o dinamismo */
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 800px;
+}
+
+.hero-content img {
+    width: 170px;
     max-width: 80%;
     height: auto;
-    margin-bottom: 25px;
-    filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.35));
+    margin-bottom: 20px;
+    filter: drop-shadow(0 4px 15px rgba(0,0,0,0.5));
 }
 
-.hero h1 {
+.hero-content h1 {
     font-family: var(--font-head);
-    font-size: clamp(3rem, 6vw, 4.5rem);
+    font-size: clamp(3rem, 6vw, 4.8rem);
     color: #FFFFFF;
     letter-spacing: 2px;
     line-height: 1;
-    margin-bottom: 12px;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+    margin-bottom: 10px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
 }
 
-.hero h2 {
-    font-size: 1.8rem;
+.hero-content h2 {
+    font-size: 1.5rem;
     color: var(--gold-primary);
     letter-spacing: 3px;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
+    font-weight: 700;
 }
 
-.hero p {
+.hero-content p {
     max-width: 650px;
     font-size: 1.1rem;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.9);
 }
 
 /* --- BOTÕES --- */
 .botao, .btn-whatsapp-hero {
     display: inline-block;
-    background: linear-gradient(135deg, #D4AF37 0%, #B49329 100%);
-    color: var(--text-dark);
-    padding: 16px 40px;
-    margin-top: 30px;
+    background: linear-gradient(135deg, #C5A059 0%, #A37F3E 100%);
+    color: #FFFFFF;
+    padding: 16px 38px;
+    margin-top: 25px;
     border-radius: 50px;
     font-family: var(--font-body);
     font-weight: 800;
@@ -165,21 +199,21 @@ nav a:hover, nav a.active {
     text-transform: uppercase;
     letter-spacing: 1.5px;
     transition: var(--transition-normal);
-    box-shadow: 0 4px 25px var(--gold-glow);
+    box-shadow: 0 4px 20px rgba(197, 160, 89, 0.4);
     border: none;
     cursor: pointer;
 }
 
 .botao:hover, .btn-whatsapp-hero:hover {
-    background: #FFFFFF;
-    color: var(--text-dark);
-    transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3);
+    background: #1A1D20;
+    color: #FFFFFF;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
-/* --- CARDS & ESTRUTURA GERAL --- */
+/* --- SEÇÕES CLEAN & CARDS ELEGANTES --- */
 section {
-    padding: 80px 8%;
+    padding: 90px 8%;
 }
 
 .card, .turma, .turma-card, .evento, .card-black-belt {
@@ -188,16 +222,16 @@ section {
     padding: 32px;
     border-radius: var(--radius-md);
     transition: var(--transition-normal);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
 }
 
 .card:hover, .turma:hover, .turma-card:hover, .evento:hover, .card-black-belt:hover {
-    transform: translateY(-8px);
-    border-color: rgba(212, 175, 55, 0.5);
-    box-shadow: 0 15px 35px rgba(212, 175, 55, 0.15);
+    transform: translateY(-6px);
+    border-color: var(--gold-primary);
+    box-shadow: 0 15px 35px rgba(197, 160, 89, 0.15);
 }
 
-/* --- SEÇÃO BLACK BELTS / PROFESSORES (CORREÇÃO DE IMAGEM) --- */
+/* --- FOTO DOS FAIXAS PRETAS (SEM CORTAR O ROSTO) --- */
 .black-belts-container, .professores {
     display: flex;
     justify-content: center;
@@ -206,14 +240,13 @@ section {
     margin-top: 40px;
 }
 
-/* Ajuste da imagem para focar no rosto e não cortar */
 .card-black-belt img, 
 .black-belt-foto img,
 .card-professor img {
     width: 100%;
-    height: 380px;                  /* Altura ideal estilo retrato/poster */
-    object-fit: cover;              /* Preenche a área sem distorcer */
-    object-position: top center;    /* <--- FORÇA O FOCO NO ROSTO/TOPO */
+    height: 380px;
+    object-fit: cover;
+    object-position: top center; /* Foco mantido no topo/rosto */
     border-radius: var(--radius-sm);
     border: 1px solid var(--bg-card-border);
     margin-bottom: 20px;
@@ -239,7 +272,7 @@ section {
     align-items: center;
     justify-content: center;
     color: #ffffff;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
     transition: var(--transition-normal);
 }
 
@@ -250,7 +283,7 @@ section {
 }
 
 .flutuante-btn:hover {
-    transform: scale(1.12);
+    transform: scale(1.1);
 }
 
 .flutuante-btn.whatsapp { background-color: var(--green-accent); }
@@ -259,21 +292,18 @@ section {
     background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
 }
 
-/* Footer */
+/* Footer Clean */
 footer {
-    background: #000000;
+    background: #1A1D20;
+    color: #FFFFFF;
     padding: 40px 20px;
     text-align: center;
-    border-top: 1px solid var(--bg-card-border);
 }
 
 @media (max-width: 768px) {
+    header { position: relative; background: #1A1D20; }
     nav { justify-content: center; text-align: center; }
     .nav-links { justify-content: center; gap: 12px; }
-    
-    .card-black-belt img, 
-    .black-belt-foto img,
-    .card-professor img {
-        height: 300px; /* Ajuste para telas de celular */
-    }
+    .hero { min-height: 75vh; padding-top: 60px; }
+    .card-black-belt img, .black-belt-foto img, .card-professor img { height: 300px; }
 }
