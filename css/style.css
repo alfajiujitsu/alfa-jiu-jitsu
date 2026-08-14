@@ -100,7 +100,7 @@ nav a {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1.2px;
-    text-decoration: none; /* Remove sublinhado padrão dos links */
+    text-decoration: none;
     transition: var(--transition-normal);
 }
 
@@ -128,7 +128,7 @@ nav a:hover, nav a.active {
     width: 100%;
     height: 100%;
     z-index: 1;
-    object-fit: cover; /* Garante preenchimento perfeito do container */
+    object-fit: cover;
 }
 
 /* Overlay sutil para destacar os textos sobre o vídeo */
@@ -138,7 +138,7 @@ nav a:hover, nav a.active {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(10, 12, 15, 0.5); /* Escurece levemente o vídeo */
+    background: rgba(10, 12, 15, 0.5);
     z-index: 2;
 }
 
@@ -231,7 +231,7 @@ section {
     box-shadow: 0 15px 35px rgba(197, 160, 89, 0.15);
 }
 
-/* --- FOTO DOS FAIXAS PRETAS (SEM CORTAR O ROSTO) --- */
+/* --- FOTO DOS FAIXAS PRETAS (PADRÃO PARA PÁGINAS INTERNAS) --- */
 .black-belts-container, .professores {
     display: flex;
     justify-content: center;
@@ -246,11 +246,72 @@ section {
     width: 100%;
     height: 380px;
     object-fit: cover;
-    object-position: top center; /* Foco mantido no topo/rosto */
+    object-position: top center;
     border-radius: var(--radius-sm);
     border: 1px solid var(--bg-card-border);
     margin-bottom: 20px;
     display: block;
+}
+
+/* --- BANNER BLACK BELT COM IMAGEM EM ZOOM DE FUNDO (HOME) --- */
+.blackbelt-hero-section {
+    position: relative;
+    min-height: 480px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 20px;
+    overflow: hidden;
+    margin: 40px 0;
+    border-top: 1px solid var(--bg-card-border);
+    border-bottom: 1px solid var(--bg-card-border);
+}
+
+.blackbelt-hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.blackbelt-hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    transform: scale(1.15);
+    filter: brightness(0.85);
+}
+
+.blackbelt-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(5,5,5,0.7) 0%, rgba(5,5,5,0.85) 100%);
+    z-index: 2;
+}
+
+.blackbelt-hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 800px;
+}
+
+.blackbelt-hero-content .section-title {
+    text-shadow: 0 4px 15px rgba(0,0,0,0.8);
+}
+
+.blackbelt-hero-content .section-subtitle {
+    color: #E4E4E7;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    font-size: 1.1rem;
+    margin-bottom: 20px;
 }
 
 /* --- BOTÕES FLUTUANTES --- */
@@ -327,104 +388,3 @@ footer {
         height: 300px; 
     }
 }
-/* --- ESTILO REFINADO PARA OS CARDS BANNERS --- */
-        .section-blackbelts-box {
-            padding: 60px 20px;
-        }
-
-        .banner-box {
-            background: rgba(18, 18, 20, 0.85);
-            border: 1px solid var(--gold-primary);
-            border-radius: 16px;
-            padding: 45px 30px;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.7);
-            text-align: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .bb-grid-container {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 16px;
-            margin: 20px 0;
-        }
-
-        .bb-card {
-            position: relative;
-            aspect-ratio: 3 / 4.2; /* Mantém a proporção vertical ideal do banner */
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid rgba(212, 175, 55, 0.25);
-            display: flex;
-            align-items: flex-end;
-            text-decoration: none;
-            transition: all 0.4s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-        }
-
-        .bb-bg-img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            transition: transform 0.5s ease;
-            z-index: 1;
-        }
-
-        .bb-card-overlay {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            padding: 20px 10px 12px 10px;
-            background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 70%, rgba(0,0,0,0.95) 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .bb-card-name {
-            font-family: var(--font-head);
-            font-size: 1.15rem;
-            color: #fff;
-            letter-spacing: 1px;
-            line-height: 1.1;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-        }
-
-        .bb-card-role {
-            font-size: 0.7rem;
-            color: var(--gold-primary);
-            text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            margin-top: 2px;
-        }
-
-        /* Efeitos ao passar o mouse */
-        .bb-card:hover {
-            transform: translateY(-6px);
-            border-color: var(--gold-primary);
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.35);
-        }
-
-        .bb-card:hover .bb-bg-img {
-            transform: scale(1.06);
-        }
-
-        /* Adaptabilidade para telas menores / celulares */
-        @media (max-width: 992px) {
-            .bb-grid-container {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (max-width: 600px) {
-            .bb-grid-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
