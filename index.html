@@ -5,6 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alfa Jiu Jitsu Academy | Início</title>
+    
+    <!-- Meta Tags para SEO e Redes Sociais (WhatsApp, Instagram, Facebook) -->
+    <meta name="description" content="Alfa Jiu Jitsu Academy em Joinville/SC. Disciplina, Respeito e Evolução. Agende sua aula experimental!">
+    <meta property="og:title" content="Alfa Jiu Jitsu Academy">
+    <meta property="og:description" content="Aulas de Jiu Jitsu para todas as idades em Joinville - SC. Agende uma aula experimental!">
+    <meta property="og:image" content="imagens/logo.jpeg">
+    <meta property="og:type" content="website">
 
     <!-- External CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -28,6 +35,10 @@
             --text-muted: #A1A1AA;
             --font-head: 'Bebas Neue', sans-serif;
             --font-body: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         * {
@@ -204,7 +215,7 @@
             justify-content: space-between;
         }
 
-        .turma-card:hover {
+        .turma-card:hover, .metodologia-card-item:hover {
             transform: translateY(-6px);
             border-color: rgba(212, 175, 55, 0.4);
             box-shadow: 0 12px 30px rgba(0,0,0,0.5);
@@ -358,6 +369,8 @@
         @media (max-width: 768px) {
             header { padding: 15px 20px; }
             .nav-container { flex-direction: column; gap: 15px; }
+            nav { justify-content: center; gap: 12px; }
+            nav a { font-size: 0.75rem; }
             .turma-card { width: 100%; }
         }
     </style>
@@ -522,9 +535,10 @@
 
             grid.innerHTML = '';
             items.forEach(item => {
+                const fotoSrc = item.foto || 'imagens/logo.jpeg';
                 grid.innerHTML += `
-                    <div style="background: var(--bg-card); border: 1px solid var(--bg-card-border); border-radius: 14px; overflow: hidden; text-align: left; backdrop-filter: blur(12px); transition: transform 0.3s ease;">
-                        <img src="${item.foto}" style="width: 100%; height: 200px; object-fit: cover;">
+                    <div class="metodologia-card-item" style="background: var(--bg-card); border: 1px solid var(--bg-card-border); border-radius: 14px; overflow: hidden; text-align: left; backdrop-filter: blur(12px); transition: transform 0.3s ease, border-color 0.3s ease;">
+                        <img src="${fotoSrc}" alt="${item.titulo}" style="width: 100%; height: 200px; object-fit: cover;" onerror="this.src='imagens/logo.jpeg';">
                         <div style="padding: 20px;">
                             <h3 style="color: var(--gold-primary); font-family: var(--font-head); font-size: 1.5rem; letter-spacing: 1px; margin-bottom: 8px;">${item.titulo}</h3>
                             <p style="color: var(--text-muted); line-height: 1.5; font-size: 0.9rem;">${item.descricao}</p>
