@@ -126,7 +126,7 @@
             color: var(--gold-primary);
         }
 
-        /* --- HERO SECTION COM VÍDEO DE FUNDO --- */
+        /* --- HERO SECTION --- */
         .hero {
             position: relative;
             min-height: 75vh;
@@ -254,7 +254,7 @@
             justify-content: space-between;
         }
 
-        .turma-card:hover, .metodologia-card-item:hover {
+        .turma-card:hover {
             transform: translateY(-6px);
             border-color: rgba(212, 175, 55, 0.4);
             box-shadow: 0 12px 30px rgba(0,0,0,0.5);
@@ -279,7 +279,6 @@
             color: var(--text-main);
         }
 
-        /* --- BOTÃO PADRÃO --- */
         .botao {
             display: block;
             text-align: center;
@@ -301,62 +300,87 @@
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
         }
 
-        /* --- SEÇÃO BANNER BLACK BELTS COM SLIDESHOW DE FUNDO --- */
-        .section-blackbelts-bg {
-            position: relative;
-            padding: 100px 20px;
-            z-index: 1;
+        /* --- SEÇÃO BLACK BELTS LADO A LADO --- */
+        .section-blackbelts-grid {
+            background: rgba(12, 12, 14, 0.8);
+            border-top: 1px solid var(--bg-card-border);
+            border-bottom: 1px solid var(--bg-card-border);
+            padding: 70px 20px;
+        }
+
+        .blackbelts-container {
+            max-width: 1250px;
+            margin: 0 auto;
+        }
+
+        .blackbelts-cards {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 35px;
+        }
+
+        .bb-card {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 16px;
+            overflow: hidden;
+            width: 220px;
+            text-align: center;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bb-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold-primary);
+            box-shadow: 0 12px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .bb-img-wrapper {
+            width: 100%;
+            height: 280px;
+            background: #000;
             overflow: hidden;
         }
 
-        /* Galeria de slides em background */
-        .bg-slideshow {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .bb-img-wrapper img {
             width: 100%;
             height: 100%;
-            z-index: -2;
+            object-fit: contain; /* Mantém a imagem inteira sem cortar */
+            object-position: center top;
+            transition: transform 0.4s ease;
         }
 
-        .bg-slideshow .slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            opacity: 0;
-            transition: opacity 1.2s ease-in-out;
+        .bb-card:hover .bb-img-wrapper img {
+            transform: scale(1.05);
         }
 
-        .bg-slideshow .slide.active {
-            opacity: 1;
+        .bb-info {
+            padding: 15px 12px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        /* Overlay escuro geral para a seção */
-        .section-blackbelts-bg::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.70); /* Ajuste o tom escuro aqui (0.70 = 70%) */
-            z-index: -1;
+        .bb-info h3 {
+            font-family: var(--font-head);
+            font-size: 1.4rem;
+            color: #fff;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
         }
 
-        .banner-box {
-            background: rgba(18, 18, 20, 0.7);
-            border: 1px solid var(--gold-primary);
-            border-radius: 16px;
-            padding: 45px 25px;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
-            text-align: center;
-            max-width: 1000px;
-            margin: 0 auto;
+        .bb-info p {
+            color: var(--gold-primary);
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         /* --- BOTÃO WHATSAPP HERO --- */
@@ -396,7 +420,7 @@
             opacity: 0.8;
         }
 
-        /* --- BOTÕES FLUTUANTES (INSTAGRAM & WHATSAPP) --- */
+        /* --- BOTÕES FLUTUANTES --- */
         .flutuantes-container {
             position: fixed;
             bottom: 25px;
@@ -459,6 +483,8 @@
             nav { justify-content: center; gap: 12px; }
             nav a { font-size: 0.75rem; }
             .turma-card { width: 100%; }
+            .bb-card { width: 45%; min-width: 150px; }
+            .bb-img-wrapper { height: 210px; }
         }
     </style>
 </head>
@@ -537,24 +563,71 @@
             </div>
         </section>
 
-        <!-- SEÇÃO BLACK BELTS COM SLIDESHOW DE FUNDO -->
-        <section class="section-blackbelts-bg">
-            <div class="bg-slideshow">
-                <div class="slide active" style="background-image: url('imagens/jean.jpeg');"></div>
-                <div class="slide" style="background-image: url('imagens/jeff.jpeg');"></div>
-                <div class="slide" style="background-image: url('imagens/naldo.jpeg');"></div>
-                <div class="slide" style="background-image: url('imagens/vilson.jpeg');"></div>
-                <div class="slide" style="background-image: url('imagens/zeca.jpeg');"></div>
-            </div>
-
-            <div class="banner-box">
-                <h2 class="section-title" style="margin-bottom: 12px;">🥋 Nossos Black Belts</h2>
-                <p class="section-subtitle" style="margin-bottom: 25px;">
-                    Conheça os mestres e professores graduados que lideram nossa jornada no Jiu Jitsu, suas histórias e trajetórias nos tatames.
+        <!-- SEÇÃO BLACK BELTS LADO A LADO -->
+        <section class="section-blackbelts-grid">
+            <div class="blackbelts-container">
+                <h2 class="section-title">🥋 Nossos Black Belts</h2>
+                <p class="section-subtitle">
+                    Conheça os mestres e professores graduados que lideram nossa jornada no Jiu Jitsu.
                 </p>
-                <a href="blackbelts.html" class="botao" style="display: inline-block; padding: 14px 32px;">
-                    Conhecer Black Belts
-                </a>
+
+                <div class="blackbelts-cards">
+                    <div class="bb-card">
+                        <div class="bb-img-wrapper">
+                            <img src="imagens/jean.jpeg" alt="Jean Andrade">
+                        </div>
+                        <div class="bb-info">
+                            <h3>Jean Andrade</h3>
+                            <p>Faixa Preta</p>
+                        </div>
+                    </div>
+
+                    <div class="bb-card">
+                        <div class="bb-img-wrapper">
+                            <img src="imagens/jeff.jpeg" alt="Jefferson">
+                        </div>
+                        <div class="bb-info">
+                            <h3>Jefferson</h3>
+                            <p>Faixa Preta</p>
+                        </div>
+                    </div>
+
+                    <div class="bb-card">
+                        <div class="bb-img-wrapper">
+                            <img src="imagens/naldo.jpeg" alt="Naldo">
+                        </div>
+                        <div class="bb-info">
+                            <h3>Naldo</h3>
+                            <p>Faixa Preta</p>
+                        </div>
+                    </div>
+
+                    <div class="bb-card">
+                        <div class="bb-img-wrapper">
+                            <img src="imagens/vilson.jpeg" alt="Vilson Fajardo">
+                        </div>
+                        <div class="bb-info">
+                            <h3>Vilson Fajardo</h3>
+                            <p>Faixa Preta</p>
+                        </div>
+                    </div>
+
+                    <div class="bb-card">
+                        <div class="bb-img-wrapper">
+                            <img src="imagens/zeca.jpeg" alt="Zeca">
+                        </div>
+                        <div class="bb-info">
+                            <h3>Zeca</h3>
+                            <p>Faixa Preta</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 35px;">
+                    <a href="blackbelts.html" class="botao" style="display: inline-block; padding: 14px 32px;">
+                        Ver Histórias e Detalhes
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -610,21 +683,6 @@
         <h3>ALFA BJJ JLLE</h3>
         <p>&copy; 2026 Alfa Jiu Jitsu Academy. Todos os direitos reservados.</p>
     </footer>
-
-    <!-- SCRIPT DO SLIDESHOW AUTOMÁTICO -->
-    <script>
-        const slides = document.querySelectorAll('.bg-slideshow .slide');
-        let currentSlide = 0;
-
-        function nextSlide() {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }
-
-        // Alterna a imagem de fundo a cada 3.5 segundos
-        setInterval(nextSlide, 3500);
-    </script>
 
 </body>
 </html>
