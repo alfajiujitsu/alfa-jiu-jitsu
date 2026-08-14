@@ -300,6 +300,66 @@
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
         }
 
+        /* --- BANNER BLACK BELT COM IMAGEM EM ZOOM DE FUNDO --- */
+        .blackbelt-hero-section {
+            position: relative;
+            min-height: 480px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 20px;
+            overflow: hidden;
+            border-top: 1px solid var(--bg-card-border);
+            border-bottom: 1px solid var(--bg-card-border);
+        }
+
+        .blackbelt-hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .blackbelt-hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 25%;
+            transform: scale(1.15);
+            filter: brightness(0.85);
+        }
+
+        .blackbelt-hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(5,5,5,0.7) 0%, rgba(5,5,5,0.85) 100%);
+            z-index: 2;
+        }
+
+        .blackbelt-hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 800px;
+        }
+
+        .blackbelt-hero-content .section-title {
+            text-shadow: 0 4px 15px rgba(0,0,0,0.8);
+        }
+
+        .blackbelt-hero-content .section-subtitle {
+            color: #E4E4E7;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
         /* --- BOTÃO WHATSAPP HERO & INSTAGRAM --- */
         .btn-whatsapp-hero {
             display: inline-block;
@@ -478,26 +538,20 @@
             </div>
         </section>
 
-        <!-- SEÇÃO NOSSOS BLACK BELTS (SOMENTE O VILSON) -->
-        <section class="section-blackbelts-box" style="text-align: center;">
-            <div class="banner-box">
-                <h2 class="section-title" style="margin-bottom: 8px;">🥋 Nossos Black Belts</h2>
-                <p class="section-subtitle" style="margin-bottom: 30px;">
+        <!-- SEÇÃO NOSSOS BLACK BELTS (BANNER COM IMAGEM DE FUNDO) -->
+        <section class="blackbelt-hero-section">
+            <div class="blackbelt-hero-bg">
+                <img src="imagens/vilson.jpeg" alt="Vilson Fajardo - Alfa Jiu Jitsu Academy">
+            </div>
+            <div class="blackbelt-hero-overlay"></div>
+            
+            <div class="blackbelt-hero-content">
+                <h2 class="section-title">🥋 Nossos Black Belts</h2>
+                <p class="section-subtitle">
                     Conheça os mestres e professores graduados que lideram nossa jornada no Jiu Jitsu.
                 </p>
-
-                <div class="bb-grid-container" style="display: flex; justify-content: center; align-items: center; margin-top: 25px;">
-                    <a href="blackbelts.html" class="bb-card" style="width: 280px; max-width: 100%;">
-                        <img src="imagens/vilson.jpeg" alt="Vilson Fajardo" class="bb-bg-img">
-                        <div class="bb-card-overlay">
-                            <span class="bb-card-name">Vilson Fajardo</span>
-                            <span class="bb-card-role">Faixa Preta</span>
-                        </div>
-                    </a>
-                </div>
-
-                <a href="blackbelts.html" class="botao" style="display: inline-block; padding: 14px 36px; margin-top: 35px;">
-                    Ver Biografia Completa
+                <a href="blackbelts.html" class="botao" style="display: inline-block; padding: 14px 36px; margin-top: 15px;">
+                    VER BIOGRAFIA COMPLETA
                 </a>
             </div>
         </section>
