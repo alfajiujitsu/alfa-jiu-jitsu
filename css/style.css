@@ -60,7 +60,7 @@ header {
     left: 0;
     width: 100%;
     z-index: 1000;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
     padding: 10px 0;
 }
 
@@ -100,6 +100,7 @@ nav a {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1.2px;
+    text-decoration: none; /* Remove sublinhado padrão dos links */
     transition: var(--transition-normal);
 }
 
@@ -122,15 +123,12 @@ nav a:hover, nav a.active {
 
 .hero-video {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: 1;
-    transform: translate(-50%, -50%);
-    object-fit: cover;
+    object-fit: cover; /* Garante preenchimento perfeito do container */
 }
 
 /* Overlay sutil para destacar os textos sobre o vídeo */
@@ -140,7 +138,7 @@ nav a:hover, nav a.active {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(10, 12, 15, 0.45); /* Escurece levemente o vídeo sem tirar o dinamismo */
+    background: rgba(10, 12, 15, 0.5); /* Escurece levemente o vídeo */
     z-index: 2;
 }
 
@@ -198,6 +196,7 @@ nav a:hover, nav a.active {
     font-size: 0.95rem;
     text-transform: uppercase;
     letter-spacing: 1.5px;
+    text-decoration: none;
     transition: var(--transition-normal);
     box-shadow: 0 4px 20px rgba(197, 160, 89, 0.4);
     border: none;
@@ -217,6 +216,7 @@ section {
 }
 
 .card, .turma, .turma-card, .evento, .card-black-belt {
+    position: relative;
     background: var(--bg-card);
     border: 1px solid var(--bg-card-border);
     padding: 32px;
@@ -272,6 +272,7 @@ section {
     align-items: center;
     justify-content: center;
     color: #ffffff;
+    text-decoration: none;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
     transition: var(--transition-normal);
 }
@@ -286,7 +287,9 @@ section {
     transform: scale(1.1);
 }
 
-.flutuante-btn.whatsapp { background-color: var(--green-accent); }
+.flutuante-btn.whatsapp { 
+    background-color: var(--green-accent); 
+}
 
 .flutuante-btn.instagram {
     background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
@@ -300,10 +303,27 @@ footer {
     text-align: center;
 }
 
+/* Responsividade */
 @media (max-width: 768px) {
-    header { position: relative; background: #1A1D20; }
-    nav { justify-content: center; text-align: center; }
-    .nav-links { justify-content: center; gap: 12px; }
-    .hero { min-height: 75vh; padding-top: 60px; }
-    .card-black-belt img, .black-belt-foto img, .card-professor img { height: 300px; }
+    header { 
+        position: relative; 
+        background: #1A1D20; 
+    }
+    nav { 
+        justify-content: center; 
+        text-align: center; 
+    }
+    .nav-links { 
+        justify-content: center; 
+        gap: 12px; 
+    }
+    .hero { 
+        min-height: 75vh; 
+        padding-top: 60px; 
+    }
+    .card-black-belt img, 
+    .black-belt-foto img, 
+    .card-professor img { 
+        height: 300px; 
+    }
 }
