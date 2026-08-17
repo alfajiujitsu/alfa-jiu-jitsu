@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alfa Jiu Jitsu Academy | Metodologia</title>
+    
+    <meta name="description" content="Conheça a metodologia de ensino da Alfa Jiu Jitsu Academy em Joinville. Programas para Kids, Iniciantes e Avançados.">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animacoes.css">
+    <link rel="stylesheet" href="css/responsivo.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-body: #050505;
+            --bg-card: rgba(18, 18, 20, 0.85);
+            --bg-card-border: rgba(255, 255, 255, 0.08);
+            --gold-primary: #D4AF37;
+            --gold-hover: #b49329;
+            --gold-glow: rgba(212, 175, 55, 0.18);
+            --text-main: #F4F4F5;
+            --text-muted: #A1A1AA;
+            --font-head: 'Bebas Neue', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- HEADER NAVIGATION --- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--bg-card-border);
+            padding: 18px 40px;
+        }
+
+        .nav-container {
+            max-width: 1250px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-head);
+            font-size: 1.8rem;
+            line-height: 0.9;
+            letter-spacing: 2px;
+            color: #fff;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .logo span { color: var(--gold-primary); }
+        .logo small {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            letter-spacing: 3px;
+            display: block;
+        }
+
+        nav {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--gold-primary);
+        }
+
+        /* --- BANNER HEADER --- */
+        .page-banner {
+            padding: 60px 20px 40px;
+            text-align: center;
+            background: radial-gradient(circle at top, var(--gold-glow) 0%, rgba(0,0,0,0) 70%);
+        }
+
+        .section-title {
+            font-family: var(--font-head);
+            font-size: clamp(2.5rem, 5vw, 3.8rem);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold-primary);
+            margin-bottom: 10px;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            max-width: 750px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            font-weight: 300;
+        }
+
+        /* --- PROGRAMAS & CARDS --- */
+        .grid-metodologia {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .card-metodologia {
+            background: var(--bg-card);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 16px;
+            padding: 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+
+        .card-metodologia:hover {
+            transform: translateY(-5px);
+            border-color: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .card-metodologia h3 {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--bg-card-border);
+            padding-bottom: 10px;
+        }
+
+        .card-metodologia ul {
+            list-style: none;
+            margin: 15px 0 25px 0;
+        }
+
+        .card-metodologia ul li {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .card-metodologia ul li::before {
+            content: "•";
+            color: var(--gold-primary);
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        .botao {
+            display: block;
+            text-align: center;
+            padding: 12px 20px;
+            background: var(--gold-primary);
+            color: #000;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .botao:hover {
+            background: var(--gold-hover);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            border-top: 1px solid var(--bg-card-border);
+            padding: 40px 20px;
+            text-align: center;
+            background: #000;
+            margin-top: 60px;
+        }
+
+        footer h3 {
+            font-family: var(--font-head);
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            color: var(--gold-primary);
+            margin-bottom: 8px;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            .nav-container { flex-direction: column; gap: 15px; }
+            nav { justify-content: center; gap: 12px; }
+            nav a { font-size: 0.75rem; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">ALFA<span>BJJ</span><small>JLLE</small></a>
+            <nav>
+                <a href="index.html">Início</a>
+                <a href="metodologia.html" class="active">Metodologia</a>
+                <a href="historia.html">História</a>
+                <a href="horarios.html">Horários</a>
+                <a href="eventos.html">Eventos</a>
+                <a href="graduacoes.html">Graduações</a>
+                <a href="blackbelts.html">Black Belts</a>
+                <a href="galeria.html">Galeria</a>
+                <a href="contato.html">Contato</a>
+                <a href="reservas.html">Shop & Área do Aluno</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-banner">
+            <h1 class="section-title">Nossa Metodologia</h1>
+            <p class="section-subtitle">
+                Na Alfa Jiu Jitsu Academy, o ensino é estruturado em módulos progressivos. Desenvolvemos desde a base técnica e defesa pessoal até o mais alto nível de performance competitiva.
+            </p>
+        </section>
+
+        <section class="grid-metodologia">
+            
+            <!-- PROGRAMA KIDS -->
+            <div class="card-metodologia">
+                <div>
+                    <h3>👶 Programa Alfa Kids</h3>
+                    <p style="color: var(--gold-primary); font-size: 0.85rem; font-weight: 700; text-transform: uppercase;">4 a 12 anos</p>
+                    <ul>
+                        <li>Foco em disciplina, respeito e autocontrole.</li>
+                        <li>Desenvolvimento da coordenação motora e agilidade.</li>
+                        <li>Prevenção e postura contra o Anti-Bullying.</li>
+                        <li>Aulas dinâmicas e lúdicas com fundamentos reais do Jiu Jitsu.</li>
+                    </ul>
+                </div>
+                <a href="https://wa.me/5547933827050?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20a%20turma%20Kids." target="_blank" class="botao">Agendar Aula Kids</a>
+            </div>
+
+            <!-- PROGRAMA FUNDAMENTOS -->
+            <div class="card-metodologia">
+                <div>
+                    <h3>🥋 Fundamentos (Iniciantes)</h3>
+                    <p style="color: var(--gold-primary); font-size: 0.85rem; font-weight: 700; text-transform: uppercase;">Faixa Branca / Iniciantes</p>
+                    <ul>
+                        <li>Construção sólida de bases, posturas e amortecimento de quedas.</li>
+                        <li>Técnicas fundamentais de defesa pessoal e saídas de sufoco.</li>
+                        <li>Entendimento das posições de domínio (Guarda, Montada, Costas).</li>
+                        <li>Ambiente seguro e progressivo para evitar lesões.</li>
+                    </ul>
+                </div>
+                <a href="https://wa.me/5547933827050?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20o%20programa%20Iniciantes." target="_blank" class="botao">Começar do Zero</a>
+            </div>
+
+            <!-- PROGRAMA AVANÇADO -->
+            <div class="card-metodologia">
+                <div>
+                    <h3>⚔️ Avançado & Competição</h3>
+                    <p style="color: var(--gold-primary); font-size: 0.85rem; font-weight: 700; text-transform: uppercase;">Graduados & Competidores</p>
+                    <ul>
+                        <li>Refinamento técnico e estratégias avançadas de combate.</li>
+                        <li>Transições complexas, raspagens e finalizações de alto nível.</li>
+                        <li>Preparação física específica, ritmo de luta e mentalidade.</li>
+                        <li>Treinos específicos de sparring e situações de campeonato.</li>
+                    </ul>
+                </div>
+                <a href="https://wa.me/5547933827050?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20o%20treino%20Avan%C3%A7ado." target="_blank" class="botao">Treinar no Avançado</a>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <h3>ALFA BJJ JLLE</h3>
+        <p>&copy; 2026 Alfa Jiu Jitsu Academy. Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+</html>
