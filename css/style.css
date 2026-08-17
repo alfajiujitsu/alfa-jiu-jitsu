@@ -231,7 +231,32 @@ section {
     box-shadow: 0 15px 35px rgba(197, 160, 89, 0.15);
 }
 
-/* --- FOTO DOS FAIXAS PRETAS (PADRÃO PARA PÁGINAS INTERNAS E CARDS) --- */
+/* --- CARD ESPECÍFICO TURMA KIDS (COM IMAGEM DE FUNDO) --- */
+.turma-card.turma-kids {
+    background-image: linear-gradient(180deg, rgba(10, 12, 15, 0.55) 0%, rgba(10, 12, 15, 0.92) 100%), url('imagens/kidsinicio.jpeg');
+    background-size: cover;
+    background-position: center;
+    color: var(--text-light);
+    overflow: hidden;
+    border-color: rgba(197, 160, 89, 0.4);
+}
+
+.turma-card.turma-kids h3 {
+    color: var(--gold-primary);
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+}
+
+.turma-card.turma-kids p {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.turma-card-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* --- FOTO DOS FAIXAS PRETAS --- */
 .black-belts-container, .professores {
     display: flex;
     justify-content: center;
@@ -390,18 +415,4 @@ footer {
         height: 320px; 
         object-position: center 15%;
     }
-}
-/* Card específico da turma Kids com a foto de fundo */
-.turma-card.turma-kids {
-    position: relative;
-    background-image: linear-gradient(180deg, rgba(5, 5, 5, 0.45) 0%, rgba(5, 5, 5, 0.90) 100%), url('imagens/kids-fundo.jpg');
-    background-size: cover;
-    background-position: center;
-    overflow: hidden;
-}
-
-/* Mantém o texto acima da imagem e da camada de sombra */
-.turma-card-content {
-    position: relative;
-    z-index: 2;
 }
