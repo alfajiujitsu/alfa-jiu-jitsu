@@ -231,7 +231,7 @@ section {
     box-shadow: 0 15px 35px rgba(197, 160, 89, 0.15);
 }
 
-/* --- FOTO DOS FAIXAS PRETAS (PADRÃO PARA PÁGINAS INTERNAS) --- */
+/* --- FOTO DOS FAIXAS PRETAS (PADRÃO PARA PÁGINAS INTERNAS E CARDS) --- */
 .black-belts-container, .professores {
     display: flex;
     justify-content: center;
@@ -242,11 +242,12 @@ section {
 
 .card-black-belt img, 
 .black-belt-foto img,
-.card-professor img {
+.card-professor img,
+.card-bb-img {
     width: 100%;
-    height: 380px;
+    height: 420px;
     object-fit: cover;
-    object-position: top center;
+    object-position: center 15%;
     border-radius: var(--radius-sm);
     border: 1px solid var(--bg-card-border);
     margin-bottom: 20px;
@@ -384,7 +385,9 @@ footer {
     }
     .card-black-belt img, 
     .black-belt-foto img, 
-    .card-professor img { 
-        height: 300px; 
+    .card-professor img,
+    .card-bb-img { 
+        height: 320px; 
+        object-position: center 15%;
     }
 }
