@@ -1,24 +1,24 @@
 /* ==========================================================================
-   ALFA JIU JITSU ACADEMY - CLEAN LIGHT & GOLD THEME
+   ALFA JIU JITSU ACADEMY - DARK & GOLD THEME
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-    /* Cores de Fundo (Clean Light) */
-    --bg-body: #F8F9FA;
-    --bg-surface: #FFFFFF;
-    --bg-card: #FFFFFF;
-    --bg-card-border: #E2E8F0; 
+    /* Cores de Fundo (Dark Theme) */
+    --bg-body: #050505;
+    --bg-surface: #0C0C0E;
+    --bg-card: rgba(18, 18, 20, 0.85);
+    --bg-card-border: rgba(255, 255, 255, 0.08); 
     
     /* Dourado & Acentos */
-    --gold-primary: #C5A059;
-    --gold-dark: #A37F3E;
-    --gold-glow: rgba(197, 160, 89, 0.25);
+    --gold-primary: #D4AF37;
+    --gold-hover: #B49329;
+    --gold-glow: rgba(212, 175, 55, 0.18);
     
-    /* Textos Clean (Alto Contraste) */
-    --text-main: #1A1D20;
-    --text-muted: #5A626A;
+    /* Textos */
+    --text-main: #F4F4F5;
+    --text-muted: #A1A1AA;
     --text-light: #FFFFFF;
     
     --green-accent: #25D366;
@@ -53,233 +53,309 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* --- HEADER & MENU TRANSPARENTE SOBRE O VÍDEO --- */
-header {
-    position: absolute; /* Fica por cima do vídeo */
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
-    padding: 10px 0;
+/* Background Glow */
+.glow-bg {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 500px;
+    background: radial-gradient(circle, var(--gold-glow) 0%, rgba(0,0,0,0) 70%);
+    z-index: 0;
+    pointer-events: none;
 }
 
-nav {
-    max-width: 1300px;
+/* --- HEADER & NAVIGATION --- */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(5, 5, 5, 0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--bg-card-border);
+    padding: 18px 40px;
+}
+
+.nav-container {
+    max-width: 1250px;
     margin: 0 auto;
-    padding: 15px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 15px;
 }
 
-/* Marca / Logo na navbar */
-.nav-brand, header h1 {
+.logo {
     font-family: var(--font-head);
-    font-size: 2rem;
-    color: #FFFFFF;
+    font-size: 1.8rem;
+    line-height: 0.9;
     letter-spacing: 2px;
+    color: #FFF;
+    text-decoration: none;
+    display: inline-block;
 }
 
-.nav-brand span, header h1 span {
+.logo span {
     color: var(--gold-primary);
 }
 
-.nav-links {
+.logo small {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    letter-spacing: 3px;
+    display: block;
+}
+
+nav {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 18px;
     flex-wrap: wrap;
 }
 
 nav a {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--text-muted);
     font-size: 0.82rem;
-    font-weight: 700;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1.2px;
+    letter-spacing: 1px;
     text-decoration: none;
     transition: var(--transition-normal);
 }
 
 nav a:hover, nav a.active {
     color: var(--gold-primary);
-    text-shadow: 0 0 10px rgba(197, 160, 89, 0.5);
 }
 
-/* --- SEÇÃO HERO COM VÍDEO DE FUNDO TOTAL --- */
+/* --- HERO SECTION --- */
 .hero {
     position: relative;
-    min-height: 90vh;
+    min-height: 75vh;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 120px 20px 80px 20px;
+    padding: 80px 20px;
     overflow: hidden;
+    z-index: 1;
 }
 
 .hero-video {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -2;
+    transform: translate(-50%, -50%);
     object-fit: cover;
 }
 
-/* Overlay sutil para destacar os textos sobre o vídeo */
 .hero-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(10, 12, 15, 0.5);
-    z-index: 2;
+    background: rgba(5, 5, 5, 0.65);
+    z-index: -1;
 }
 
 .hero-content {
     position: relative;
-    z-index: 3;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 800px;
 }
 
-.hero-content img {
-    width: 170px;
-    max-width: 80%;
-    height: auto;
+.logo-img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 2px solid var(--gold-primary);
+    object-fit: cover;
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
     margin-bottom: 20px;
-    filter: drop-shadow(0 4px 15px rgba(0,0,0,0.5));
 }
 
-.hero-content h1 {
+.hero h1 {
     font-family: var(--font-head);
-    font-size: clamp(3rem, 6vw, 4.8rem);
-    color: #FFFFFF;
-    letter-spacing: 2px;
-    line-height: 1;
-    margin-bottom: 10px;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
-}
-
-.hero-content h2 {
-    font-size: 1.5rem;
-    color: var(--gold-primary);
+    font-size: clamp(2.8rem, 6vw, 4.8rem);
+    line-height: 0.95;
     letter-spacing: 3px;
-    margin-bottom: 18px;
-    font-weight: 700;
-}
-
-.hero-content p {
-    max-width: 650px;
-    font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.9);
-}
-
-/* --- BOTÕES --- */
-.botao, .btn-whatsapp-hero {
-    display: inline-block;
-    background: linear-gradient(135deg, #C5A059 0%, #A37F3E 100%);
-    color: #FFFFFF;
-    padding: 16px 38px;
-    margin-top: 25px;
-    border-radius: 50px;
-    font-family: var(--font-body);
-    font-weight: 800;
-    font-size: 0.95rem;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
-    text-decoration: none;
-    transition: var(--transition-normal);
-    box-shadow: 0 4px 20px rgba(197, 160, 89, 0.4);
-    border: none;
-    cursor: pointer;
+    margin-bottom: 10px;
+    background: linear-gradient(180deg, #FFFFFF 0%, #A1A1AA 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.botao:hover, .btn-whatsapp-hero:hover {
-    background: #1A1D20;
-    color: #FFFFFF;
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+.hero p.slogan {
+    color: var(--gold-primary);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
 }
 
-/* --- SEÇÕES CLEAN & CARDS ELEGANTES --- */
+/* --- SEÇÕES GERAIS --- */
 section {
-    padding: 90px 8%;
+    padding: 60px 20px;
+    position: relative;
+    z-index: 1;
 }
 
-.card, .turma, .turma-card, .evento, .card-black-belt {
-    position: relative;
+.section-title {
+    font-family: var(--font-head);
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold-primary);
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.section-subtitle {
+    color: var(--text-muted);
+    max-width: 700px;
+    margin: 0 auto 35px auto;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+/* --- CARDS & TURMAS --- */
+.turmas-bg {
+    background: rgba(12, 12, 14, 0.6);
+    border-top: 1px solid var(--bg-card-border);
+    border-bottom: 1px solid var(--bg-card-border);
+}
+
+.cards-turmas {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.turma-card {
     background: var(--bg-card);
     border: 1px solid var(--bg-card-border);
-    padding: 32px;
-    border-radius: var(--radius-md);
+    border-radius: 16px;
+    padding: 30px;
+    width: 320px;
+    backdrop-filter: blur(12px);
+    text-align: left;
     transition: var(--transition-normal);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.card:hover, .turma:hover, .turma-card:hover, .evento:hover, .card-black-belt:hover {
+.turma-card:hover {
     transform: translateY(-6px);
-    border-color: var(--gold-primary);
-    box-shadow: 0 15px 35px rgba(197, 160, 89, 0.15);
+    border-color: rgba(212, 175, 55, 0.4);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
 }
 
-/* --- CARD ESPECÍFICO TURMA KIDS (COM IMAGEM DE FUNDO) --- */
+.turma-card h3 {
+    font-family: var(--font-head);
+    font-size: 1.8rem;
+    color: #FFF;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--bg-card-border);
+    padding-bottom: 8px;
+}
+
+.turma-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+}
+
+.turma-card p strong {
+    color: var(--text-main);
+}
+
+/* Card Específico Turma Kids */
 .turma-card.turma-kids {
-    background-image: linear-gradient(180deg, rgba(10, 12, 15, 0.55) 0%, rgba(10, 12, 15, 0.92) 100%), url('imagens/kidsinicio.jpeg');
+    background-image: linear-gradient(180deg, rgba(10, 12, 15, 0.55) 0%, rgba(10, 12, 15, 0.92) 100%), url('../imagens/kidsinicio.jpeg');
     background-size: cover;
     background-position: center;
-    color: var(--text-light);
-    overflow: hidden;
-    border-color: rgba(197, 160, 89, 0.4);
+    border-color: rgba(212, 175, 55, 0.4);
 }
 
 .turma-card.turma-kids h3 {
     color: var(--gold-primary);
-    font-size: 1.8rem;
-    margin-bottom: 12px;
 }
 
-.turma-card.turma-kids p {
-    color: rgba(255, 255, 255, 0.9);
-}
-
-.turma-card-content {
-    position: relative;
-    z-index: 2;
-}
-
-/* --- FOTO DOS FAIXAS PRETAS --- */
-.black-belts-container, .professores {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-    margin-top: 40px;
-}
-
-.card-black-belt img, 
-.black-belt-foto img,
-.card-professor img,
-.card-bb-img {
-    width: 100%;
-    height: 420px;
-    object-fit: cover;
-    object-position: center 15%;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--bg-card-border);
-    margin-bottom: 20px;
+/* --- BOTÕES --- */
+.botao {
     display: block;
+    text-align: center;
+    margin-top: 20px;
+    padding: 12px 20px;
+    background: var(--gold-primary);
+    color: #000;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: var(--transition-normal);
+    border: none;
+    cursor: pointer;
 }
 
-/* --- BANNER BLACK BELT COM IMAGEM EM ZOOM DE FUNDO (HOME) --- */
+.botao:hover {
+    background: var(--gold-hover);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+.btn-whatsapp-hero {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 16px 36px;
+    background: var(--gold-primary);
+    color: #000;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    border-radius: 50px;
+    transition: var(--transition-normal);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.25);
+    text-transform: uppercase;
+}
+
+.btn-whatsapp-hero:hover {
+    background: var(--gold-hover);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+}
+
+.instagram-chamada {
+    display: inline-block;
+    margin-top: 20px;
+    color: var(--gold-primary);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: opacity 0.3s;
+}
+
+.instagram-chamada:hover {
+    opacity: 0.8;
+}
+
+/* --- BANNER BLACK BELT HERO --- */
 .blackbelt-hero-section {
     position: relative;
     min-height: 480px;
@@ -289,7 +365,6 @@ section {
     text-align: center;
     padding: 60px 20px;
     overflow: hidden;
-    margin: 40px 0;
     border-top: 1px solid var(--bg-card-border);
     border-bottom: 1px solid var(--bg-card-border);
 }
@@ -308,7 +383,7 @@ section {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 20%;
+    object-position: center 25%;
     transform: scale(1.15);
     filter: brightness(0.85);
 }
@@ -347,26 +422,26 @@ section {
     right: 25px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    z-index: 9999;
+    gap: 12px;
+    z-index: 999;
 }
 
 .flutuante-btn {
-    width: 55px;
-    height: 55px;
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #ffffff;
+    color: #FFF;
     text-decoration: none;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
     transition: var(--transition-normal);
 }
 
 .flutuante-btn svg {
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     fill: currentColor;
 }
 
@@ -374,45 +449,40 @@ section {
     transform: scale(1.1);
 }
 
-.flutuante-btn.whatsapp { 
-    background-color: var(--green-accent); 
-}
-
 .flutuante-btn.instagram {
     background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
 }
 
-/* Footer Clean */
+.flutuante-btn.whatsapp {
+    background-color: var(--green-accent);
+}
+
+/* --- FOOTER --- */
 footer {
-    background: #1A1D20;
-    color: #FFFFFF;
+    border-top: 1px solid var(--bg-card-border);
     padding: 40px 20px;
     text-align: center;
+    background: #000;
+}
+
+footer h3 {
+    font-family: var(--font-head);
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    color: var(--gold-primary);
+    margin-bottom: 8px;
+}
+
+footer p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
 }
 
 /* Responsividade */
 @media (max-width: 768px) {
-    header { 
-        position: relative; 
-        background: #1A1D20; 
-    }
-    nav { 
-        justify-content: center; 
-        text-align: center; 
-    }
-    .nav-links { 
-        justify-content: center; 
-        gap: 12px; 
-    }
-    .hero { 
-        min-height: 75vh; 
-        padding-top: 60px; 
-    }
-    .card-black-belt img, 
-    .black-belt-foto img, 
-    .card-professor img,
-    .card-bb-img { 
-        height: 320px; 
-        object-position: center 15%;
-    }
+    header { padding: 15px 20px; }
+    .nav-container { flex-direction: column; gap: 15px; }
+    nav { justify-content: center; gap: 12px; }
+    nav a { font-size: 0.75rem; }
+    .turma-card { width: 100%; }
 }
