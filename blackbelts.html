@@ -109,14 +109,16 @@
         }
 
         .hero-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 1;
-        }
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  object-fit: cover;
+  /* Alinha a imagem no topo para não cortar as cabeças/rostos */
+  object-position: center 20%; 
+}
 
         .hero-overlay {
             position: absolute;
