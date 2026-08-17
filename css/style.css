@@ -391,3 +391,17 @@ footer {
         object-position: center 15%;
     }
 }
+/* Card específico da turma Kids com a foto de fundo */
+.turma-card.turma-kids {
+    position: relative;
+    background-image: linear-gradient(180deg, rgba(5, 5, 5, 0.45) 0%, rgba(5, 5, 5, 0.90) 100%), url('imagens/kids-fundo.jpg');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+}
+
+/* Mantém o texto acima da imagem e da camada de sombra */
+.turma-card-content {
+    position: relative;
+    z-index: 2;
+}
