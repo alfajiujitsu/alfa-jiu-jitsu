@@ -6,395 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galeria de Fotos | Alfa Jiu Jitsu Academy</title>
     
-    <!-- Google Fonts: Bebas Neue + Plus Jakarta Sans -->
+    <meta name="description" content="Confira a galeria de fotos de treinos, graduações, campeonatos e eventos da Alfa Jiu Jitsu Academy.">
+
+    <!-- CSS Externo -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animacoes.css">
+    <link rel="stylesheet" href="css/responsivo.css">
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- SDK Oficial do Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <style>
-        :root {
-            --bg-body: #050505;
-            --bg-card: rgba(18, 18, 20, 0.75);
-            --bg-card-border: rgba(255, 255, 255, 0.08);
-            --gold-primary: #D4AF37;
-            --gold-glow: rgba(212, 175, 55, 0.15);
-            --text-main: #F4F4F5;
-            --text-muted: #A1A1AA;
-            --font-head: 'Bebas Neue', sans-serif;
-            --font-body: 'Plus Jakarta Sans', sans-serif;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: var(--font-body);
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* --- BACKGROUND GLOW EFFECT --- */
-        .glow-bg {
-            position: absolute;
-            top: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 900px;
-            height: 450px;
-            background: radial-gradient(circle, var(--gold-glow) 0%, rgba(0,0,0,0) 70%);
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        /* --- HEADER NAVIGATION --- */
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(5, 5, 5, 0.85);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--bg-card-border);
-            padding: 18px 40px;
-        }
-
-        .nav-container {
-            max-width: 1250px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: var(--font-head);
-            font-size: 2rem;
-            letter-spacing: 2px;
-            color: #fff;
-            text-decoration: none;
-        }
-
-        .logo span {
-            color: var(--gold-primary);
-        }
-
-        nav {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        nav a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-        }
-
-        nav a:hover, nav a.active {
-            color: var(--gold-primary);
-        }
-
-        /* --- HERO SECTION --- */
-        .hero {
-            position: relative;
-            padding: 70px 20px 30px 20px;
-            text-align: center;
-            z-index: 1;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            padding: 6px 18px;
-            border-radius: 100px;
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid var(--gold-primary);
-            color: var(--gold-primary);
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-
-        .hero h1 {
-            font-family: var(--font-head);
-            font-size: clamp(3rem, 6vw, 5rem);
-            line-height: 0.95;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-            background: linear-gradient(180deg, #FFFFFF 0%, #A1A1AA 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            max-width: 600px;
-            margin: 0 auto;
-            color: var(--text-muted);
-            font-size: 1.05rem;
-            font-weight: 300;
-        }
-
-        /* --- MAIN CONTAINER --- */
-        .container {
-            max-width: 1250px;
-            margin: 0 auto;
-            padding: 20px 20px 100px 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* --- FILTROS BAR --- */
-        .filtros-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-            background: var(--bg-card);
-            border: 1px solid var(--bg-card-border);
-            padding: 16px 24px;
-            border-radius: 16px;
-            backdrop-filter: blur(12px);
-            margin-bottom: 40px;
-        }
-
-        .filtros {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .filtros button {
-            padding: 10px 20px;
-            border-radius: 100px;
-            border: 1px solid var(--bg-card-border);
-            background: rgba(255, 255, 255, 0.03);
-            color: var(--text-muted);
-            cursor: pointer;
-            font-family: var(--font-body);
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .filtros button:hover {
-            border-color: rgba(212, 175, 55, 0.5);
-            color: var(--gold-primary);
-            background: rgba(212, 175, 55, 0.05);
-        }
-
-        .filtros button.ativo {
-            background: var(--gold-primary);
-            color: #000;
-            border-color: var(--gold-primary);
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-        }
-
-        .filtro-mes-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .filtro-mes {
-            padding: 10px 18px;
-            border-radius: 100px;
-            border: 1px solid var(--bg-card-border);
-            background-color: #121214;
-            color: var(--text-main);
-            font-family: var(--font-body);
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .filtro-mes:focus, .filtro-mes:hover {
-            border-color: var(--gold-primary);
-        }
-
-        /* --- GALERIA GRID --- */
-        .galeria {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            min-height: 300px;
-        }
-
-        .foto {
-            position: relative;
-            border-radius: 16px;
-            overflow: hidden;
-            background: var(--bg-card);
-            border: 1px solid var(--bg-card-border);
-            aspect-ratio: 4 / 3;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .foto img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-
-        .foto::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.7) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .foto:hover {
-            transform: translateY(-5px);
-            border-color: rgba(212, 175, 55, 0.4);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .foto:hover img {
-            transform: scale(1.08);
-        }
-
-        .foto:hover::after {
-            opacity: 1;
-        }
-
-        /* MSG CARREGANDO OU VAZIO */
-        #carregando, .msg-status {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            font-weight: 400;
-            background: var(--bg-card);
-            border: 1px dashed var(--bg-card-border);
-            border-radius: 16px;
-        }
-
-        /* --- LIGHTBOX / VISUALIZADOR --- */
-        .visualizador {
-            position: fixed;
-            inset: 0;
-            z-index: 1000;
-            background: rgba(0, 0, 0, 0.92);
-            backdrop-filter: blur(20px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .visualizador img {
-            max-width: 90vw;
-            max-height: 85vh;
-            border-radius: 12px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
-            object-fit: contain;
-            user-select: none;
-        }
-
-        .visualizador .fechar {
-            position: absolute;
-            top: 25px;
-            right: 30px;
-            font-size: 2.2rem;
-            color: #fff;
-            cursor: pointer;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            line-height: 0;
-        }
-
-        .visualizador .fechar:hover {
-            background: var(--gold-primary);
-            color: #000;
-        }
-
-        .visualizador .anterior, .visualizador .proxima {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: #fff;
-            font-size: 1.5rem;
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .visualizador .anterior { left: 30px; }
-        .visualizador .proxima { right: 30px; }
-
-        .visualizador .anterior:hover, .visualizador .proxima:hover {
-            background: var(--gold-primary);
-            color: #000;
-            border-color: var(--gold-primary);
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            border-top: 1px solid var(--bg-card-border);
-            padding: 50px 20px;
-            text-align: center;
-            background: #000;
-        }
-
-        footer h2 {
-            font-family: var(--font-head);
-            font-size: 1.8rem;
-            letter-spacing: 2px;
-            color: var(--gold-primary);
-            margin-bottom: 8px;
-        }
-
-        footer p {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        @media (max-width: 768px) {
-            header { padding: 15px 20px; }
-            .nav-container { flex-direction: column; gap: 15px; }
-            .filtros-container { flex-direction: column; align-items: stretch; }
-            .filtros { justify-content: center; }
-            .filtro-mes-wrapper { justify-content: center; }
-            .visualizador .anterior { left: 10px; }
-            .visualizador .proxima { right: 10px; }
-        }
-    </style>
 </head>
 
 <body>
@@ -404,35 +29,38 @@
     <!-- HEADER NAVIGATION -->
     <header>
         <div class="nav-container">
-            <a href="index.html" class="logo">ALFA<span>HQ</span></a>
-             <nav>
+            <a href="index.html" class="logo">ALFA<span>BJJ</span><small>JLLE</small></a>
+            <nav>
                 <a href="index.html">Início</a>
-                <a href="index.html#metodologia">Metodologia</a>
+                <a href="metodologia.html">Metodologia</a>
                 <a href="historia.html">História</a>
                 <a href="horarios.html">Horários</a>
                 <a href="eventos.html">Eventos</a>
                 <a href="graduacoes.html">Graduações</a>
                 <a href="blackbelts.html">Black Belts</a>
-                <a href="galeria.html">Galeria</a>
+                <a href="galeria.html" class="active">Galeria</a>
                 <a href="contato.html">Contato</a>
-                <a href="reservas.html" class="active">Shop & Área do Aluno</a>
+                <a href="reservas.html">Shop & Área do Aluno</a>
             </nav>
         </div>
     </header>
 
     <!-- HERO SECTION -->
     <section class="hero">
-        <span class="hero-badge">Acervo de Registros</span>
-        <h1>Galeria de Fotos</h1>
-        <p>Momentos marcantes da nossa equipe, atletas e alunos dentro e fora do tatame.</p>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <span class="hero-badge">Acervo de Registros</span>
+            <h1>Galeria de Fotos</h1>
+            <p>Momentos marcantes da nossa equipe, atletas e alunos dentro e fora do tatame.</p>
+        </div>
     </section>
 
     <!-- MAIN CONTAINER -->
     <main class="container">
 
         <!-- FILTROS -->
-        <div class="filtros-container">
-            <div class="filtros">
+        <div class="filtros-container" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; background: #ffffff; border: 1px solid var(--border-color); padding: 16px 24px; border-radius: 16px; box-shadow: var(--shadow-sm); margin-bottom: 40px;">
+            <div class="filtros" style="display: flex; flex-wrap: wrap; gap: 10px;">
                 <button id="btn-todos" onclick="filtrarCategoria('todos')">Todos</button>
                 <button id="btn-kids" onclick="filtrarCategoria('kids')">Kids</button>
                 <button id="btn-adultos" onclick="filtrarCategoria('adultos')">Adultos</button>
@@ -441,8 +69,8 @@
                 <button id="btn-campeonatos" onclick="filtrarCategoria('campeonatos')">Campeonatos</button>
             </div>
 
-            <div class="filtro-mes-wrapper">
-                <select id="selectMes" class="filtro-mes" onchange="filtrarMes(this.value)">
+            <div class="filtro-mes-wrapper" style="display: flex; align-items: center; gap: 10px;">
+                <select id="selectMes" class="filtro-mes" onchange="filtrarMes(this.value)" style="padding: 10px 18px; border-radius: 100px; border: 1px solid var(--border-color); background-color: #ffffff; color: var(--text-main); font-family: var(--font-body); font-size: 0.85rem; font-weight: 600; cursor: pointer; outline: none; transition: all 0.3s ease;">
                     <option value="todos">📅 Todos os Meses</option>
                     <option value="01-janeiro">Janeiro</option>
                     <option value="02-fevereiro">Fevereiro</option>
@@ -461,31 +89,32 @@
         </div>
 
         <!-- GRID DA GALERIA -->
-        <div class="galeria" id="galeriaFotos">
-            <p id="carregando">Carregando acervo de fotos...</p>
+        <div class="galeria" id="galeriaFotos" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; min-height: 300px;">
+            <p id="carregando" style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-muted); font-size: 1.1rem; background: #ffffff; border: 1px dashed var(--border-color); border-radius: 16px;">Carregando acervo de fotos...</p>
         </div>
 
     </main>
 
     <!-- LIGHTBOX / VISUALIZADOR -->
-    <div id="visualizador" class="visualizador">
-        <span class="fechar" onclick="fecharFoto()">&times;</span>
-        <button class="anterior" onclick="fotoAnterior()">&#10094;</button>
-        <img id="fotoGrande" src="" alt="Foto expandida">
-        <button class="proxima" onclick="proximaFoto()">&#10095;</button>
+    <div id="visualizador" class="visualizador" style="position: fixed; inset: 0; z-index: 1000; background: rgba(0, 0, 0, 0.92); backdrop-filter: blur(20px); display: none; justify-content: center; align-items: center; padding: 20px;">
+        <span class="fechar" onclick="fecharFoto()" style="position: absolute; top: 25px; right: 30px; font-size: 2.2rem; color: #fff; cursor: pointer; width: 45px; height: 45px; border-radius: 50%; background: rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;">&times;</span>
+        <button class="anterior" onclick="fotoAnterior()" style="position: absolute; top: 50%; left: 30px; transform: translateY(-50%); background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.15); color: #fff; font-size: 1.5rem; width: 55px; height: 55px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">&#10094;</button>
+        <img id="fotoGrande" src="" alt="Foto expandida" style="max-width: 90vw; max-height: 85vh; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); object-fit: contain;">
+        <button class="proxima" onclick="proximaFoto()" style="position: absolute; top: 50%; right: 30px; transform: translateY(-50%); background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.15); color: #fff; font-size: 1.5rem; width: 55px; height: 55px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;">&#10095;</button>
     </div>
 
     <!-- FOOTER -->
     <footer>
-        <h2>ALFA JIU JITSU ACADEMY</h2>
+        <h2>ALFA BJJ JLLE</h2>
         <p>Disciplina • Respeito • Evolução</p>
-        <p style="margin-top: 15px; opacity: 0.5;">© 2026 Alfa Jiu Jitsu Academy. Todos os direitos reservados.</p>
+        <p style="margin-top: 5px;">Joinville - Santa Catarina</p>
+        <p style="margin-top: 15px; color: var(--text-muted); font-size: 0.85rem;">&copy; 2026 Todos os direitos reservados.</p>
     </footer>
 
-    <!-- SCRIPT ORIGINAL COM MANTIMENTO INTEGRAL DA LÓGICA SUPABASE -->
+    <!-- SCRIPT DE LÓGICA DO SUPABASE -->
     <script>
         const SUPABASE_URL = "https://zlfcnqjcxflcecrcfhyc.supabase.co";
-        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpsZmNucWpjeGZsY2VjcmNmaHljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzODY1MjUsImV4cCI6MjEwMTk2MjUyNX0.YtNYhsM_ctV2HpsGJJOlSzLS_v_4vGp-82aFTaqibaI"; 
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpsZmNucWpjeGZsY2VjcmNmaHljIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzORDU2MjUsImV4cCI6MjEwMTk2MjUyNX0.YtNYhsM_ctV2HpsGJJOlSzLS_v_4vGp-82aFTaqibaI"; 
         const BUCKET = "galeria";
 
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -497,7 +126,6 @@
         let fotosVisiveis = [];
         let fotoAtual = 0;
 
-        // Captura o parâmetro '?categoria=...' da URL logo na abertura da página
         function obterCategoriaUrl() {
             const params = new URLSearchParams(window.location.search);
             const cat = params.get("categoria");
@@ -514,7 +142,7 @@
             atualizarBotoesCategoria();
 
             const galeria = document.getElementById("galeriaFotos");
-            galeria.innerHTML = '<p id="carregando">Carregando acervo de fotos...</p>';
+            galeria.innerHTML = '<p id="carregando" style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-muted); font-size: 1.1rem; background: #ffffff; border: 1px dashed var(--border-color); border-radius: 16px;">Carregando acervo de fotos...</p>';
             let totalFotos = 0;
 
             for (const cat of listaCategorias) {
@@ -528,7 +156,6 @@
                 for (const item of itens) {
                     if (!item.name || item.name === ".emptyFolderPlaceholder") continue;
 
-                    // Se for subpasta de mês
                     if (!item.id) {
                         const { data: fotosSub } = await supabaseClient
                             .storage
@@ -546,7 +173,6 @@
                             });
                         }
                     } else {
-                        // Se for arquivo direto na raiz da categoria
                         if (eImagem(item.name)) {
                             const path = `${cat}/${item.name}`;
                             const url = getUrlPublica(path);
@@ -557,12 +183,11 @@
                 }
             }
 
-            // Remove a mensagem de carregando
             const msgCarregando = document.getElementById("carregando");
             if (msgCarregando) msgCarregando.remove();
 
             if (totalFotos === 0) {
-                galeria.innerHTML = '<p class="msg-status">Nenhuma foto encontrada nas pastas da galeria.</p>';
+                galeria.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-muted); font-size: 1.1rem; background: #ffffff; border: 1px dashed var(--border-color); border-radius: 16px;">Nenhuma foto encontrada nas pastas da galeria.</p>';
             } else {
                 aplicarFiltros();
             }
@@ -583,6 +208,7 @@
             const div = document.createElement("div");
 
             div.className = "foto";
+            div.style.cssText = "position: relative; border-radius: 16px; overflow: hidden; background: #ffffff; border: 1px solid var(--border-color); aspect-ratio: 4 / 3; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;";
             div.setAttribute("data-categoria", categoria.toLowerCase().trim());
             div.setAttribute("data-mes", mes.toLowerCase().trim());
 
@@ -590,6 +216,7 @@
             img.src = url;
             img.alt = `Foto ${categoria}`;
             img.loading = "lazy";
+            img.style.cssText = "width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease;";
 
             img.onclick = function() {
                 abrirFoto(img);
@@ -599,9 +226,6 @@
             galeria.appendChild(div);
         }
 
-        /* ================================
-           LÓGICA DE FILTRAGEM
-        ================================ */
         function filtrarCategoria(categoria) {
             categoriaAtiva = categoria.toLowerCase().trim();
             aplicarFiltros();
@@ -650,9 +274,6 @@
             });
         }
 
-        /* ================================
-           LIGHTBOX
-        ================================ */
         function abrirFoto(imagem) {
             atualizarFotosVisiveis();
             fotoAtual = fotosVisiveis.findIndex(foto => foto.querySelector("img") === imagem);
@@ -684,7 +305,6 @@
             document.getElementById("visualizador").style.display = "none";
         }
 
-        // Suporte a atalhos de teclado para o Lightbox
         document.addEventListener("keydown", function(e) {
             const visualizador = document.getElementById("visualizador");
             if (visualizador.style.display === "flex") {
@@ -694,7 +314,6 @@
             }
         });
 
-        // Inicia o carregamento
         carregarFotos();
     </script>
 
