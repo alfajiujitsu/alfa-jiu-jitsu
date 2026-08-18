@@ -6,357 +6,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Black Belts | Alfa Jiu Jitsu Academy</title>
     
-    <!-- Google Fonts: Bebas Neue (Títulos Brutalistas) + Plus Jakarta Sans (Texto Ultra Clean) -->
+    <meta name="description" content="Conheça os mestres e professores faixa preta da Alfa Jiu Jitsu Academy.">
+
+    <!-- CSS Externo -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animacoes.css">
+    <link rel="stylesheet" href="css/responsivo.css">
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --bg-body: #050505;
-            --bg-card: rgba(18, 18, 20, 0.75);
-            --bg-card-border: rgba(255, 255, 255, 0.08);
-            --gold-primary: #D4AF37;
-            --gold-glow: rgba(212, 175, 55, 0.2);
-            --red-belt: #B22222;
-            --text-main: #F4F4F5;
-            --text-muted: #A1A1AA;
-            --font-head: 'Bebas Neue', sans-serif;
-            --font-body: 'Plus Jakarta Sans', sans-serif;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: var(--font-body);
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* --- HEADER NAVIGATION (TRANSPARENTE SOBRE O VÍDEO) --- */
-        header {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 100;
-            background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
-            padding: 20px 40px;
-        }
-
-        .header-container {
-            max-width: 1250px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: var(--font-head);
-            font-size: 2rem;
-            letter-spacing: 2px;
-            color: #fff;
-            text-decoration: none;
-        }
-
-        .logo span {
-            color: var(--gold-primary);
-        }
-
-        .btn-voltar {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(0, 0, 0, 0.4);
-            color: var(--text-main);
-            border: 1px solid var(--bg-card-border);
-            padding: 10px 22px;
-            border-radius: 100px;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            backdrop-filter: blur(8px);
-            transition: all 0.3s ease;
-        }
-
-        .btn-voltar:hover {
-            border-color: var(--gold-primary);
-            color: var(--gold-primary);
-            background: rgba(212, 175, 55, 0.15);
-            transform: translateX(-3px);
-        }
-
-        /* --- HERO SECTION COM VÍDEO --- */
-        .hero {
-            position: relative;
-            min-height: 70vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 120px 20px 60px 20px;
-            overflow: hidden;
-        }
-
-        .hero-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  object-fit: cover;
-  /* Alinha a imagem no topo para não cortar as cabeças/rostos */
-  object-position: center 20%; 
-}
-
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, rgba(5, 5, 5, 0.5) 0%, rgba(5, 5, 5, 0.95) 100%);
-            z-index: 2;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 3;
-            max-width: 800px;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            padding: 6px 18px;
-            border-radius: 100px;
-            background: rgba(212, 175, 55, 0.15);
-            border: 1px solid var(--gold-primary);
-            color: var(--gold-primary);
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            backdrop-filter: blur(4px);
-        }
-
-        .hero h1 {
-            font-family: var(--font-head);
-            font-size: clamp(3.2rem, 7vw, 5.5rem);
-            line-height: 0.95;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            color: #FFFFFF;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
-        }
-
-        .hero p {
-            max-width: 600px;
-            margin: 0 auto;
-            color: #E4E4E7;
-            font-size: 1.15rem;
-            font-weight: 300;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
-        }
-
-        /* --- CONTAINER PRINCIPAL --- */
-        .container {
-            max-width: 1250px;
-            margin: 0 auto;
-            padding: 40px 20px 100px 20px;
-            position: relative;
-            z-index: 3;
-        }
-
-        /* --- GRID DE BLACK BELTS --- */
-        .grid-blackbelts {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 35px;
-        }
-
-        /* --- CARD FAIXA PRETA --- */
-        .card-bb {
-            background: var(--bg-card);
-            border: 1px solid var(--bg-card-border);
-            border-radius: 24px;
-            overflow: hidden;
-            backdrop-filter: blur(12px);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-
-        .card-bb:hover {
-            transform: translateY(-10px);
-            border-color: rgba(212, 175, 55, 0.5);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
-        }
-
-        .card-bb-img-wrapper {
-            position: relative;
-            width: 100%;
-            height: 380px;
-            overflow: hidden;
-            background-color: #0d0d0f;
-        }
-
-        .card-bb-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center top;
-            transition: transform 0.6s ease;
-        }
-
-        .card-bb:hover .card-bb-img {
-            transform: scale(1.06);
-        }
-
-        /* Sombreamento suave sobre a imagem */
-        .card-bb-img-wrapper::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 60%;
-            background: linear-gradient(180deg, transparent 0%, rgba(18, 18, 20, 0.95) 100%);
-        }
-
-        .card-bb-corpo {
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            margin-top: -30px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .card-bb-nome {
-            font-family: var(--font-head);
-            font-size: 2.2rem;
-            letter-spacing: 1px;
-            color: #FFF;
-            line-height: 1.1;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-        }
-
-        /* TARJA RED BELT ESTILO JIU-JITSU */
-        .card-bb-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: linear-gradient(90deg, #111 0%, #1a1a1a 100%);
-            border-left: 5px solid var(--red-belt);
-            border-top: 1px solid var(--bg-card-border);
-            border-right: 1px solid var(--bg-card-border);
-            border-bottom: 1px solid var(--bg-card-border);
-            padding: 6px 14px;
-            border-radius: 4px;
-            color: var(--gold-primary);
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            align-self: flex-start;
-        }
-
-        .card-bb-historia {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.7;
-            font-weight: 400;
-            white-space: pre-line;
-        }
-
-        /* MENSAGEM VAZIA */
-        .sem-registros {
-            text-align: center;
-            color: var(--text-muted);
-            grid-column: 1 / -1;
-            padding: 80px 20px;
-            background: var(--bg-card);
-            border: 1px dashed var(--bg-card-border);
-            border-radius: 24px;
-        }
-
-        .sem-registros p {
-            font-size: 1.2rem;
-            font-weight: 300;
-        }
-
-        /* FOOTER */
-        footer {
-            border-top: 1px solid var(--bg-card-border);
-            padding: 50px 20px;
-            text-align: center;
-            background: #000;
-            position: relative;
-            z-index: 3;
-        }
-
-        footer h2 {
-            font-family: var(--font-head);
-            font-size: 1.8rem;
-            letter-spacing: 2px;
-            color: var(--gold-primary);
-            margin-bottom: 8px;
-        }
-
-        footer p {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        @media (max-width: 768px) {
-            header {
-                padding: 15px 20px;
-            }
-            .hero {
-                min-height: 55vh;
-                padding-top: 100px;
-            }
-            .card-bb-img-wrapper {
-                height: 320px;
-            }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-    <!-- HEADER -->
+    <div class="glow-bg"></div>
+
+    <!-- HEADER NAVIGATION -->
     <header>
-        <div class="header-container">
-            <a href="index.html" class="logo">ALFA<span>HQ</span></a>
-            <a href="index.html" class="btn-voltar">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                Voltar ao Início
-            </a>
+        <div class="nav-container">
+            <a href="index.html" class="logo">ALFA<span>BJJ</span><small>JLLE</small></a>
+            <nav>
+                <a href="index.html">Início</a>
+                <a href="metodologia.html">Metodologia</a>
+                <a href="historia.html">História</a>
+                <a href="horarios.html">Horários</a>
+                <a href="eventos.html">Eventos</a>
+                <a href="graduacoes.html">Graduações</a>
+                <a href="blackbelts.html" class="active">Black Belts</a>
+                <a href="galeria.html">Galeria</a>
+                <a href="contato.html">Contato</a>
+                <a href="reservas.html">Shop & Área do Aluno</a>
+            </nav>
         </div>
     </header>
 
-    <!-- HERO SECTION COM VÍDEO DE FUNDO -->
+    <!-- HERO SECTION COM VÍDEO -->
     <section class="hero">
         <video autoplay muted loop playsinline class="hero-video">
-            <!-- COLOQUE O NOME DO SEU NOVO VÍDEO AQUI -->
             <source src="blackbelts-bg.mp4" type="video/mp4">
             Seu navegador não suporta vídeos em HTML5.
         </video>
@@ -371,20 +59,20 @@
     </section>
 
     <!-- CONTEÚDO PRINCIPAL -->
-    <main class="container">
-        <div id="gridBlackBelts" class="grid-blackbelts">
-            <!-- Os cards continuam sendo inseridos dinamicamente via JavaScript -->
+    <main class="container" style="padding: 60px 20px 100px 20px;">
+        <div id="gridBlackBelts" class="grid-blackbelts" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px;">
+            <!-- Renderizado via JavaScript -->
         </div>
     </main>
 
     <!-- FOOTER -->
     <footer>
-        <h2>ALFA JIU JITSU ACADEMY</h2>
-        <p>Joinville • Santa Catarina</p>
-        <p style="margin-top: 15px; opacity: 0.5;">© 2026 Todos os direitos reservados.</p>
+        <h2>ALFA BJJ JLLE</h2>
+        <p>Disciplina • Respeito • Evolução</p>
+        <p style="margin-top: 15px; color: var(--text-muted); font-size: 0.85rem;">&copy; 2026 Alfa Jiu Jitsu Academy. Todos os direitos reservados.</p>
     </footer>
 
-    <!-- JAVASCRIPT REESTRUTURADO -->
+    <!-- JAVASCRIPT -->
     <script>
         document.addEventListener('DOMContentLoaded', carregarBlackBelts);
 
@@ -394,24 +82,24 @@
 
             if (lista.length === 0) {
                 container.innerHTML = `
-                    <div class="sem-registros">
-                        <p>Nenhum Faixa Preta cadastrado no momento.</p>
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: #ffffff; border: 1px dashed var(--border-color); border-radius: 16px; box-shadow: var(--shadow-sm);">
+                        <p style="color: var(--text-muted); font-size: 1.1rem;">Nenhum Faixa Preta cadastrado no momento.</p>
                     </div>`;
                 return;
             }
 
             container.innerHTML = lista.map(bb => `
-                <article class="card-bb">
-                    <div class="card-bb-img-wrapper">
-                        <img src="${bb.foto}" alt="${bb.nome}" class="card-bb-img" onerror="this.src='https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=600&auto=format&fit=crop'">
+                <article class="card-bb" style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-sm); transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column;">
+                    <div style="position: relative; width: 100%; height: 340px; overflow: hidden; background-color: #f1f5f9;">
+                        <img src="${bb.foto}" alt="${bb.nome}" style="width: 100%; height: 100%; object-fit: cover; object-position: center top;" onerror="this.src='https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=600&auto=format&fit=crop'">
                     </div>
-                    <div class="card-bb-corpo">
-                        <h3 class="card-bb-nome">${bb.nome}</h3>
-                        <div class="card-bb-badge">
+                    <div style="padding: 24px; display: flex; flex-direction: column; flex-grow: 1;">
+                        <h3 style="font-family: var(--font-head); font-size: 2rem; color: var(--text-main); margin-bottom: 8px; text-transform: uppercase;">${bb.nome}</h3>
+                        <div style="display: inline-flex; align-items: center; gap: 8px; background: #18181b; border-left: 4px solid #b91c1c; padding: 6px 12px; border-radius: 4px; color: var(--accent-gold); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 16px; align-self: flex-start;">
                             <span>Faixa Preta • ${bb.ano}</span>
                             ${bb.grau ? '<span>(' + bb.grau + ')</span>' : ''}
                         </div>
-                        <p class="card-bb-historia">${bb.historia}</p>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; white-space: pre-line;">${bb.historia}</p>
                     </div>
                 </article>
             `).join('');
