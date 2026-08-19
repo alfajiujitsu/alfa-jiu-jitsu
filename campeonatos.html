@@ -516,7 +516,40 @@
         <p>Joinville • Santa Catarina</p>
         <p style="margin-top: 15px; opacity: 0.5;">© 2026 Todos os direitos reservados.</p>
     </footer>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1. Busca os campeonatos salvos no localStorage (ou array vazio se não houver)
+        const campeonatosSalvos = JSON.parse(localStorage.getItem('campeonatos')) || [];
 
+        const containerProximos = document.querySelectorAll('.container-campeonatos')[0];
+        const containerRealizados = document.querySelectorAll('.container-campeonatos')[1];
+
+        // 2. Percorre os cadastros e insere na tela
+        campeonatosSalvos.forEach(camp => {
+            const cardHtml = `
+                <article class="card-noticia ${camp.status === 'proximo' ? 'proximo' : 'realizado'}">
+                    <span class="tag-status ${camp.status === 'proximo' ? 'tag-proximo' : 'tag-realizado'}">
+                        ${camp.status === 'proximo' ? '⚡ Inscrições Abertas' : '✓ Concluído'}
+                    </span>
+                    <h3>${camp.titulo}</h3>
+                    <div class="noticia-meta">
+                        <span>📅 <strong>Data:</strong> ${camp.data}</span>
+                        <span>📍 <strong>Local:</strong> ${camp.local || 'Joinville / SC'}</span>
+                        ${camp.medalhas ? `<span>🏅 <strong>Medalhas:</strong> <span class="badge-medalhas">${camp.medalhas}</span></span>` : ''}
+                    </div>
+                    <p>${camp.descricao}</p>
+                </article>
+            `;
+
+            if (camp.status === 'proximo' && containerProximos) {
+                containerProximos.insertAdjacentHTML('afterbegin', cardHtml);
+            } else if (containerRealizados) {
+                containerRealizados.insertAdjacentHTML('afterbegin', cardHtml);
+            }
+        });
+    });
+</script>
+    
 </body>
 
 </html>
