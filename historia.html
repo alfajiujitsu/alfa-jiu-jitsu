@@ -96,7 +96,7 @@
         <div class="split-section" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; align-items: center; margin-bottom: 80px;">
             <div style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 24px; padding: 40px; box-shadow: var(--shadow-sm);">
                 <p style="color: var(--text-muted); margin-bottom: 16px; font-size: 1.05rem; line-height: 1.6;">
-                    Em 2015, a Alfa estabeleceu raízes em Joinville através da visão do <strong style="color: var(--text-main);">Professor Vilson Fajardo</strong>, liderando a expansão da equipe na região.
+                    Em 2015, a Alfa established raízes em Joinville através da visão do <strong style="color: var(--text-main);">Professor Vilson Fajardo</strong>, liderando a expansão da equipe na região.
                 </p>
                 <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.6;">
                     Ao longo dos anos, construímos mais do que uma equipe de competição: edificamos uma comunidade. Acreditamos que a maior vitória acontece fora do tatame, na vida cotidiana de cada aluno.
@@ -139,27 +139,40 @@
             </div>
         </section>
 
-        <!-- DIÁRIO DE EVOLUÇÃO -->
+        <!-- DIÁRIO DE EVOLUÇÃO (ORDEM CRONOLÓGICA) -->
         <section>
             <div style="margin-bottom: 40px;">
                 <h2 style="font-family: var(--font-head); font-size: 3rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-main);">Diário da HQ</h2>
             </div>
 
-            <div class="gallery-grid" id="gridReforma" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+            <div class="gallery-grid" id="gridReforma" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
                 
-                <!-- CARD FASE 01 -->
-                <div class="gallery-card" style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-sm);">
-                    <div style="height: 220px; width: 100%; overflow: hidden; background-color: #f1f5f9;">
-                        <img src="imagens/reforma-fase1.jpg" alt="Estrutura" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=600&auto=format&fit=crop'">
+                <!-- CARD 1: PRIMEIRA ACADEMIA (2 FOTOS: antigo01.jpeg e antigo02.jpeg) -->
+                <div class="gallery-card" style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;">
+                    <div style="height: 220px; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background-color: #0f172a;">
+                        <img src="imagens/antigo01.jpeg" alt="Primeira Academia - Imagem 1" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=600&auto=format&fit=crop'">
+                        <img src="imagens/antigo02.jpeg" alt="Primeira Academia - Imagem 2" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?q=80&w=600&auto=format&fit=crop'">
                     </div>
                     <div style="padding: 25px;">
-                        <span style="font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 8px; display: block;">Fase 01</span>
-                        <h3 style="font-size: 1.2rem; margin-bottom: 8px; color: var(--text-main);">Preparação do Espaço</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">Nivelamento e adequação da estrutura base para recepção dos tatames.</p>
+                        <span style="font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 8px; display: block;">Passo 01 • As Origens</span>
+                        <h3 style="font-size: 1.2rem; margin-bottom: 8px; color: var(--text-main);">Primeira Academia</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">Aqui começou o projeto de jiu jitsu, espaço simples mas com muita qualidade técnica.</p>
                     </div>
                 </div>
 
-                <!-- CARD DO PROJETO - PLANTA BAIXA SVG -->
+                <!-- CARD 2: PRIMEIRA REFORMA FEITA -->
+                <div class="gallery-card" style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-sm);">
+                    <div style="height: 220px; width: 100%; overflow: hidden; background-color: #f1f5f9;">
+                        <img src="imagens/primeira-reforma.jpg" alt="Primeira Reforma" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=600&auto=format&fit=crop'">
+                    </div>
+                    <div style="padding: 25px;">
+                        <span style="font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 8px; display: block;">Passo 02 • PRIMEIRA REFORMA FEITA</span>
+                        <h3 style="font-size: 1.2rem; margin-bottom: 8px; color: var(--text-main);">Primeira Reforma</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">Primeira grande melhoria da estrutura para comportar o crescimento dos alunos e treinos.</p>
+                    </div>
+                </div>
+
+                <!-- CARD 3: PROJETO DO NOVO CT (PLANTA BAIXA SVG) -->
                 <div class="gallery-card card-diario-projeto" style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;">
                     <div class="svg-container" style="background: #0f172a; padding: 10px;">
                         <svg viewBox="0 0 600 520" xmlns="http://www.w3.org/2000/svg" width="100%" height="auto">
@@ -195,21 +208,33 @@
                         </svg>
                     </div>
                     <div style="padding: 25px;">
-                        <span class="projeto-badge" style="font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 8px; display: block;">Fase 02 • Planejamento</span>
-                        <h3 style="font-size: 1.2rem; margin-bottom: 8px; color: var(--text-main);">Planta Baixa & Estrutura</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">Projeto de distribuição do espaço para otimizar o fluxo de alunos, área de treino e apoio visual do tatame.</p>
+                        <span class="projeto-badge" style="font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 8px; display: block;">Passo 03 • PLANEJAMENTO</span>
+                        <h3 style="font-size: 1.2rem; margin-bottom: 8px; color: var(--text-main);">Projeto do Novo CT</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">Elaboração da planta baixa e distribuição estratégica das áreas de treino, recepção e convivência.</p>
                     </div>
                 </div>
 
-                <!-- CARD FASE 03 -->
+                <!-- CARD 4: EXECUÇÃO DO PROJETO -->
                 <div class="gallery-card" style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-sm);">
                     <div style="height: 220px; width: 100%; overflow: hidden; background-color: #f1f5f9;">
-                        <img src="imagens/reforma-fase3.jpg" alt="Tatame" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?q=80&w=600&auto=format&fit=crop'">
+                        <img src="imagens/execucao-projeto.jpg" alt="Execução do Projeto" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=600&auto=format&fit=crop'">
                     </div>
                     <div style="padding: 25px;">
-                        <span style="font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 8px; display: block;">Fase 03</span>
-                        <h3 style="font-size: 1.2rem; margin-bottom: 8px; color: var(--text-main);">Área de Combate</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">Montagem de tatame profissional com absorção de alto impacto.</p>
+                        <span style="font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 8px; display: block;">Passo 04 • EXECUÇÃO DO PROJETO</span>
+                        <h3 style="font-size: 1.2rem; margin-bottom: 8px; color: var(--text-main);">Execução da Obra</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">Obras em andamento, preparação das paredes, piso e estrutura para os novos tatames.</p>
+                    </div>
+                </div>
+
+                <!-- CARD 5: PROJETO 90% FINALIZADO -->
+                <div class="gallery-card" style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-sm);">
+                    <div style="height: 220px; width: 100%; overflow: hidden; background-color: #f1f5f9;">
+                        <img src="imagens/projeto-90-porcento.jpg" alt="Projeto 90% Finalizado" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=600&auto=format&fit=crop'">
+                    </div>
+                    <div style="padding: 25px;">
+                        <span style="font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 8px; display: block;">Passo 05 • FINALIZAÇÃO</span>
+                        <h3 style="font-size: 1.2rem; margin-bottom: 8px; color: var(--text-main);">Projeto 90% Finalizado</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">Tatames posicionados e estrutura quase pronta para receber os atletas no novo espaço.</p>
                     </div>
                 </div>
 
