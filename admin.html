@@ -305,8 +305,11 @@
 
         <!-- ================= ABA 4: EVENTOS ================= -->
 <div id="aba-eventos" class="secao-adm">
-    <h3>🏆 Cadastrar Evento ou Campeonato</h3>
+    <h3 id="tituloFormEvento">🏆 Cadastrar Evento ou Campeonato</h3>
     <form id="formEvento">
+        <!-- Campo invisível para armazenar o ID quando estiver editando -->
+        <input type="hidden" id="evId">
+
         <div class="form-grid">
             <div class="form-group">
                 <label for="evTitulo">Título do Evento</label>
@@ -328,13 +331,18 @@
                 <textarea id="evDesc" rows="3" placeholder="Detalhes das inscrições, categorias, etc."></textarea>
             </div>
 
-            <!-- NOVO CAMPO DE FOTO ADICIONADO ABAIXO -->
             <div class="form-group" style="grid-column: span 2;">
                 <label for="evFoto">Imagem / Banner do Evento (Opcional)</label>
                 <input type="file" id="evFoto" accept="image/*">
+                <!-- Pré-visualização da imagem atual durante edição -->
+                <div id="previewFotoAtual" style="margin-top: 8px;"></div>
             </div>
         </div>
-        <button type="submit" class="btn-salvar">Publicar Evento</button>
+
+        <div style="display: flex; gap: 10px; margin-top: 15px;">
+            <button type="submit" id="btnSalvarEvento" class="btn-salvar">Publicar Evento</button>
+            <button type="button" id="btnCancelarEdicao" onclick="cancelarEdicaoEvento()" class="btn-excluir" style="display:none; background:#555;">Cancelar Edição</button>
+        </div>
     </form>
 
     <h3 style="margin-top: 30px;">📅 Eventos Cadastrados</h3>
