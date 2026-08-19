@@ -1,321 +1,746 @@
-<script>
-    // --- GERENCIAMENTO DAS ABAS ---
-    function trocarAba(element, nomeAba) {
-        const btns = document.querySelectorAll('.tab-btn-adm');
-        const secaos = document.querySelectorAll('.secao-adm');
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-        btns.forEach(b => b.classList.remove('active'));
-        secaos.forEach(s => s.classList.remove('active'));
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Administrador - Alfa Jiu Jitsu</title>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animacoes.css">
+    <link rel="stylesheet" href="css/responsivo.css">
 
-        element.classList.add('active');
-        document.getElementById('aba-' + nomeAba).classList.add('active');
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        carregarProdutosAdmin();
-        carregarMetodologiaAdmin();
-        carregarGraduacoesAdmin();
-        carregarEventosAdmin();
-        carregarGaleriaAdmin();
-        carregarBlackBeltsAdmin();
-    });
-
-    // Helper para ler arquivos de imagem
-    function lerImagem(input, callback) {
-        if (input.files && input.files[0]) {
-            const reader = new FileReader();
-            reader.onload = e => callback(e.target.result);
-            reader.readAsDataURL(input.files[0]);
-        } else {
-            callback(null);
+    <style>
+        .admin-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
         }
-    }
 
-    // ================= 1. PRODUTOS / SHOP =================
-    document.getElementById('formProduto').addEventListener('submit', function(e) {
-        e.preventDefault();
-        lerImagem(document.getElementById('prodFoto'), foto => {
-            const item = {
-                id: Date.now(),
-                nome: document.getElementById('prodNome').value,
-                tamanho: document.getElementById('prodTamanho').value,
-                qtd: parseInt(document.getElementById('prodQtd').value),
-                preco: document.getElementById('prodPreco').value,
-                foto: foto
-            };
-            let banco = JSON.parse(localStorage.getItem('produtosShop')) || [];
-            banco.push(item);
-            localStorage.setItem('produtosShop', JSON.stringify(banco));
-            document.getElementById('formProduto').reset();
-            carregarProdutosAdmin();
-        });
-    });
+        .header-adm {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1c1c1c;
+            padding: 15px 25px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            margin-bottom: 30px;
+        }
 
-    function carregarProdutosAdmin() {
-        const c = document.getElementById('listaProdutosAdmin');
-        const items = JSON.parse(localStorage.getItem('produtosShop')) || [];
-        c.innerHTML = items.length ? '' : '<p style="color:#888;">Nenhum produto cadastrado.</p>';
-        items.forEach(p => {
-            c.innerHTML += `
-                <div class="card-adm-item">
-                    <img src="${p.foto}">
-                    <h4 style="color:#d4af37; margin:5px 0;">${p.nome}</h4>
-                    <p style="margin:2px; color:#ccc;">Tamanho: ${p.tamanho} | Qtd: ${p.qtd}</p>
-                    <p style="margin:2px; color:#25d366;">R$ ${p.preco}</p>
-                    <button onclick="excluirItem('produtosShop', ${p.id}, carregarProdutosAdmin)" class="btn-excluir">Excluir</button>
-                </div>`;
-        });
-    }
+        /* NAVEGAÇÃO DE ABAS DO ADMIN */
+        .tabs-admin {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
 
-    // ================= 2. METODOLOGIA =================
-    document.getElementById('formMetodologia').addEventListener('submit', function(e) {
-        e.preventDefault();
-        lerImagem(document.getElementById('metFoto'), foto => {
-            const item = {
-                id: Date.now(),
-                titulo: document.getElementById('metTitulo').value,
-                descricao: document.getElementById('metDescricao').value,
-                foto: foto
-            };
-            let banco = JSON.parse(localStorage.getItem('metodologiaItems')) || [];
-            banco.push(item);
-            localStorage.setItem('metodologiaItems', JSON.stringify(banco));
-            document.getElementById('formMetodologia').reset();
-            carregarMetodologiaAdmin();
-        });
-    });
+        .tab-btn-adm {
+            padding: 12px 20px;
+            background: #1c1c1c;
+            border: 1px solid #333;
+            color: #ccc;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
 
-    function carregarMetodologiaAdmin() {
-        const c = document.getElementById('listaMetodologiaAdmin');
-        const items = JSON.parse(localStorage.getItem('metodologiaItems')) || [];
-        c.innerHTML = items.length ? '' : '<p style="color:#888;">Nenhum conteúdo de metodologia cadastrado.</p>';
-        items.forEach(m => {
-            c.innerHTML += `
-                <div class="card-adm-item">
-                    <img src="${m.foto}">
-                    <h4 style="color:#d4af37; margin:5px 0;">${m.titulo}</h4>
-                    <p style="margin:5px 0; color:#aaa; font-size:13px;">${m.descricao}</p>
-                    <button onclick="excluirItem('metodologiaItems', ${m.id}, carregarMetodologiaAdmin)" class="btn-excluir">Excluir</button>
-                </div>`;
-        });
-    }
+        .tab-btn-adm.active {
+            background: #d4af37;
+            color: #000;
+            border-color: #d4af37;
+        }
 
-    // ================= 3. GRADUAÇÕES =================
-    document.getElementById('formGraduacao').addEventListener('submit', function(e) {
-        e.preventDefault();
-        lerImagem(document.getElementById('gradFoto'), foto => {
-            const item = {
-                id: Date.now(),
-                nome: document.getElementById('gradNome').value,
-                faixa: document.getElementById('gradFaixa').value,
-                data: document.getElementById('gradData').value,
-                foto: foto
-            };
-            let banco = JSON.parse(localStorage.getItem('graduacoes')) || [];
-            banco.push(item);
-            localStorage.setItem('graduacoes', JSON.stringify(banco));
-            document.getElementById('formGraduacao').reset();
-            carregarGraduacoesAdmin();
-        });
-    });
+        .secao-adm {
+            display: none;
+            background: #1c1c1c;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            margin-bottom: 30px;
+            text-align: left;
+        }
 
-    function carregarGraduacoesAdmin() {
-        const c = document.getElementById('listaGraduacoesAdmin');
-        const items = JSON.parse(localStorage.getItem('graduacoes')) || [];
-        c.innerHTML = items.length ? '' : '<p style="color:#888;">Nenhuma graduação registrada.</p>';
-        items.forEach(g => {
-            const imgTag = g.foto ? `<img src="${g.foto}">` : '';
-            c.innerHTML += `
-                <div class="card-adm-item">
-                    ${imgTag}
-                    <h4 style="color:#d4af37; margin:5px 0;">${g.nome}</h4>
-                    <p style="margin:2px; color:#ccc;">Faixa: ${g.faixa}</p>
-                    <p style="margin:2px; color:#888;">Data: ${g.data}</p>
-                    <button onclick="excluirItem('graduacoes', ${g.id}, carregarGraduacoesAdmin)" class="btn-excluir">Excluir</button>
-                </div>`;
-        });
-    }
+        .secao-adm.active {
+            display: block;
+        }
 
-    // ================= 4. EVENTOS (COM SUPORTE A EDIÇÃO E FOTO) =================
-    document.getElementById('formEvento').addEventListener('submit', function(e) {
-        e.preventDefault();
+        .secao-adm h3 {
+            color: #d4af37;
+            margin-top: 0;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
 
-        const idEdicao = document.getElementById('evId').value;
-        const fileInput = document.getElementById('evFoto');
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
 
-        lerImagem(fileInput, fotoBase64 => {
-            let banco = JSON.parse(localStorage.getItem('eventos')) || [];
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
 
-            if (idEdicao) {
-                // MODO EDIÇÃO
-                const index = banco.findIndex(ev => ev.id == idEdicao);
-                if (index !== -1) {
-                    banco[index].titulo = document.getElementById('evTitulo').value;
-                    banco[index].data = document.getElementById('evData').value;
-                    banco[index].local = document.getElementById('evLocal').value;
-                    banco[index].desc = document.getElementById('evDesc').value;
-                    // Atualiza a foto apenas se uma nova imagem for selecionada
-                    if (fotoBase64) {
-                        banco[index].foto = fotoBase64;
-                    }
-                }
-            } else {
-                // MODO CRIAÇÃO
-                const novoItem = {
-                    id: Date.now(),
-                    titulo: document.getElementById('evTitulo').value,
-                    data: document.getElementById('evData').value,
-                    local: document.getElementById('evLocal').value,
-                    desc: document.getElementById('evDesc').value,
-                    foto: fotoBase64 || null
-                };
-                banco.push(novoItem);
-            }
+        .form-group label {
+            color: #ccc;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
 
-            localStorage.setItem('eventos', JSON.stringify(banco));
-            cancelarEdicaoEvento();
-            carregarEventosAdmin();
-        });
-    });
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 10px;
+            background: #111;
+            border: 1px solid #444;
+            border-radius: 6px;
+            color: white;
+            font-family: inherit;
+        }
 
-    function carregarEventosAdmin() {
-        const c = document.getElementById('listaEventosAdmin');
-        const items = JSON.parse(localStorage.getItem('eventos')) || [];
-        c.innerHTML = items.length ? '' : '<p style="color:#888;">Nenhum evento cadastrado.</p>';
-        items.forEach(ev => {
-            const imgTag = ev.foto ? `<img src="${ev.foto}" alt="${ev.titulo}">` : '';
-            c.innerHTML += `
-                <div class="card-adm-item">
-                    ${imgTag}
-                    <h4 style="color:#d4af37; margin:5px 0;">${ev.titulo}</h4>
-                    <p style="margin:2px; color:#ccc;">📅 ${ev.data} - 📍 ${ev.local}</p>
-                    <p style="margin:5px 0; color:#aaa; font-size:13px;">${ev.desc}</p>
-                    <div style="display: flex; gap: 8px; justify-content: center; margin-top: 10px;">
-                        <button onclick="prepararEdicaoEvento(${ev.id})" class="btn-salvar" style="padding: 6px 12px; margin: 0;">Editar</button>
-                        <button onclick="excluirItem('eventos', ${ev.id}, carregarEventosAdmin)" class="btn-excluir" style="margin: 0;">Excluir</button>
+        .btn-salvar {
+            background: #d4af37;
+            color: #000;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+
+        .btn-salvar:hover {
+            background: #b49329;
+        }
+
+        .grid-itens-cadastrados {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card-adm-item {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .card-adm-item img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .btn-excluir {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn-logout {
+            background-color: #e74c3c;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="index.html#metodologia">Metodologia</a>
+            <a href="historia.html">Nossa História</a>
+            <a href="professores.html">Professores</a>
+            <a href="horarios.html">Horários</a>
+            <a href="eventos.html">Eventos</a>
+            <a href="graduacoes.html">Graduações</a>
+            <a href="galeria.html">Galeria</a>
+            <a href="contato.html">Contato</a>
+            <a href="login.html">Login</a>
+        </nav>
+
+        <h1>ALFA JIU JITSU ACADEMY</h1>
+        <p>Painel Geral de Administração</p>
+    </header>
+
+    <main class="admin-container">
+        <div class="header-adm">
+            <h2 style="margin: 0; color: #fff;">Painel do Administrador</h2>
+            <button onclick="logout()" class="btn-logout">Sair do Admin</button>
+        </div>
+
+        <!-- BOTOES DE NAVEGAÇÃO ENTRE AS ABAS -->
+        <div class="tabs-admin">
+            <button class="tab-btn-adm active" onclick="trocarAba(this, 'shop')">🛍️ Shop / Loja</button>
+            <button class="tab-btn-adm" onclick="trocarAba(this, 'metodologia')">🥋 Metodologia & Turmas</button>
+            <button class="tab-btn-adm" onclick="trocarAba(this, 'graduacoes')">🎖️ Graduações</button>
+            <button class="tab-btn-adm" onclick="trocarAba(this, 'eventos')">🏆 Eventos & Campeonatos</button>
+            <button class="tab-btn-adm" onclick="trocarAba(this, 'galeria')">📸 Galeria de Fotos</button>
+            <button class="tab-btn-adm" onclick="trocarAba(this, 'blackbelts')">🥋 Black Belts</button>
+        </div>
+
+        <!-- ================= ABA 1: SHOP / LOJA ================= -->
+        <div id="aba-shop" class="secao-adm active">
+            <h3>🛍️ Cadastrar Novo Produto para a Shop</h3>
+            <form id="formProduto">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="prodNome">Nome do Item</label>
+                        <input type="text" id="prodNome" placeholder="Ex: Camisa Alfa Jiu Jitsu" required>
                     </div>
-                </div>`;
-        });
-    }
 
-    function prepararEdicaoEvento(id) {
-        const items = JSON.parse(localStorage.getItem('eventos')) || [];
-        const ev = items.find(item => item.id === id);
+                    <div class="form-group">
+                        <label for="prodTamanho">Tamanho(s)</label>
+                        <input type="text" id="prodTamanho" placeholder="Ex: P, M, G, GG ou A1, A2" required>
+                    </div>
 
-        if (!ev) return;
+                    <div class="form-group">
+                        <label for="prodQtd">Quantidade Disponível</label>
+                        <input type="number" id="prodQtd" min="1" placeholder="Ex: 3" required>
+                    </div>
 
-        document.getElementById('evId').value = ev.id;
-        document.getElementById('evTitulo').value = ev.titulo;
-        document.getElementById('evData').value = ev.data;
-        document.getElementById('evLocal').value = ev.local;
-        document.getElementById('evDesc').value = ev.desc;
+                    <div class="form-group">
+                        <label for="prodPreco">Preço (R$)</label>
+                        <input type="text" id="prodPreco" placeholder="Ex: 89,90" required>
+                    </div>
 
-        document.getElementById('tituloFormEvento').innerText = '✏️ Editar Evento ou Campeonato';
-        document.getElementById('btnSalvarEvento').innerText = 'Atualizar Evento';
-        document.getElementById('btnCancelarEdicao').style.display = 'inline-block';
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label for="prodFoto">Enviar Foto do Produto</label>
+                        <input type="file" id="prodFoto" accept="image/*" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-salvar">Cadastrar Produto</button>
+            </form>
 
-        const previewContainer = document.getElementById('previewFotoAtual');
-        if (ev.foto) {
-            previewContainer.innerHTML = `<p style="color:#ccc; font-size:12px; margin:2px 0;">Foto atual:</p><img src="${ev.foto}" style="max-height:80px; border-radius:4px;">`;
-        } else {
-            previewContainer.innerHTML = '';
+            <h3 style="margin-top: 30px;">📦 Produtos Cadastrados</h3>
+            <div id="listaProdutosAdmin" class="grid-itens-cadastrados"></div>
+        </div>
+
+        <!-- ================= ABA 2: METODOLOGIA ================= -->
+        <div id="aba-metodologia" class="secao-adm">
+            <h3>🥋 Cadastrar Módulo de Metodologia / Turma</h3>
+            <form id="formMetodologia">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="metTitulo">Título da Turma / Metodologia</label>
+                        <input type="text" id="metTitulo" placeholder="Ex: Metodologia Kids, Módulo Iniciantes" required>
+                    </div>
+
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label for="metDescricao">Descrição Detalhada</label>
+                        <textarea id="metDescricao" rows="4" placeholder="Descreva os objetivos, para quem é direcionado, método de ensino, etc." required></textarea>
+                    </div>
+
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label for="metFoto">Foto Ilustrativa</label>
+                        <input type="file" id="metFoto" accept="image/*" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-salvar">Salvar na Metodologia</button>
+            </form>
+
+            <h3 style="margin-top: 30px;">📖 Módulos Cadastrados</h3>
+            <div id="listaMetodologiaAdmin" class="grid-itens-cadastrados"></div>
+        </div>
+
+        <!-- ================= ABA 3: GRADUAÇÕES ================= -->
+        <div id="aba-graduacoes" class="secao-adm">
+            <h3>🎖️ Cadastrar Graduação de Aluno</h3>
+            <form id="formGraduacao">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="gradNome">Nome do Aluno</label>
+                        <input type="text" id="gradNome" placeholder="Ex: Carlos Silva" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gradFaixa">Nova Faixa</label>
+                        <select id="gradFaixa" required>
+                            <option value="Cinza / Kids">Cinza (Kids)</option>
+                            <option value="Amarela / Kids">Amarela (Kids)</option>
+                            <option value="Laranja / Kids">Laranja (Kids)</option>
+                            <option value="Verde / Kids">Verde (Kids)</option>
+                            <option value="Azul">Azul</option>
+                            <option value="Roxa">Roxa</option>
+                            <option value="Marrom">Marrom</option>
+                            <option value="Preta">Preta</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gradData">Data da Graduação</label>
+                        <input type="date" id="gradData" required>
+                    </div>
+
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label for="gradFoto">Foto da Graduação (Opcional)</label>
+                        <input type="file" id="gradFoto" accept="image/*">
+                    </div>
+                </div>
+                <button type="submit" class="btn-salvar">Registrar Graduação</button>
+            </form>
+
+            <h3 style="margin-top: 30px;">📜 Histórico de Graduações</h3>
+            <div id="listaGraduacoesAdmin" class="grid-itens-cadastrados"></div>
+        </div>
+
+        <!-- ================= ABA 4: EVENTOS ================= -->
+        <div id="aba-eventos" class="secao-adm">
+            <h3 id="tituloFormEvento">🏆 Cadastrar Evento ou Campeonato</h3>
+            <form id="formEvento">
+                <input type="hidden" id="evId">
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="evTitulo">Título do Evento</label>
+                        <input type="text" id="evTitulo" placeholder="Ex: Open Joinville de Jiu Jitsu" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="evData">Data</label>
+                        <input type="date" id="evData" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="evLocal">Local</label>
+                        <input type="text" id="evLocal" placeholder="Ex: Ginásio Centreventos" required>
+                    </div>
+
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label for="evDesc">Descrição</label>
+                        <textarea id="evDesc" rows="3" placeholder="Detalhes das inscrições, categorias, etc."></textarea>
+                    </div>
+
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label for="evFoto">Imagem / Banner do Evento (Opcional)</label>
+                        <input type="file" id="evFoto" accept="image/*">
+                        <div id="previewFotoAtual" style="margin-top: 8px;"></div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-top: 15px;">
+                    <button type="submit" id="btnSalvarEvento" class="btn-salvar">Publicar Evento</button>
+                    <button type="button" id="btnCancelarEdicao" onclick="cancelarEdicaoEvento()" class="btn-excluir" style="display:none; background:#555;">Cancelar Edição</button>
+                </div>
+            </form>
+
+            <h3 style="margin-top: 30px;">📅 Eventos Cadastrados</h3>
+            <div id="listaEventosAdmin" class="grid-itens-cadastrados"></div>
+        </div>
+
+        <!-- ================= ABA 5: GALERIA DE FOTOS ================= -->
+        <div id="aba-galeria" class="secao-adm">
+            <h3>📸 Adicionar Foto na Galeria</h3>
+            <form id="formGaleria">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="galTitulo">Título / Legenda</label>
+                        <input type="text" id="galTitulo" placeholder="Ex: Treino de Sexta-feira" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="galCategoria">Categoria</label>
+                        <select id="galCategoria" required>
+                            <option value="adultos">Adultos</option>
+                            <option value="kids">Kids</option>
+                            <option value="campeonatos">Campeonatos</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label for="galFoto">Upload da Foto</label>
+                        <input type="file" id="galFoto" accept="image/*" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-salvar">Adicionar à Galeria</button>
+            </form>
+
+            <h3 style="margin-top: 30px;">🖼️ Fotos na Galeria</h3>
+            <div id="listaGaleriaAdmin" class="grid-itens-cadastrados"></div>
+        </div>
+
+        <!-- ================= ABA 6: BLACK BELTS ================= -->
+        <div id="aba-blackbelts" class="secao-adm">
+            <h3>🥋 Cadastrar Faixa Preta (Black Belt)</h3>
+            <form id="formBlackBelt">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="bbNome">Nome Completo</label>
+                        <input type="text" id="bbNome" placeholder="Ex: Vilson Fajardo" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bbAno">Ano da Faixa Preta</label>
+                        <input type="number" id="bbAno" placeholder="Ex: 2018" min="1950" max="2030" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bbGrau">Grau Atual (Opcional)</label>
+                        <input type="text" id="bbGrau" placeholder="Ex: 2º Grau">
+                    </div>
+
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label for="bbHistoria">História / Biografia</label>
+                        <textarea id="bbHistoria" rows="4" placeholder="Conte brevemente a trajetória nas artes marciais..." required></textarea>
+                    </div>
+
+                    <div class="form-group" style="grid-column: span 2;">
+                        <label for="bbFoto">Foto Oficial</label>
+                        <input type="file" id="bbFoto" accept="image/*" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-salvar">Cadastrar Black Belt</button>
+            </form>
+
+            <h3 style="margin-top: 30px;">🥋 Black Belts Cadastrados</h3>
+            <div id="listaBlackBeltsAdmin" class="grid-itens-cadastrados"></div>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>© 2026 Alfa Jiu Jitsu Academy. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // --- GERENCIAMENTO DAS ABAS ---
+        function trocarAba(element, nomeAba) {
+            const btns = document.querySelectorAll('.tab-btn-adm');
+            const secaos = document.querySelectorAll('.secao-adm');
+
+            btns.forEach(b => b.classList.remove('active'));
+            secaos.forEach(s => s.classList.remove('active'));
+
+            element.classList.add('active');
+            document.getElementById('aba-' + nomeAba).classList.add('active');
         }
 
-        // Rola a tela até o formulário de edição
-        document.getElementById('formEvento').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function cancelarEdicaoEvento() {
-        document.getElementById('formEvento').reset();
-        document.getElementById('evId').value = '';
-        document.getElementById('tituloFormEvento').innerText = '🏆 Cadastrar Evento ou Campeonato';
-        document.getElementById('btnSalvarEvento').innerText = 'Publicar Evento';
-        document.getElementById('btnCancelarEdicao').style.display = 'none';
-        document.getElementById('previewFotoAtual').innerHTML = '';
-    }
-
-    // ================= 5. GALERIA =================
-    document.getElementById('formGaleria').addEventListener('submit', function(e) {
-        e.preventDefault();
-        lerImagem(document.getElementById('galFoto'), foto => {
-            const item = {
-                id: Date.now(),
-                titulo: document.getElementById('galTitulo').value,
-                categoria: document.getElementById('galCategoria').value,
-                foto: foto
-            };
-            let banco = JSON.parse(localStorage.getItem('galeriaFotos')) || [];
-            banco.push(item);
-            localStorage.setItem('galeriaFotos', JSON.stringify(banco));
-            document.getElementById('formGaleria').reset();
+        document.addEventListener('DOMContentLoaded', () => {
+            carregarProdutosAdmin();
+            carregarMetodologiaAdmin();
+            carregarGraduacoesAdmin();
+            carregarEventosAdmin();
             carregarGaleriaAdmin();
-        });
-    });
-
-    function carregarGaleriaAdmin() {
-        const c = document.getElementById('listaGaleriaAdmin');
-        const items = JSON.parse(localStorage.getItem('galeriaFotos')) || [];
-        c.innerHTML = items.length ? '' : '<p style="color:#888;">Nenhuma foto cadastrada.</p>';
-        items.forEach(g => {
-            c.innerHTML += `
-                <div class="card-adm-item">
-                    <img src="${g.foto}">
-                    <h4 style="color:#d4af37; margin:5px 0;">${g.titulo}</h4>
-                    <p style="margin:2px; color:#aaa;">Categoria: ${g.categoria}</p>
-                    <button onclick="excluirItem('galeriaFotos', ${g.id}, carregarGaleriaAdmin)" class="btn-excluir">Excluir</button>
-                </div>`;
-        });
-    }
-
-    // ================= 6. BLACK BELTS =================
-    document.getElementById('formBlackBelt').addEventListener('submit', function(e) {
-        e.preventDefault();
-        lerImagem(document.getElementById('bbFoto'), foto => {
-            const item = {
-                id: Date.now(),
-                nome: document.getElementById('bbNome').value,
-                ano: document.getElementById('bbAno').value,
-                grau: document.getElementById('bbGrau').value || 'Faixa Preta',
-                historia: document.getElementById('bbHistoria').value,
-                foto: foto
-            };
-            let banco = JSON.parse(localStorage.getItem('blackBelts')) || [];
-            banco.push(item);
-            localStorage.setItem('blackBelts', JSON.stringify(banco));
-            document.getElementById('formBlackBelt').reset();
             carregarBlackBeltsAdmin();
         });
-    });
 
-    function carregarBlackBeltsAdmin() {
-        const c = document.getElementById('listaBlackBeltsAdmin');
-        if (!c) return;
-        const items = JSON.parse(localStorage.getItem('blackBelts')) || [];
-        c.innerHTML = items.length ? '' : '<p style="color:#888;">Nenhum faixa preta cadastrado.</p>';
-        items.forEach(bb => {
-            c.innerHTML += `
-                <div class="card-adm-item">
-                    <img src="${bb.foto}">
-                    <h4 style="color:#d4af37; margin:5px 0;">${bb.nome}</h4>
-                    <p style="margin:2px; color:#ccc;">Graduação: ${bb.ano} (${bb.grau})</p>
-                    <p style="margin:5px 0; color:#aaa; font-size:12px; text-align:left;">${bb.historia}</p>
-                    <button onclick="excluirItem('blackBelts', ${bb.id}, carregarBlackBeltsAdmin)" class="btn-excluir">Excluir</button>
-                </div>`;
-        });
-    }
-
-    // Função genérica de exclusão
-    function excluirItem(chaveStorage, id, callback) {
-        if (confirm("Deseja realmente remover este item?")) {
-            let banco = JSON.parse(localStorage.getItem(chaveStorage)) || [];
-            banco = banco.filter(i => i.id !== id);
-            localStorage.setItem(chaveStorage, JSON.stringify(banco));
-            callback();
+        // Helper para ler arquivos de imagem
+        function lerImagem(input, callback) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = e => callback(e.target.result);
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                callback(null);
+            }
         }
-    }
 
-    function logout() {
-        localStorage.removeItem('usuarioLogado');
-        window.location.href = 'login.html';
-    }
-</script>
+        // ================= 1. PRODUTOS / SHOP =================
+        document.getElementById('formProduto').addEventListener('submit', function(e) {
+            e.preventDefault();
+            lerImagem(document.getElementById('prodFoto'), foto => {
+                const item = {
+                    id: Date.now(),
+                    nome: document.getElementById('prodNome').value,
+                    tamanho: document.getElementById('prodTamanho').value,
+                    qtd: parseInt(document.getElementById('prodQtd').value),
+                    preco: document.getElementById('prodPreco').value,
+                    foto: foto
+                };
+                let banco = JSON.parse(localStorage.getItem('produtosShop')) || [];
+                banco.push(item);
+                localStorage.setItem('produtosShop', JSON.stringify(banco));
+                document.getElementById('formProduto').reset();
+                carregarProdutosAdmin();
+            });
+        });
+
+        function carregarProdutosAdmin() {
+            const c = document.getElementById('listaProdutosAdmin');
+            const items = JSON.parse(localStorage.getItem('produtosShop')) || [];
+            c.innerHTML = items.length ? '' : '<p style="color:#888;">Nenhum produto cadastrado.</p>';
+            items.forEach(p => {
+                c.innerHTML += `
+                    <div class="card-adm-item">
+                        <img src="${p.foto}">
+                        <h4 style="color:#d4af37; margin:5px 0;">${p.nome}</h4>
+                        <p style="margin:2px; color:#ccc;">Tamanho: ${p.tamanho} | Qtd: ${p.qtd}</p>
+                        <p style="margin:2px; color:#25d366;">R$ ${p.preco}</p>
+                        <button onclick="excluirItem('produtosShop', ${p.id}, carregarProdutosAdmin)" class="btn-excluir">Excluir</button>
+                    </div>`;
+            });
+        }
+
+        // ================= 2. METODOLOGIA =================
+        document.getElementById('formMetodologia').addEventListener('submit', function(e) {
+            e.preventDefault();
+            lerImagem(document.getElementById('metFoto'), foto => {
+                const item = {
+                    id: Date.now(),
+                    titulo: document.getElementById('metTitulo').value,
+                    descricao: document.getElementById('metDescricao').value,
+                    foto: foto
+                };
+                let banco = JSON.parse(localStorage.getItem('metodologiaItems')) || [];
+                banco.push(item);
+                localStorage.setItem('metodologiaItems', JSON.stringify(banco));
+                document.getElementById('formMetodologia').reset();
+                carregarMetodologiaAdmin();
+            });
+        });
+
+        function carregarMetodologiaAdmin() {
+            const c = document.getElementById('listaMetodologiaAdmin');
+            const items = JSON.parse(localStorage.getItem('metodologiaItems')) || [];
+            c.innerHTML = items.length ? '' : '<p style="color:#888;">Nenhum conteúdo de metodologia cadastrado.</p>';
+            items.forEach(m => {
+                c.innerHTML += `
+                    <div class="card-adm-item">
+                        <img src="${m.foto}">
+                        <h4 style="color:#d4af37; margin:5px 0;">${m.titulo}</h4>
+                        <p style="margin:5px 0; color:#aaa; font-size:13px;">${m.descricao}</p>
+                        <button onclick="excluirItem('metodologiaItems', ${m.id}, carregarMetodologiaAdmin)" class="btn-excluir">Excluir</button>
+                    </div>`;
+            });
+        }
+
+        // ================= 3. GRADUAÇÕES =================
+        document.getElementById('formGraduacao').addEventListener('submit', function(e) {
+            e.preventDefault();
+            lerImagem(document.getElementById('gradFoto'), foto => {
+                const item = {
+                    id: Date.now(),
+                    nome: document.getElementById('gradNome').value,
+                    faixa: document.getElementById('gradFaixa').value,
+                    data: document.getElementById('gradData').value,
+                    foto: foto
+                };
+                let banco = JSON.parse(localStorage.getItem('graduacoes')) || [];
+                banco.push(item);
+                localStorage.setItem('graduacoes', JSON.stringify(banco));
+                document.getElementById('formGraduacao').reset();
+                carregarGraduacoesAdmin();
+            });
+        });
+
+        function carregarGraduacoesAdmin() {
+            const c = document.getElementById('listaGraduacoesAdmin');
+            const items = JSON.parse(localStorage.getItem('graduacoes')) || [];
+            c.innerHTML = items.length ? '' : '<p style="color:#888;">Nenhuma graduação registrada.</p>';
+            items.forEach(g => {
+                const imgTag = g.foto ? `<img src="${g.foto}">` : '';
+                c.innerHTML += `
+                    <div class="card-adm-item">
+                        ${imgTag}
+                        <h4 style="color:#d4af37; margin:5px 0;">${g.nome}</h4>
+                        <p style="margin:2px; color:#ccc;">Faixa: ${g.faixa}</p>
+                        <p style="margin:2px; color:#888;">Data: ${g.data}</p>
+                        <button onclick="excluirItem('graduacoes', ${g.id}, carregarGraduacoesAdmin)" class="btn-excluir">Excluir</button>
+                    </div>`;
+            });
+        }
+
+        // ================= 4. EVENTOS (COM EDIÇÃO E FOTO) =================
+        document.getElementById('formEvento').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const idEdicao = document.getElementById('evId').value;
+            const fileInput = document.getElementById('evFoto');
+
+            lerImagem(fileInput, fotoBase64 => {
+                let banco = JSON.parse(localStorage.getItem('eventos')) || [];
+
+                if (idEdicao) {
+                    // MODO EDIÇÃO
+                    const index = banco.findIndex(ev => ev.id == idEdicao);
+                    if (index !== -1) {
+                        banco[index].titulo = document.getElementById('evTitulo').value;
+                        banco[index].data = document.getElementById('evData').value;
+                        banco[index].local = document.getElementById('evLocal').value;
+                        banco[index].desc = document.getElementById('evDesc').value;
+                        if (fotoBase64) {
+                            banco[index].foto = fotoBase64;
+                        }
+                    }
+                } else {
+                    // MODO CRIAÇÃO
+                    const novoItem = {
+                        id: Date.now(),
+                        titulo: document.getElementById('evTitulo').value,
+                        data: document.getElementById('evData').value,
+                        local: document.getElementById('evLocal').value,
+                        desc: document.getElementById('evDesc').value,
+                        foto: fotoBase64 || null
+                    };
+                    banco.push(novoItem);
+                }
+
+                localStorage.setItem('eventos', JSON.stringify(banco));
+                cancelarEdicaoEvento();
+                carregarEventosAdmin();
+            });
+        });
+
+        function carregarEventosAdmin() {
+            const c = document.getElementById('listaEventosAdmin');
+            const items = JSON.parse(localStorage.getItem('eventos')) || [];
+            c.innerHTML = items.length ? '' : '<p style="color:#888;">Nenhum evento cadastrado.</p>';
+            items.forEach(ev => {
+                const imgTag = ev.foto ? `<img src="${ev.foto}" alt="${ev.titulo}">` : '';
+                c.innerHTML += `
+                    <div class="card-adm-item">
+                        ${imgTag}
+                        <h4 style="color:#d4af37; margin:5px 0;">${ev.titulo}</h4>
+                        <p style="margin:2px; color:#ccc;">📅 ${ev.data} - 📍 ${ev.local}</p>
+                        <p style="margin:5px 0; color:#aaa; font-size:13px;">${ev.desc}</p>
+                        <div style="display: flex; gap: 8px; justify-content: center; margin-top: 10px;">
+                            <button onclick="prepararEdicaoEvento(${ev.id})" class="btn-salvar" style="padding: 6px 12px; margin: 0;">Editar</button>
+                            <button onclick="excluirItem('eventos', ${ev.id}, carregarEventosAdmin)" class="btn-excluir" style="margin: 0;">Excluir</button>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        function prepararEdicaoEvento(id) {
+            const items = JSON.parse(localStorage.getItem('eventos')) || [];
+            const ev = items.find(item => item.id === id);
+
+            if (!ev) return;
+
+            document.getElementById('evId').value = ev.id;
+            document.getElementById('evTitulo').value = ev.titulo;
+            document.getElementById('evData').value = ev.data;
+            document.getElementById('evLocal').value = ev.local;
+            document.getElementById('evDesc').value = ev.desc;
+
+            document.getElementById('tituloFormEvento').innerText = '✏️ Editar Evento ou Campeonato';
+            document.getElementById('btnSalvarEvento').innerText = 'Atualizar Evento';
+            document.getElementById('btnCancelarEdicao').style.display = 'inline-block';
+
+            const previewContainer = document.getElementById('previewFotoAtual');
+            if (ev.foto) {
+                previewContainer.innerHTML = `<p style="color:#ccc; font-size:12px; margin:2px 0;">Foto atual:</p><img src="${ev.foto}" style="max-height:80px; border-radius:4px;">`;
+            } else {
+                previewContainer.innerHTML = '';
+            }
+
+            document.getElementById('formEvento').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function cancelarEdicaoEvento() {
+            document.getElementById('formEvento').reset();
+            document.getElementById('evId').value = '';
+            document.getElementById('tituloFormEvento').innerText = '🏆 Cadastrar Evento ou Campeonato';
+            document.getElementById('btnSalvarEvento').innerText = 'Publicar Evento';
+            document.getElementById('btnCancelarEdicao').style.display = 'none';
+            document.getElementById('previewFotoAtual').innerHTML = '';
+        }
+
+        // ================= 5. GALERIA =================
+        document.getElementById('formGaleria').addEventListener('submit', function(e) {
+            e.preventDefault();
+            lerImagem(document.getElementById('galFoto'), foto => {
+                const item = {
+                    id: Date.now(),
+                    titulo: document.getElementById('galTitulo').value,
+                    categoria: document.getElementById('galCategoria').value,
+                    foto: foto
+                };
+                let banco = JSON.parse(localStorage.getItem('galeriaFotos')) || [];
+                banco.push(item);
+                localStorage.setItem('galeriaFotos', JSON.stringify(banco));
+                document.getElementById('formGaleria').reset();
+                carregarGaleriaAdmin();
+            });
+        });
+
+        function carregarGaleriaAdmin() {
+            const c = document.getElementById('listaGaleriaAdmin');
+            const items = JSON.parse(localStorage.getItem('galeriaFotos')) || [];
+            c.innerHTML = items.length ? '' : '<p style="color:#888;">Nenhuma foto cadastrada.</p>';
+            items.forEach(g => {
+                c.innerHTML += `
+                    <div class="card-adm-item">
+                        <img src="${g.foto}">
+                        <h4 style="color:#d4af37; margin:5px 0;">${g.titulo}</h4>
+                        <p style="margin:2px; color:#aaa;">Categoria: ${g.categoria}</p>
+                        <button onclick="excluirItem('galeriaFotos', ${g.id}, carregarGaleriaAdmin)" class="btn-excluir">Excluir</button>
+                    </div>`;
+            });
+        }
+
+        // ================= 6. BLACK BELTS =================
+        document.getElementById('formBlackBelt').addEventListener('submit', function(e) {
+            e.preventDefault();
+            lerImagem(document.getElementById('bbFoto'), foto => {
+                const item = {
+                    id: Date.now(),
+                    nome: document.getElementById('bbNome').value,
+                    ano: document.getElementById('bbAno').value,
+                    grau: document.getElementById('bbGrau').value || 'Faixa Preta',
+                    historia: document.getElementById('bbHistoria').value,
+                    foto: foto
+                };
+                let banco = JSON.parse(localStorage.getItem('blackBelts')) || [];
+                banco.push(item);
+                localStorage.setItem('blackBelts', JSON.stringify(banco));
+                document.getElementById('formBlackBelt').reset();
+                carregarBlackBeltsAdmin();
+            });
+        });
+
+        function carregarBlackBeltsAdmin() {
+            const c = document.getElementById('listaBlackBeltsAdmin');
+            if (!c) return;
+            const items = JSON.parse(localStorage.getItem('blackBelts')) || [];
+            c.innerHTML = items.length ? '' : '<p style="color:#888;">Nenhum faixa preta cadastrado.</p>';
+            items.forEach(bb => {
+                c.innerHTML += `
+                    <div class="card-adm-item">
+                        <img src="${bb.foto}">
+                        <h4 style="color:#d4af37; margin:5px 0;">${bb.nome}</h4>
+                        <p style="margin:2px; color:#ccc;">Graduação: ${bb.ano} (${bb.grau})</p>
+                        <p style="margin:5px 0; color:#aaa; font-size:12px; text-align:left;">${bb.historia}</p>
+                        <button onclick="excluirItem('blackBelts', ${bb.id}, carregarBlackBeltsAdmin)" class="btn-excluir">Excluir</button>
+                    </div>`;
+            });
+        }
+
+        // Função genérica de exclusão
+        function excluirItem(chaveStorage, id, callback) {
+            if (confirm("Deseja realmente remover este item?")) {
+                let banco = JSON.parse(localStorage.getItem(chaveStorage)) || [];
+                banco = banco.filter(i => i.id !== id);
+                localStorage.setItem(chaveStorage, JSON.stringify(banco));
+                callback();
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('usuarioLogado');
+            window.location.href = 'login.html';
+        }
+    </script>
+
+</body>
+
+</html>
