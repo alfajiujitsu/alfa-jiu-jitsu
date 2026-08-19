@@ -304,37 +304,42 @@
         </div>
 
         <!-- ================= ABA 4: EVENTOS ================= -->
-        <div id="aba-eventos" class="secao-adm">
-            <h3>🏆 Cadastrar Evento ou Campeonato</h3>
-            <form id="formEvento">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="evTitulo">Título do Evento</label>
-                        <input type="text" id="evTitulo" placeholder="Ex: Open Joinville de Jiu Jitsu" required>
-                    </div>
+<div id="aba-eventos" class="secao-adm">
+    <h3>🏆 Cadastrar Evento ou Campeonato</h3>
+    <form id="formEvento">
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="evTitulo">Título do Evento</label>
+                <input type="text" id="evTitulo" placeholder="Ex: Open Joinville de Jiu Jitsu" required>
+            </div>
 
-                    <div class="form-group">
-                        <label for="evData">Data</label>
-                        <input type="date" id="evData" required>
-                    </div>
+            <div class="form-group">
+                <label for="evData">Data</label>
+                <input type="date" id="evData" required>
+            </div>
 
-                    <div class="form-group">
-                        <label for="evLocal">Local</label>
-                        <input type="text" id="evLocal" placeholder="Ex: Ginásio Centreventos" required>
-                    </div>
+            <div class="form-group">
+                <label for="evLocal">Local</label>
+                <input type="text" id="evLocal" placeholder="Ex: Ginásio Centreventos" required>
+            </div>
 
-                    <div class="form-group" style="grid-column: span 2;">
-                        <label for="evDesc">Descrição</label>
-                        <textarea id="evDesc" rows="3" placeholder="Detalhes das inscrições, categorias, etc."></textarea>
-                    </div>
-                </div>
-                <button type="submit" class="btn-salvar">Publicar Evento</button>
-            </form>
+            <div class="form-group" style="grid-column: span 2;">
+                <label for="evDesc">Descrição</label>
+                <textarea id="evDesc" rows="3" placeholder="Detalhes das inscrições, categorias, etc."></textarea>
+            </div>
 
-            <h3 style="margin-top: 30px;">📅 Eventos Cadastrados</h3>
-            <div id="listaEventosAdmin" class="grid-itens-cadastrados"></div>
+            <!-- NOVO CAMPO DE FOTO ADICIONADO ABAIXO -->
+            <div class="form-group" style="grid-column: span 2;">
+                <label for="evFoto">Imagem / Banner do Evento (Opcional)</label>
+                <input type="file" id="evFoto" accept="image/*">
+            </div>
         </div>
+        <button type="submit" class="btn-salvar">Publicar Evento</button>
+    </form>
 
+    <h3 style="margin-top: 30px;">📅 Eventos Cadastrados</h3>
+    <div id="listaEventosAdmin" class="grid-itens-cadastrados"></div>
+</div>
         <!-- ================= ABA 5: GALERIA DE FOTOS ================= -->
         <div id="aba-galeria" class="secao-adm">
             <h3>📸 Adicionar Foto na Galeria</h3>
