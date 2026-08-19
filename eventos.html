@@ -85,13 +85,13 @@
 
         .sem-eventos-msg {
             text-align: center;
-            padding: 30px;
+            padding: 40px 20px;
             background: #ffffff;
             border: 1px dashed var(--border-color);
             border-radius: 15px;
             color: var(--text-muted);
             grid-column: 1 / -1;
-            font-size: 0.95rem;
+            font-size: 1rem;
         }
     </style>
 </head>
@@ -133,77 +133,12 @@
     <main class="container" style="padding: 40px 20px 100px 20px;">
 
         <!-- SEÇÃO DE EVENTOS CADASTRADOS NO ADMIN -->
-        <h2 style="font-family: var(--font-head); font-size: 2.2rem; letter-spacing: 1.5px; color: var(--text-main); margin-bottom: 20px; text-transform: uppercase;">Próximos Eventos Cadastrados</h2>
+        <h2 style="font-family: var(--font-head); font-size: 2.2rem; letter-spacing: 1.5px; color: var(--text-main); margin-bottom: 25px; text-transform: uppercase;">Próximos Eventos Cadastrados</h2>
         
         <div id="gridEventosDinamicos" class="grid-eventos-dinamicos">
             <!-- Os eventos criados no Admin vão aparecer aqui via JavaScript -->
         </div>
 
-        <h2 style="font-family: var(--font-head); font-size: 2.2rem; letter-spacing: 1.5px; color: var(--text-main); margin-bottom: 20px; text-transform: uppercase; margin-top: 60px;">Categorias Principais</h2>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 30px;">
-
-            <!-- CARD CAMPEONATO -->
-            <a href="campeonatos.html" style="text-decoration: none; color: inherit; display: flex;">
-                <article style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 20px; padding: 35px; width: 100%; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; box-shadow: var(--shadow-sm); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;">
-                    <div>
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-                            <div style="width: 52px; height: 52px; border-radius: 14px; background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); display: flex; align-items: center; justify-content: center; color: var(--accent-gold);">
-                                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"></path></svg>
-                            </div>
-                            <span style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 4px 12px; border-radius: 100px; background: #f1f5f9; color: var(--text-muted); border: 1px solid var(--border-color);">Competição</span>
-                        </div>
-                        <h3 style="font-family: var(--font-head); font-size: 2.2rem; letter-spacing: 1.5px; color: var(--text-main); margin-bottom: 12px; text-transform: uppercase;">Campeonatos</h3>
-                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 30px;">Acompanhe a participação dos nossos atletas e equipes nos principais torneios estaduais e nacionais de Jiu-Jitsu.</p>
-                    </div>
-                    <div style="display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-gold);">
-                        Ver Calendário & Resultados
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                    </div>
-                </article>
-            </a>
-
-            <!-- CARD GRADUAÇÕES -->
-            <a href="galeria.html?categoria=graduacoes" style="text-decoration: none; color: inherit; display: flex;">
-                <article style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 20px; padding: 35px; width: 100%; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; box-shadow: var(--shadow-sm); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;">
-                    <div>
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-                            <div style="width: 52px; height: 52px; border-radius: 14px; background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); display: flex; align-items: center; justify-content: center; color: var(--accent-gold);">
-                                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
-                            </div>
-                            <span style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 4px 12px; border-radius: 100px; background: #f1f5f9; color: var(--text-muted); border: 1px solid var(--border-color);">Evolução</span>
-                        </div>
-                        <h3 style="font-family: var(--font-head); font-size: 2.2rem; letter-spacing: 1.5px; color: var(--text-main); margin-bottom: 12px; text-transform: uppercase;">Graduações</h3>
-                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 30px;">Celebre as conquistas e momentos de troca de faixa que marcam o avanço técnico e moral de cada aluno na academia.</p>
-                    </div>
-                    <div style="display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-gold);">
-                        Ver Galeria de Graduações
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                    </div>
-                </article>
-            </a>
-
-            <!-- CARD SEMINÁRIOS -->
-            <a href="galeria.html?categoria=eventos" style="text-decoration: none; color: inherit; display: flex;">
-                <article style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 20px; padding: 35px; width: 100%; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; box-shadow: var(--shadow-sm); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;">
-                    <div>
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-                            <div style="width: 52px; height: 52px; border-radius: 14px; background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.3); display: flex; align-items: center; justify-content: center; color: var(--accent-gold);">
-                                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                            </div>
-                            <span style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 4px 12px; border-radius: 100px; background: #f1f5f9; color: var(--text-muted); border: 1px solid var(--border-color);">Capacitação</span>
-                        </div>
-                        <h3 style="font-family: var(--font-head); font-size: 2.2rem; letter-spacing: 1.5px; color: var(--text-main); margin-bottom: 12px; text-transform: uppercase;">Seminários</h3>
-                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 30px;">Aulas magnas, treinos especiais e seminários técnicos ministrados por professores convidados e grandes mestres.</p>
-                    </div>
-                    <div style="display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-gold);">
-                        Ver Registros dos Seminários
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                    </div>
-                </article>
-            </a>
-
-        </div>
     </main>
 
     <!-- FOOTER -->
@@ -227,7 +162,7 @@
             const eventos = JSON.parse(localStorage.getItem('eventos')) || [];
 
             if (eventos.length === 0) {
-                container.innerHTML = '<div class="sem-eventos-msg">Nenhum evento ou campeonato cadastrado no momento.</div>';
+                container.innerHTML = '<div class="sem-eventos-msg">Nenhum evento cadastrado no momento.</div>';
                 return;
             }
 
