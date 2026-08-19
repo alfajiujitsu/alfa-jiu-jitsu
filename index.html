@@ -19,10 +19,118 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- ESTILOS DA NOVA SEÇÃO DE TURMAS -->
+    <style>
+        .grid-turmas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .card-turma-bg {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 35px;
+            text-decoration: none;
+            color: #ffffff;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.4s ease, border-color 0.4s ease;
+        }
+
+        /* Imagem de Fundo e Zoom Suave */
+        .card-turma-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: 1;
+        }
+
+        /* Overlay Escuro para Legibilidade */
+        .card-turma-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.2) 0%, rgba(15, 23, 42, 0.85) 70%, rgba(15, 23, 42, 0.98) 100%);
+            z-index: 2;
+        }
+
+        /* Conteúdo Interno */
+        .card-turma-conteudo {
+            position: relative;
+            z-index: 3;
+            width: 100%;
+        }
+
+        .card-turma-conteudo h3 {
+            font-family: var(--font-head);
+            font-size: 2.4rem;
+            letter-spacing: 1.5px;
+            color: #ffffff;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .card-turma-info {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #e2e8f0;
+            margin-bottom: 25px;
+        }
+
+        .card-turma-info strong {
+            color: var(--accent-gold);
+        }
+
+        /* Animações e Hover */
+        .card-turma-bg:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent-gold);
+        }
+
+        .card-turma-bg:hover .card-turma-img {
+            transform: scale(1.08);
+        }
+
+        .btn-turma {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 14px;
+            background: var(--accent-gold);
+            color: #0f172a;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 12px;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .card-turma-bg:hover .btn-turma {
+            background: #ffffff;
+            color: #0f172a;
+        }
+    </style>
 </head>
 
 <body>
- 
+
     <div class="glow-bg"></div>
 
     <header>
@@ -58,35 +166,51 @@
     </section>
 
     <main>
-        <!-- SEÇÃO DE TURMAS -->
-        <section class="turmas-bg">
-            <h2 class="section-title">Escolha sua Turma</h2>
-            <p class="section-subtitle">Aulas adaptadas para diferentes idades e objetivos nos tatames.</p>
+        <!-- SEÇÃO DE TURMAS (REFORMULADA COM IMAGENS E EFEITO ZOOM) -->
+        <section class="container" style="padding: 60px 20px;">
+            <div style="text-align: center; max-width: 600px; margin: 0 auto 30px auto;">
+                <h2 class="section-title">Escolha sua Turma</h2>
+                <p class="section-subtitle">Aulas adaptadas para diferentes idades e objetivos nos tatames.</p>
+            </div>
 
-            <div class="cards-turmas">
-                <div class="turma-card turma-kids">
-                    <div class="turma-card-content">
+            <div class="grid-turmas">
+                
+                <!-- CARD KIDS -->
+                <a href="galeria.html?categoria=kids" class="card-turma-bg">
+                    <div class="card-turma-img" style="background-image: url('imagens/kids.jpg');"></div>
+                    <div class="card-turma-overlay"></div>
+                    
+                    <div class="card-turma-conteudo">
                         <h3>Kids</h3>
-                        <p><strong>Dias:</strong> Terça e Quinta</p>
-                        <p><strong>Horário:</strong> 19:00</p>
+                        <div class="card-turma-info">
+                            <p><strong>Dias:</strong> Terça e Quinta</p>
+                            <p><strong>Horário:</strong> 19:00</p>
+                        </div>
+                        <div class="btn-turma">Conhecer Turma</div>
                     </div>
-                    <a href="galeria.html?categoria=kids" class="botao">Conhecer Turma</a>
-                </div>
+                </a>
 
-                <div class="turma-card">
-                    <div>
-                        <h3>🥋 Adultos</h3>
-                        <p><strong>Dias:</strong> Segunda a Sexta</p>
-                        <p><strong>Horário:</strong> 20:00</p>
-                        <p><strong>Professor:</strong> Jean Andrade</p>
+                <!-- CARD ADULTOS -->
+                <a href="galeria.html?categoria=adultos" class="card-turma-bg">
+                    <div class="card-turma-img" style="background-image: url('imagens/adultos.jpg');"></div>
+                    <div class="card-turma-overlay"></div>
+                    
+                    <div class="card-turma-conteudo">
+                        <h3>Adultos</h3>
+                        <div class="card-turma-info">
+                            <p><strong>Dias:</strong> Segunda a Sexta</p>
+                            <p><strong>Horário:</strong> 20:00</p>
+                            <p><strong>Professor:</strong> Jean Andrade</p>
+                        </div>
+                        <div class="btn-turma">Conhecer Turma</div>
                     </div>
-                    <a href="galeria.html?categoria=adultos" class="botao">Conhecer Turma</a>
-                </div>
+                </a>
+
             </div>
         </section>
 
         <!-- SEÇÃO METODOLOGIA E PROGRAMAS -->
-        <section id="metodologia" style="max-width: 1100px; margin: 0 auto; text-align: center;">
+        <section id="metodologia" style="max-width: 1100px; margin: 0 auto; text-align: center; padding: 40px 20px;">
             <h2 class="section-title">Nossa Metodologia</h2>
             <p class="section-subtitle">
                 Conheça nosso sistema de ensino progressivo focado no desenvolvimento do praticante desde as bases técnicas até o nível avançado e competitivo.
@@ -101,7 +225,7 @@
             </div>
         </section>
 
-        <!-- SEÇÃO NOSSOS BLACK BELTS (BANNER COM IMAGEM DE FUNDO) -->
+        <!-- SEÇÃO NOSSOS BLACK BELTS -->
         <section class="blackbelt-hero-section">
             <div class="blackbelt-hero-bg">
                 <img src="imagens/vilson.jpeg" alt="Professor Vilson Fajardo - Alfa Jiu Jitsu Academy">
@@ -120,7 +244,7 @@
         </section>
 
         <!-- CHAMADA EXPERIMENTAL -->
-        <section style="text-align: center;">
+        <section style="text-align: center; padding: 60px 20px;">
             <h2 class="section-title">Transformando vidas através do Jiu Jitsu</h2>
             <p class="section-subtitle">Venha fazer parte da nossa equipe e treinar com os melhores instrutores.</p>
 
@@ -142,7 +266,7 @@
         </section>
 
         <!-- HISTÓRIA -->
-        <section style="background-color: var(--bg-surface); border-top: 1px solid var(--bg-card-border); text-align: center;">
+        <section style="background-color: var(--bg-surface); border-top: 1px solid var(--bg-card-border); text-align: center; padding: 50px 20px;">
             <h2 class="section-title">Nossa História</h2>
             <p class="section-subtitle" style="margin-bottom: 0;">
                 A Alfa Jiu Jitsu Academy nasceu com o propósito de ensinar Jiu Jitsu,
