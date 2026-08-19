@@ -45,10 +45,11 @@
 
         .card-evento-dinamico img {
     width: 100%;
-    height: 250px; /* Aumentado ligeiramente para dar mais espaço ao enquadramento */
-    object-fit: cover;
-    object-position: top center; /* Garante o foco no topo (rostos) */
-        }
+    height: auto; /* Deixa a altura se ajustar proporcionalmente à imagem */
+    max-height: 400px; /* Limite máximo para não ficar gigante */
+    object-fit: contain; /* Mostra a imagem inteira sem cortar nada */
+    background-color: #0f172a; /* Fundo para preencher eventuais sobras */
+}
 
         .card-evento-conteudo {
             padding: 25px;
