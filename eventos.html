@@ -17,6 +17,83 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        .grid-eventos-dinamicos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .card-evento-dinamico {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-evento-dinamico:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md, 0 10px 20px rgba(0,0,0,0.1));
+            border-color: var(--accent-gold);
+        }
+
+        .card-evento-dinamico img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-evento-conteudo {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-evento-conteudo h3 {
+            font-family: var(--font-head);
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .badge-data-local {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin-bottom: 12px;
+        }
+
+        .card-evento-conteudo p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 0;
+            flex-grow: 1;
+        }
+
+        .sem-eventos-msg {
+            text-align: center;
+            padding: 30px;
+            background: #ffffff;
+            border: 1px dashed var(--border-color);
+            border-radius: 15px;
+            color: var(--text-muted);
+            grid-column: 1 / -1;
+            font-size: 0.95rem;
+        }
+    </style>
 </head>
 
 <body>
@@ -48,12 +125,22 @@
         <div class="hero-content">
             <span class="hero-badge">Ações & Vivências</span>
             <h1>Eventos e Competições</h1>
-            <p>Acompanhe a trajetória da Alfa Jiu Jitsu Academy dentro e fora dos tatames. Escolha uma das categorias abaixo para explorar.</p>
+            <p>Acompanhe a trajetória da Alfa Jiu Jitsu Academy dentro e fora dos tatames.</p>
         </div>
     </section>
 
     <!-- MAIN CONTAINER -->
     <main class="container" style="padding: 40px 20px 100px 20px;">
+
+        <!-- SEÇÃO DE EVENTOS CADASTRADOS NO ADMIN -->
+        <h2 style="font-family: var(--font-head); font-size: 2.2rem; letter-spacing: 1.5px; color: var(--text-main); margin-bottom: 20px; text-transform: uppercase;">Próximos Eventos Cadastrados</h2>
+        
+        <div id="gridEventosDinamicos" class="grid-eventos-dinamicos">
+            <!-- Os eventos criados no Admin vão aparecer aqui via JavaScript -->
+        </div>
+
+        <h2 style="font-family: var(--font-head); font-size: 2.2rem; letter-spacing: 1.5px; color: var(--text-main); margin-bottom: 20px; text-transform: uppercase; margin-top: 60px;">Categorias Principais</h2>
+
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 30px;">
 
             <!-- CARD CAMPEONATO -->
@@ -126,6 +213,49 @@
         <p style="margin-top: 5px;">Joinville - Santa Catarina</p>
         <p style="margin-top: 15px; color: var(--text-muted); font-size: 0.85rem;">&copy; 2026 Todos os direitos reservados.</p>
     </footer>
+
+    <!-- SCRIPT DE CARREGAMENTO DOS EVENTOS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            carregarEventosDinamicos();
+        });
+
+        function carregarEventosDinamicos() {
+            const container = document.getElementById('gridEventosDinamicos');
+            const eventos = JSON.parse(localStorage.getItem('eventos')) || [];
+
+            if (eventos.length === 0) {
+                container.innerHTML = '<div class="sem-eventos-msg">Nenhum evento ou campeonato cadastrado no momento.</div>';
+                return;
+            }
+
+            container.innerHTML = '';
+
+            eventos.forEach(ev => {
+                let dataFormatada = ev.data;
+                if (ev.data && ev.data.includes('-')) {
+                    const partes = ev.data.split('-');
+                    dataFormatada = `${partes[2]}/${partes[1]}/${partes[0]}`;
+                }
+
+                const imgHtml = ev.foto ? `<img src="${ev.foto}" alt="${ev.titulo}">` : '';
+
+                container.innerHTML += `
+                    <article class="card-evento-dinamico">
+                        ${imgHtml}
+                        <div class="card-evento-conteudo">
+                            <div class="badge-data-local">
+                                <span>📅 ${dataFormatada}</span>
+                                <span>📍 ${ev.local}</span>
+                            </div>
+                            <h3>${ev.titulo}</h3>
+                            <p>${ev.desc ? ev.desc : ''}</p>
+                        </div>
+                    </article>
+                `;
+            });
+        }
+    </script>
 
 </body>
 
