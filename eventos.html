@@ -222,6 +222,8 @@
 
         function carregarEventosDinamicos() {
             const container = document.getElementById('gridEventosDinamicos');
+            if (!container) return;
+
             const eventos = JSON.parse(localStorage.getItem('eventos')) || [];
 
             if (eventos.length === 0) {
@@ -232,24 +234,26 @@
             container.innerHTML = '';
 
             eventos.forEach(ev => {
-                let dataFormatada = ev.data;
+                let dataFormatada = ev.data || '';
                 if (ev.data && ev.data.includes('-')) {
                     const partes = ev.data.split('-');
                     dataFormatada = `${partes[2]}/${partes[1]}/${partes[0]}`;
                 }
 
-                const imgHtml = ev.foto ? `<img src="${ev.foto}" alt="${ev.titulo}">` : '';
+                const imgHtml = ev.foto ? `<img src="${ev.foto}" alt="${ev.titulo || 'Evento'}">` : '';
+                const localTexto = ev.local ? `<span>📍 ${ev.local}</span>` : '';
+                const dataTexto = dataFormatada ? `<span>📅 ${dataFormatada}</span>` : '';
 
                 container.innerHTML += `
                     <article class="card-evento-dinamico">
                         ${imgHtml}
                         <div class="card-evento-conteudo">
                             <div class="badge-data-local">
-                                <span>📅 ${dataFormatada}</span>
-                                <span>📍 ${ev.local}</span>
+                                ${dataTexto}
+                                ${localTexto}
                             </div>
-                            <h3>${ev.titulo}</h3>
-                            <p>${ev.desc ? ev.desc : ''}</p>
+                            <h3>${ev.titulo || 'Sem título'}</h3>
+                            <p>${ev.desc || ''}</p>
                         </div>
                     </article>
                 `;
