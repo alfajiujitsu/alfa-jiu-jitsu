@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Campeonatos | Alfa Jiu Jitsu Academy</title>
     
-    <!-- Google Fonts: Bebas Neue (Títulos Brutalistas) + Plus Jakarta Sans (Texto Ultra Clean) -->
+    <!-- Google Fonts: Bebas Neue + Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -17,7 +17,8 @@
             --bg-card: rgba(18, 18, 20, 0.75);
             --bg-card-border: rgba(255, 255, 255, 0.08);
             --gold-primary: #D4AF37;
-            --gold-glow: rgba(212, 175, 55, 0.2);
+            --gold-hover: #f3ca43;
+            --gold-glow: rgba(212, 175, 55, 0.18);
             --green-status: #10B981;
             --green-glow: rgba(16, 185, 129, 0.15);
             --text-main: #F4F4F5;
@@ -47,7 +48,8 @@
             top: -100px;
             left: 50%;
             transform: translateX(-50%);
-            width: 900px;
+            width: 100%;
+            max-width: 900px;
             height: 450px;
             background: radial-gradient(circle, var(--gold-glow) 0%, rgba(0,0,0,0) 70%);
             z-index: 0;
@@ -275,6 +277,42 @@
             line-height: 1.6;
         }
 
+        /* DESTAKE DE MEDALHAS */
+        .badge-medalhas {
+            color: var(--gold-primary);
+            font-weight: 600;
+        }
+
+        /* BOTOES DE AÇÃO NO CARD */
+        .card-acoes {
+            margin-top: 25px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-inscrever {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--gold-primary);
+            color: #000;
+            border-radius: 100px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-inscrever:hover {
+            background: var(--gold-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
         /* GALERIA DE ATLETAS */
         .galeria-atletas {
             display: grid;
@@ -307,7 +345,6 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            margin-top: 25px;
             padding: 10px 20px;
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--gold-primary);
@@ -359,6 +396,18 @@
             .card-noticia {
                 padding: 25px;
             }
+            .galeria-atletas {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .galeria-atletas {
+                grid-template-columns: repeat(1, 1fr);
+            }
+            .galeria-atletas-img-box {
+                height: 180px;
+            }
         }
     </style>
 </head>
@@ -371,17 +420,17 @@
     <header>
         <div class="nav-container">
             <a href="index.html" class="logo">ALFA<span>HQ</span></a>
-             <nav>
+            <nav>
                 <a href="index.html">Início</a>
                 <a href="index.html#metodologia">Metodologia</a>
                 <a href="historia.html">História</a>
                 <a href="horarios.html">Horários</a>
-                <a href="eventos.html">Eventos</a>
+                <a href="eventos.html" class="active">Campeonatos & Eventos</a>
                 <a href="graduacoes.html">Graduações</a>
                 <a href="blackbelts.html">Black Belts</a>
                 <a href="galeria.html">Galeria</a>
                 <a href="contato.html">Contato</a>
-                <a href="reservas.html" class="active">Shop & Área do Aluno</a>
+                <a href="reservas.html">Área do Aluno</a>
             </nav>
         </div>
     </header>
@@ -411,6 +460,13 @@
                     <span>📍 <strong>Local:</strong> Joinville / SC</span>
                 </div>
                 <p>Nossa equipe estará presente em peso com as turmas Kids e Adulto. Os treinos específicos e o camp focado para a competição já estão em andamento!</p>
+                
+                <div class="card-acoes">
+                    <a href="https://fiscj.com.br" target="_blank" rel="noopener noreferrer" class="btn-inscrever">
+                        Garantir Inscrição / Info
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </div>
             </article>
         </div>
 
@@ -426,27 +482,29 @@
                 <h3>Open Joinville BJJ 2026</h3>
                 <div class="noticia-meta">
                     <span>📅 <strong>Data:</strong> 15 de Maio de 2026</span>
-                    <span>🏅 <strong>Quadro de Medalhas:</strong> 5 Ouros, 3 Pratas e 2 Bronzes</span>
+                    <span>🏅 <strong>Quadro de Medalhas:</strong> <span class="badge-medalhas">🥇 5 Ouros • 🥈 3 Pratas • 🥉 2 Bronzes</span></span>
                 </div>
                 <p>Parabéns a todos os atletas que representaram o escudo da Alfa Jiu Jitsu Academy no tatame com extrema garra, técnica e disciplina!</p>
 
                 <!-- Fotos dos Atletas -->
                 <div class="galeria-atletas">
                     <div class="galeria-atletas-img-box">
-                        <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=400&auto=format&fit=crop" alt="Atleta no Pódio">
+                        <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=400&auto=format&fit=crop" alt="Atleta Alfa no Pódio de Jiu-Jitsu">
                     </div>
                     <div class="galeria-atletas-img-box">
-                        <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?q=80&w=400&auto=format&fit=crop" alt="Equipe no Evento">
+                        <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?q=80&w=400&auto=format&fit=crop" alt="Equipe Alfa Jiu Jitsu Reunida no Evento">
                     </div>
                     <div class="galeria-atletas-img-box">
-                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=400&auto=format&fit=crop" alt="Luta Atleta">
+                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=400&auto=format&fit=crop" alt="Atleta Alfa em combate no tatame">
                     </div>
                 </div>
 
-                <a href="galeria.html?categoria=campeonatos" class="btn-galeria">
-                    Ver Álbum Completo 
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </a>
+                <div class="card-acoes">
+                    <a href="galeria.html?categoria=campeonatos" class="btn-galeria">
+                        Ver Álbum Completo 
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </a>
+                </div>
             </article>
         </div>
 
