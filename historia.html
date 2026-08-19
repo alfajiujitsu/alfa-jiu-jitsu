@@ -139,102 +139,144 @@
             </div>
         </section>
 
-        <!-- DIÁRIO DE EVOLUÇÃO (ORDEM CRONOLÓGICA) -->
-        <section>
+        <!-- DIÁRIO DA HQ (SEÇÕES HORIZONTAIS POR ETAPA) -->
+        <section style="margin-bottom: 80px;">
             <div style="margin-bottom: 40px;">
                 <h2 style="font-family: var(--font-head); font-size: 3rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-main);">Diário da HQ</h2>
+                <p style="color: var(--text-muted); font-size: 1rem;">Acompanhe passo a passo a transformação do nosso Centro de Treinamento.</p>
             </div>
 
-            <div class="gallery-grid" id="gridReforma" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
-                
-                <!-- CARD 1: PRIMEIRA ACADEMIA (2 FOTOS: antigo01.jpeg e antigo02.jpeg) -->
-                <div class="gallery-card" style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;">
-                    <div style="height: 220px; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background-color: #0f172a;">
-                        <img src="imagens/antigo01.jpeg" alt="Primeira Academia - Imagem 1" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=600&auto=format&fit=crop'">
-                        <img src="imagens/antigo02.jpeg" alt="Primeira Academia - Imagem 2" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?q=80&w=600&auto=format&fit=crop'">
+            <div style="display: flex; flex-direction: column; gap: 60px;">
+
+                <!-- ETAPA 1: AS ORIGENS -->
+                <div class="diario-etapa" style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 24px; padding: 35px; box-shadow: var(--shadow-sm);">
+                    <div style="margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 15px;">
+                        <span style="font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-gold); display: block; margin-bottom: 5px;">Passo 01</span>
+                        <h3 style="font-family: var(--font-head); font-size: 2.2rem; color: var(--text-main); margin: 0;">As Origens</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 5px;">Aqui começou a nossa jornada no jiu jitsu. Um espaço simples, porém movido por técnica e dedicação.</p>
                     </div>
-                    <div style="padding: 25px;">
-                        <span style="font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 8px; display: block;">Passo 01 • As Origens</span>
-                        <h3 style="font-size: 1.2rem; margin-bottom: 8px; color: var(--text-main);">Primeira Academia</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">Aqui começou o projeto de jiu jitsu, espaço simples mas com muita qualidade técnica.</p>
+
+                    <!-- GRADE DE MÍDIAS DA ETAPA 1 -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+                        <div style="border-radius: 12px; overflow: hidden; height: 220px; background: #0f172a;">
+                            <img src="imagens/antigo01.jpeg" alt="Origens - Foto 1" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=600&auto=format&fit=crop'">
+                        </div>
+                        <div style="border-radius: 12px; overflow: hidden; height: 220px; background: #0f172a;">
+                            <img src="imagens/antigo02.jpeg" alt="Origens - Foto 2" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?q=80&w=600&auto=format&fit=crop'">
+                        </div>
+                        <!-- Caso queira adicionar a foto 3 futuramente, basta descomentar o bloco abaixo: -->
+                        <!--
+                        <div style="border-radius: 12px; overflow: hidden; height: 220px; background: #0f172a;">
+                            <img src="imagens/antigo03.jpeg" alt="Origens - Foto 3" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        -->
                     </div>
                 </div>
 
-                <!-- CARD 2: PRIMEIRA REFORMA FEITA -->
-                <div class="gallery-card" style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-sm);">
-                    <div style="height: 220px; width: 100%; overflow: hidden; background-color: #f1f5f9;">
-                        <img src="imagens/primeira-reforma.jpg" alt="Primeira Reforma" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=600&auto=format&fit=crop'">
+                <!-- ETAPA 2: PRIMEIRA REFORMA -->
+                <div class="diario-etapa" style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 24px; padding: 35px; box-shadow: var(--shadow-sm);">
+                    <div style="margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 15px;">
+                        <span style="font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-gold); display: block; margin-bottom: 5px;">Passo 02</span>
+                        <h3 style="font-family: var(--font-head); font-size: 2.2rem; color: var(--text-main); margin: 0;">Primeira Reforma</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 5px;">Primeira grande melhoria na infraestrutura para comportar o crescimento do time.</p>
                     </div>
-                    <div style="padding: 25px;">
-                        <span style="font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 8px; display: block;">Passo 02 • PRIMEIRA REFORMA FEITA</span>
-                        <h3 style="font-size: 1.2rem; margin-bottom: 8px; color: var(--text-main);">Primeira Reforma</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">Primeira grande melhoria da estrutura para comportar o crescimento dos alunos e treinos.</p>
-                    </div>
-                </div>
 
-                <!-- CARD 3: PROJETO DO NOVO CT (PLANTA BAIXA SVG) -->
-                <div class="gallery-card card-diario-projeto" style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;">
-                    <div class="svg-container" style="background: #0f172a; padding: 10px;">
-                        <svg viewBox="0 0 600 520" xmlns="http://www.w3.org/2000/svg" width="100%" height="auto">
-                            <defs>
-                                <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
-                                    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255, 255, 255, 0.05)" stroke-width="1"/>
-                                </pattern>
-                            </defs>
-                            <rect width="600" height="520" fill="#0f172a" rx="12"/>
-                            <rect width="600" height="520" fill="url(#grid)" rx="12"/>
-
-                            <!-- Borda Externa -->
-                            <rect x="20" y="20" width="560" height="480" fill="none" stroke="#d97706" stroke-width="4" rx="4"/>
-
-                            <!-- Tatame -->
-                            <rect x="25" y="25" width="550" height="340" fill="#0284c7" fill-opacity="0.25" stroke="#38bdf8" stroke-width="3"/>
-                            <path d="M 25 195 L 575 195 M 300 25 L 300 365" stroke="#38bdf8" stroke-width="1" stroke-dasharray="6,6" opacity="0.4"/>
-                            <text x="300" y="185" fill="#ffffff" font-family="'Bebas Neue', sans-serif" font-size="36" font-weight="bold" text-anchor="middle" letter-spacing="3">ÁREA DE TATAME</text>
-                            <text x="300" y="215" fill="#38bdf8" font-family="sans-serif" font-size="14" text-anchor="middle">Área Principal de Treino</text>
-
-                            <!-- Divisória e Guarda Volumes -->
-                            <line x1="20" y1="365" x2="580" y2="365" stroke="#d97706" stroke-width="4"/>
-                            <rect x="25" y="367" width="115" height="130" fill="#334155" fill-opacity="0.8" stroke="#94a3b8" stroke-width="2"/>
-                            <line x1="140" y1="365" x2="140" y2="498" stroke="#d97706" stroke-width="4"/>
-                            <text x="82" y="425" fill="#ffffff" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">GUARDA</text>
-                            <text x="82" y="445" fill="#ffffff" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">VOLUMES</text>
-
-                            <!-- Área Convivência e Banco -->
-                            <rect x="142" y="367" width="433" height="130" fill="#1e293b" fill-opacity="0.5"/>
-                            <rect x="200" y="435" width="317" height="45" fill="#b45309" fill-opacity="0.9" stroke="#f59e0b" stroke-width="2" rx="4"/>
-                            <text x="358" y="462" fill="#ffffff" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" letter-spacing="1">BANCO DE ESPERA / APOIO</text>
-                            <text x="358" y="405" fill="#94a3b8" font-family="sans-serif" font-size="12" text-anchor="middle">Área de Circulação e Calçados</text>
-                        </svg>
-                    </div>
-                    <div style="padding: 25px;">
-                        <span class="projeto-badge" style="font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 8px; display: block;">Passo 03 • PLANEJAMENTO</span>
-                        <h3 style="font-size: 1.2rem; margin-bottom: 8px; color: var(--text-main);">Projeto do Novo CT</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">Elaboração da planta baixa e distribuição estratégica das áreas de treino, recepção e convivência.</p>
+                    <!-- GRADE DE MÍDIAS DA ETAPA 2 -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+                        <div style="border-radius: 12px; overflow: hidden; height: 220px; background: #f1f5f9;">
+                            <img src="imagens/primeira-reforma.jpg" alt="Primeira Reforma - Foto 1" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=600&auto=format&fit=crop'">
+                        </div>
+                        <!-- Espaço preparado para Foto 02, Foto 03, etc -->
                     </div>
                 </div>
 
-                <!-- CARD 4: EXECUÇÃO DO PROJETO -->
-                <div class="gallery-card" style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-sm);">
-                    <div style="height: 220px; width: 100%; overflow: hidden; background-color: #f1f5f9;">
-                        <img src="imagens/execucao-projeto.jpg" alt="Execução do Projeto" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=600&auto=format&fit=crop'">
+                <!-- ETAPA 3: PLANEJAMENTO DO NOVO CT -->
+                <div class="diario-etapa" style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 24px; padding: 35px; box-shadow: var(--shadow-sm);">
+                    <div style="margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 15px;">
+                        <span style="font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-gold); display: block; margin-bottom: 5px;">Passo 03</span>
+                        <h3 style="font-family: var(--font-head); font-size: 2.2rem; color: var(--text-main); margin: 0;">Planejamento</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 5px;">Desenho técnico da planta baixa com a distribuição das áreas de treino e convivência.</p>
                     </div>
-                    <div style="padding: 25px;">
-                        <span style="font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 8px; display: block;">Passo 04 • EXECUÇÃO DO PROJETO</span>
-                        <h3 style="font-size: 1.2rem; margin-bottom: 8px; color: var(--text-main);">Execução da Obra</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">Obras em andamento, preparação das paredes, piso e estrutura para os novos tatames.</p>
+
+                    <!-- GRADE DE MÍDIAS DA ETAPA 3 (SVG DA PLANTA) -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                        <div style="border-radius: 12px; overflow: hidden; background: #0f172a; padding: 10px;">
+                            <svg viewBox="0 0 600 520" xmlns="http://www.w3.org/2000/svg" width="100%" height="auto">
+                                <defs>
+                                    <pattern id="grid-plan" width="20" height="20" patternUnits="userSpaceOnUse">
+                                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255, 255, 255, 0.05)" stroke-width="1"/>
+                                    </pattern>
+                                </defs>
+                                <rect width="600" height="520" fill="#0f172a" rx="12"/>
+                                <rect width="600" height="520" fill="url(#grid-plan)" rx="12"/>
+
+                                <!-- Borda Externa -->
+                                <rect x="20" y="20" width="560" height="480" fill="none" stroke="#d97706" stroke-width="4" rx="4"/>
+
+                                <!-- Tatame -->
+                                <rect x="25" y="25" width="550" height="340" fill="#0284c7" fill-opacity="0.25" stroke="#38bdf8" stroke-width="3"/>
+                                <path d="M 25 195 L 575 195 M 300 25 L 300 365" stroke="#38bdf8" stroke-width="1" stroke-dasharray="6,6" opacity="0.4"/>
+                                <text x="300" y="185" fill="#ffffff" font-family="'Bebas Neue', sans-serif" font-size="36" font-weight="bold" text-anchor="middle" letter-spacing="3">ÁREA DE TATAME</text>
+                                <text x="300" y="215" fill="#38bdf8" font-family="sans-serif" font-size="14" text-anchor="middle">Área Principal de Treino</text>
+
+                                <!-- Divisória e Guarda Volumes -->
+                                <line x1="20" y1="365" x2="580" y2="365" stroke="#d97706" stroke-width="4"/>
+                                <rect x="25" y="367" width="115" height="130" fill="#334155" fill-opacity="0.8" stroke="#94a3b8" stroke-width="2"/>
+                                <line x1="140" y1="365" x2="140" y2="498" stroke="#d97706" stroke-width="4"/>
+                                <text x="82" y="425" fill="#ffffff" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">GUARDA</text>
+                                <text x="82" y="445" fill="#ffffff" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">VOLUMES</text>
+
+                                <!-- Área Convivência e Banco -->
+                                <rect x="142" y="367" width="433" height="130" fill="#1e293b" fill-opacity="0.5"/>
+                                <rect x="200" y="435" width="317" height="45" fill="#b45309" fill-opacity="0.9" stroke="#f59e0b" stroke-width="2" rx="4"/>
+                                <text x="358" y="462" fill="#ffffff" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle" letter-spacing="1">BANCO DE ESPERA / APOIO</text>
+                                <text x="358" y="405" fill="#94a3b8" font-family="sans-serif" font-size="12" text-anchor="middle">Área de Circulação e Calçados</text>
+                            </svg>
+                        </div>
                     </div>
                 </div>
 
-                <!-- CARD 5: PROJETO 90% FINALIZADO -->
-                <div class="gallery-card" style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-sm);">
-                    <div style="height: 220px; width: 100%; overflow: hidden; background-color: #f1f5f9;">
-                        <img src="imagens/projeto-90-porcento.jpg" alt="Projeto 90% Finalizado" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=600&auto=format&fit=crop'">
+                <!-- ETAPA 4: EXECUÇÃO DA OBRA (COM VÍDEO) -->
+                <div class="diario-etapa" style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 24px; padding: 35px; box-shadow: var(--shadow-sm);">
+                    <div style="margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 15px;">
+                        <span style="font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-gold); display: block; margin-bottom: 5px;">Passo 04</span>
+                        <h3 style="font-family: var(--font-head); font-size: 2.2rem; color: var(--text-main); margin: 0;">Execução</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 5px;">Mão na massa! Acompanhe o andamento das obras de preparação do espaço.</p>
                     </div>
-                    <div style="padding: 25px;">
-                        <span style="font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 8px; display: block;">Passo 05 • FINALIZAÇÃO</span>
-                        <h3 style="font-size: 1.2rem; margin-bottom: 8px; color: var(--text-main);">Projeto 90% Finalizado</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">Tatames posicionados e estrutura quase pronta para receber os atletas no novo espaço.</p>
+
+                    <!-- GRADE DE MÍDIAS DA ETAPA 4 (MÃO NA MASSA / VÍDEO) -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                        
+                        <!-- VÍDEO MP4 / EMBED -->
+                        <div style="border-radius: 12px; overflow: hidden; height: 260px; background: #000000; display: flex; align-items: center; justify-content: center;">
+                            <!-- Exemplo com tag de vídeo local. Substitua o src="videos/execucao.mp4" pelo seu arquivo de vídeo -->
+                            <video controls style="width: 100%; height: 100%; object-fit: cover;">
+                                <source src="videos/execucao.mp4" type="video/mp4">
+                                Seu navegador não suporta a exibição de vídeos.
+                            </video>
+                        </div>
+
+                        <!-- FOTO ADICIONAL DE SUPORTE Á EXECUÇÃO -->
+                        <div style="border-radius: 12px; overflow: hidden; height: 260px; background: #f1f5f9;">
+                            <img src="imagens/execucao-projeto.jpg" alt="Execução da Obra - Foto" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=600&auto=format&fit=crop'">
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ETAPA 5: 90% FINALIZADO -->
+                <div class="diario-etapa" style="background: #ffffff; border: 1px solid var(--border-color); border-radius: 24px; padding: 35px; box-shadow: var(--shadow-sm);">
+                    <div style="margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 15px;">
+                        <span style="font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent-gold); display: block; margin-bottom: 5px;">Passo 05</span>
+                        <h3 style="font-family: var(--font-head); font-size: 2.2rem; color: var(--text-main); margin: 0;">90% Finalizado</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 5px;">Tatames instalados e ambiente preparado para os treinos de alto nível.</p>
+                    </div>
+
+                    <!-- GRADE DE MÍDIAS DA ETAPA 5 -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+                        <div style="border-radius: 12px; overflow: hidden; height: 220px; background: #f1f5f9;">
+                            <img src="imagens/projeto-90-porcento.jpg" alt="90% Finalizado - Foto 1" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=600&auto=format&fit=crop'">
+                        </div>
                     </div>
                 </div>
 
@@ -249,32 +291,6 @@
         <p>Disciplina • Respeito • Evolução</p>
         <p style="margin-top: 15px; color: var(--text-muted); font-size: 0.85rem;">&copy; 2026 Alfa Jiu Jitsu Academy. Todos os direitos reservados.</p>
     </footer>
-
-    <!-- JAVASCRIPT -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const reformaItems = JSON.parse(localStorage.getItem('reformaItems')) || [];
-            const grid = document.getElementById('gridReforma');
-
-            reformaItems.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'gallery-card';
-                card.style.cssText = 'background: #ffffff; border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-sm);';
-                
-                card.innerHTML = `
-                    <div style="height: 220px; width: 100%; overflow: hidden; background-color: #f1f5f9;">
-                        <img src="${item.foto}" alt="${item.titulo}" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div style="padding: 25px;">
-                        <span style="font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 8px; display: block;">${item.fase || 'Evolução'}</span>
-                        <h3 style="font-size: 1.2rem; margin-bottom: 8px; color: var(--text-main);">${item.titulo}</h3>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">${item.descricao}</p>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        });
-    </script>
 
 </body>
 
