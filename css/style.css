@@ -611,7 +611,7 @@ footer p {
     font-size: 1.1rem;
 }
 
-/* Responsividade */
+/* Responsividade Geral */
 @media (max-width: 768px) {
     header { padding: 15px 20px; }
     .nav-container { flex-direction: column; gap: 15px; }
@@ -619,10 +619,11 @@ footer p {
     nav a { font-size: 0.75rem; }
     .turma-card { width: 100%; }
 }
+
 /* Container dos Filtros */
 .filtros-container {
     background: #ffffff;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border-color, #e2e8f0);
     padding: 16px 24px;
     border-radius: 16px;
     box-shadow: var(--shadow-sm);
@@ -643,7 +644,7 @@ footer p {
 
 .filtros button {
     background: #f8fafc;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border-color, #e2e8f0);
     color: var(--text-main);
     padding: 10px 20px;
     border-radius: 100px;
@@ -656,8 +657,8 @@ footer p {
 }
 
 .filtros button:hover {
-    border-color: var(--accent-gold);
-    color: var(--accent-gold);
+    border-color: var(--gold-primary);
+    color: var(--gold-primary);
     transform: translateY(-2px);
 }
 
@@ -674,7 +675,7 @@ footer p {
     border-radius: 16px;
     overflow: hidden;
     background: #0f172a;
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border-color, #e2e8f0);
     aspect-ratio: 4 / 3;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -695,4 +696,29 @@ footer p {
 
 .galeria .foto:hover img {
     transform: scale(1.05);
+}
+
+/* ==========================================================================
+   DIÁRIO DA HQ - ESTILOS DE VÍDEO & MÍDIAS
+   ========================================================================== */
+.diario-etapa video {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 340px;
+    object-fit: contain;
+    display: block;
+    border-radius: 8px;
+    outline: none;
+    background: transparent;
+}
+
+/* Garante a estabilidade do container escuro em vídeos e fotos */
+.diario-etapa div[style*="background: #0f172a"] {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 250px;
 }
