@@ -42,16 +42,21 @@
         </div>
     </header>
 
-    <!-- HERO SECTION -->
+   <!-- HERO SECTION COM VÍDEO DE FUNDO -->
     <section class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
+        <video autoplay muted loop playsinline class="hero-video" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;">
+            <source src="historia.mp4" type="video/mp4">
+            Seu navegador não suporta a exibição de vídeos.
+        </video>
+        
+        <div class="hero-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2;"></div>
+        
+        <div class="hero-content" style="position: relative; z-index: 3;">
             <span class="hero-badge">Alfa Jiu Jitsu Academy</span>
             <h1>Nossa Trajetória</h1>
             <p>Uma história moldada no tatame, forjada na disciplina e movida pela busca constante do propósito.</p>
         </div>
     </section>
-
     <!-- CONTEÚDO PRINCIPAL -->
     <main class="container" style="padding: 60px 20px 100px 20px;">
 
