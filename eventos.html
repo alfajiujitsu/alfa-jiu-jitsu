@@ -44,12 +44,12 @@
         }
 
         .card-evento-dinamico img {
-    width: 100%;
-    height: auto; /* Deixa a altura se ajustar proporcionalmente à imagem */
-    max-height: 400px; /* Limite máximo para não ficar gigante */
-    object-fit: contain; /* Mostra a imagem inteira sem cortar nada */
-    background-color: #0f172a; /* Fundo para preencher eventuais sobras */
-}
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
+            background-color: #0f172a;
+        }
 
         .card-evento-conteudo {
             padding: 25px;
@@ -121,13 +121,19 @@
         </div>
     </header>
 
-    <!-- HERO SECTION -->
+    <!-- HERO SECTION COM VÍDEO -->
     <section class="hero">
+        <video autoplay muted loop playsinline class="hero-video">
+            <source src="evento.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos em HTML5.
+        </video>
+
         <div class="hero-overlay"></div>
+
         <div class="hero-content">
             <span class="hero-badge">Ações & Vivências</span>
             <h1>Eventos e Competições</h1>
-            <p>Acompanhe a trajetória da Alfa Jiu Jitsu Academy dentro e fora dos tatames.</p>
+            <p style="color: #d1d5db;">Acompanhe a trajetória da Alfa Jiu Jitsu Academy dentro e fora dos tatames.</p>
         </div>
     </section>
 
