@@ -4,562 +4,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alfa Jiu Jitsu Academy | High Performance BJJ</title>
+    <title>Alfa Jiu Jitsu Academy | Início</title>
     
-    <meta name="description" content="Alfa Jiu Jitsu Academy em Joinville/SC. Formando campeões nos tatames e na vida. Agende sua aula experimental!">
-    <meta property="og:title" content="Alfa Jiu Jitsu Academy - Joinville">
-    <meta property="og:description" content="Aulas de Jiu Jitsu com padrão internacional em Joinville - SC. Agende sua vivência!">
+    <meta name="description" content="Alfa Jiu Jitsu Academy em Joinville/SC. Disciplina, Respeito e Evolução. Agende sua aula experimental!">
+    <meta property="og:title" content="Alfa Jiu Jitsu Academy">
+    <meta property="og:description" content="Aulas de Jiu Jitsu para todas as idades em Joinville - SC. Agende uma aula experimental!">
     <meta property="og:image" content="imagens/logo.jpeg">
     <meta property="og:type" content="website">
 
-    <!-- CSS Base -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animacoes.css">
     <link rel="stylesheet" href="css/responsivo.css">
 
-    <!-- Fonts Premium -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+    <!-- ESTILOS DA NOVA SEÇÃO DE TURMAS -->
     <style>
-        :root {
-            --bg-light: #f8fafc;
-            --bg-card: #ffffff;
-            --gold-primary: #c59b27;
-            --gold-hover: #b0881e;
-            --gold-soft: rgba(197, 155, 39, 0.12);
-            --border-subtle: #e2e8f0;
-            --text-dark: #0f172a;
-            --text-muted: #64748b;
-            --font-heading: 'Bebas Neue', sans-serif;
-            --font-body: 'Plus Jakarta Sans', sans-serif;
-            --font-tech: 'Space Grotesk', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-light);
-            color: var(--text-dark);
-            font-family: var(--font-body);
-            overflow-x: hidden;
-            margin: 0;
-            padding: 0;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* LIGHT AMBIENT GLOW */
-        .ambient-glow-1 {
-            position: fixed;
-            top: -10%;
-            left: 30%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(197, 155, 39, 0.08) 0%, rgba(255,255,255,0) 70%);
-            z-index: -1;
-            pointer-events: none;
-            filter: blur(80px);
-        }
-
-        /* HEADER & NAVIGATION CLEAN */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border-subtle);
-            transition: all 0.3s ease;
-        }
-
-        .nav-container {
-            max-width: 1300px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 24px;
-        }
-
-        .logo {
-            font-family: var(--font-heading);
-            font-size: 2.2rem;
-            letter-spacing: 1.5px;
-            color: var(--text-dark);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .logo span { color: var(--gold-primary); }
-        .logo small { 
-            font-size: 0.75rem; 
-            background: var(--gold-soft); 
-            color: var(--gold-primary); 
-            padding: 2px 8px; 
-            border-radius: 6px; 
-            font-family: var(--font-tech);
-            font-weight: 700;
-        }
-
-        nav {
-            display: flex;
-            gap: 22px;
-            align-items: center;
-        }
-
-        nav a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: all 0.25s ease;
-            position: relative;
-            padding: 6px 0;
-        }
-
-        nav a:hover, nav a.active {
-            color: var(--text-dark);
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0%;
-            height: 2px;
-            background: var(--gold-primary);
-            transition: width 0.3s ease;
-        }
-
-        nav a:hover::after, nav a.active::after {
-            width: 100%;
-        }
-
-        /* HERO CLEAN & LUMINOSO */
-        .hero {
-            position: relative;
-            min-height: 85vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            padding: 140px 20px 80px 20px;
-            background: #ffffff;
-            border-bottom: 1px solid var(--border-subtle);
-        }
-
-        .hero-video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: 1;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-            filter: brightness(0.95) contrast(1.05);
-            opacity: 0.15;
-        }
-
-        .hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.4) 0%, #ffffff 90%);
-            z-index: 2;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 3;
-            text-align: center;
-            max-width: 850px;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 20px;
-            background: var(--gold-soft);
-            border: 1px solid rgba(197, 155, 39, 0.3);
-            border-radius: 50px;
-            color: var(--gold-primary);
-            font-family: var(--font-tech);
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 25px;
-        }
-
-        .logo-img-hero {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            border: 3px solid var(--gold-primary);
-            box-shadow: 0 10px 25px rgba(197, 155, 39, 0.2);
-            margin-bottom: 20px;
-            object-fit: cover;
-        }
-
-        .hero h1 {
-            font-family: var(--font-heading);
-            font-size: clamp(3.2rem, 7vw, 5.5rem);
-            line-height: 0.95;
-            letter-spacing: 2px;
-            margin: 0 0 15px 0;
-            color: var(--text-dark);
-        }
-
-        .slogan-tag {
-            font-family: var(--font-tech);
-            font-size: 1.1rem;
-            letter-spacing: 3px;
-            color: var(--gold-primary);
-            text-transform: uppercase;
-            margin-bottom: 35px;
-            font-weight: 700;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn-gold {
-            background: var(--gold-primary);
-            color: #ffffff;
-            padding: 16px 36px;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(197, 155, 39, 0.25);
-            border: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn-gold:hover {
-            transform: translateY(-2px);
-            background: var(--gold-hover);
-            box-shadow: 0 12px 25px rgba(197, 155, 39, 0.35);
-        }
-
-        .btn-outline {
-            background: #ffffff;
-            color: var(--text-dark);
-            padding: 16px 36px;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: 1px solid var(--border-subtle);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-        }
-
-        .btn-outline:hover {
-            background: var(--bg-light);
-            border-color: var(--text-dark);
-            transform: translateY(-2px);
-        }
-
-        /* SEÇÃO DE TITULOS CLEAN */
-        .section-header {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 50px auto;
-        }
-
-        .section-tag {
-            font-family: var(--font-tech);
-            color: var(--gold-primary);
-            font-size: 0.85rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .section-title-premium {
-            font-family: var(--font-heading);
-            font-size: 3rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: var(--text-dark);
-            margin: 0;
-            line-height: 1;
-        }
-
-        .section-subtitle-premium {
-            color: var(--text-muted);
-            font-size: 1rem;
-            margin-top: 12px;
-            line-height: 1.6;
-        }
-
-        /* GRID TURMAS CLEAN */
-        .grid-turmas-premium {
+        .grid-turmas {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
+            margin-top: 30px;
         }
 
-        .card-turma-glass {
+        .card-turma-bg {
             position: relative;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
             border-radius: 20px;
             overflow: hidden;
             min-height: 400px;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding: 32px;
+            padding: 35px;
             text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-        }
-
-        .card-turma-glass-bg {
-            position: absolute;
-            inset: 0;
-            background-size: cover;
-            background-position: center;
-            transition: transform 0.6s ease;
-            z-index: 1;
-            filter: brightness(0.9) contrast(1.05);
-        }
-
-        .card-turma-glass-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0.85) 60%, #ffffff 100%);
-            z-index: 2;
-        }
-
-        .card-turma-glass-content {
-            position: relative;
-            z-index: 3;
-        }
-
-        .card-turma-glass h3 {
-            font-family: var(--font-heading);
-            font-size: 2.4rem;
-            letter-spacing: 1px;
-            color: var(--text-dark);
-            margin: 0 0 10px 0;
-            text-transform: uppercase;
-        }
-
-        .card-turma-details {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 16px;
-            font-size: 0.85rem;
-            color: var(--text-dark);
-            font-family: var(--font-tech);
-            font-weight: 600;
-        }
-
-        .card-turma-details span {
-            background: var(--bg-light);
-            padding: 6px 12px;
-            border-radius: 8px;
-            border: 1px solid var(--border-subtle);
-        }
-
-        .btn-card-action {
-            width: 100%;
-            padding: 12px;
-            background: var(--bg-light);
-            border: 1px solid var(--border-subtle);
-            border-radius: 10px;
-            color: var(--text-dark);
-            font-weight: 700;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            text-align: center;
-            transition: all 0.3s ease;
-            box-sizing: border-box;
-        }
-
-        .card-turma-glass:hover {
-            transform: translateY(-5px);
-            border-color: var(--gold-primary);
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
-        }
-
-        .card-turma-glass:hover .card-turma-glass-bg {
-            transform: scale(1.05);
-        }
-
-        .card-turma-glass:hover .btn-card-action {
-            background: var(--gold-primary);
             color: #ffffff;
-            border-color: var(--gold-primary);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.4s ease, border-color 0.4s ease;
         }
 
-        /* METODOLOGIA CARD LIGHT */
-        .box-feature-premium {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 24px;
-            padding: 60px 40px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.03);
-            text-align: center;
-        }
-
-        .box-feature-premium::before {
-            content: '';
+        /* Imagem de Fundo e Zoom Suave */
+        .card-turma-img {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
-        }
-
-        /* BLACK BELTS BANNER CLEAN */
-        .blackbelt-banner-super {
-            position: relative;
-            border-radius: 24px;
-            overflow: hidden;
-            border: 1px solid var(--border-subtle);
-            min-height: 440px;
-            display: flex;
-            align-items: center;
-            padding: 60px;
-            background: #ffffff;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.03);
-        }
-
-        .blackbelt-banner-img {
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 60%;
             height: 100%;
-            object-fit: cover;
-            object-position: center;
-            opacity: 0.85;
-            transition: transform 0.6s ease;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: 1;
         }
 
-        .blackbelt-banner-super:hover .blackbelt-banner-img {
-            transform: scale(1.03);
-        }
-
-        .blackbelt-banner-overlay {
+        /* Overlay Escuro para Legibilidade */
+        .card-turma-overlay {
             position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, #ffffff 40%, rgba(255, 255, 255, 0.85) 70%, transparent 100%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.2) 0%, rgba(15, 23, 42, 0.85) 70%, rgba(15, 23, 42, 0.98) 100%);
+            z-index: 2;
         }
 
-        .blackbelt-banner-content {
+        /* Conteúdo Interno */
+        .card-turma-conteudo {
             position: relative;
             z-index: 3;
-            max-width: 550px;
+            width: 100%;
         }
 
-        /* FLOATING BUTTONS */
-        .flutuantes-container {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            z-index: 9999;
+        .card-turma-conteudo h3 {
+            font-family: var(--font-head);
+            font-size: 2.4rem;
+            letter-spacing: 1.5px;
+            color: #ffffff;
+            margin-bottom: 15px;
+            text-transform: uppercase;
         }
 
-        .flutuante-btn {
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            display: flex;
+        .card-turma-info {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #e2e8f0;
+            margin-bottom: 25px;
+        }
+
+        .card-turma-info strong {
+            color: var(--accent-gold);
+        }
+
+        /* Animações e Hover */
+        .card-turma-bg:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent-gold);
+        }
+
+        .card-turma-bg:hover .card-turma-img {
+            transform: scale(1.08);
+        }
+
+        .btn-turma {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            color: #ffffff;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            transition: all 0.3s ease;
-        }
-
-        .flutuante-btn svg { width: 22px; height: 22px; fill: currentColor; }
-
-        .flutuante-btn.instagram {
-            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
-        }
-
-        .flutuante-btn.whatsapp {
-            background: #25d366;
-        }
-
-        .flutuante-btn:hover {
-            transform: scale(1.1) translateY(-3px);
-        }
-
-        /* FOOTER CLEAN */
-        footer {
-            border-top: 1px solid var(--border-subtle);
-            background: #ffffff;
-            padding: 50px 20px;
-            text-align: center;
-        }
-
-        footer h3 {
-            font-family: var(--font-heading);
-            font-size: 2.2rem;
+            width: 100%;
+            padding: 14px;
+            background: var(--accent-gold);
+            color: #0f172a;
+            font-weight: 700;
+            font-size: 0.85rem;
             letter-spacing: 1.5px;
-            color: var(--text-dark);
-            margin-bottom: 6px;
+            text-transform: uppercase;
+            border-radius: 12px;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
-        footer p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin: 4px 0;
-        }
-
-        /* RESPONSIVO */
-        @media (max-width: 768px) {
-            .nav-container nav { display: none; }
-            .blackbelt-banner-super { padding: 35px 25px; }
-            .blackbelt-banner-img { width: 100%; opacity: 0.25; }
-            .blackbelt-banner-overlay { background: rgba(255, 255, 255, 0.9); }
-            .hero h1 { font-size: 3.2rem; }
+        .card-turma-bg:hover .btn-turma {
+            background: #ffffff;
+            color: #0f172a;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Glow Suave de Fundo -->
-    <div class="ambient-glow-1"></div>
+    <div class="glow-bg"></div>
 
-    <!-- HEADER NAVIGATION GLASS CLEAN -->
     <header>
         <div class="nav-container">
             <a href="index.html" class="logo">ALFA<span>BJJ</span><small>JLLE</small></a>
@@ -573,12 +146,11 @@
                 <a href="blackbelts.html">Black Belts</a>
                 <a href="galeria.html">Galeria</a>
                 <a href="contato.html">Contato</a>
-                <a href="reservas.html">Shop & Aluno</a>
+                <a href="reservas.html">Shop & Área do Aluno</a>
             </nav>
         </div>
     </header>
 
-    <!-- HERO SECTION CLEAN COM MÍDIA DE FUNDO LUMINOSA -->
     <section class="hero">
         <video class="hero-video" autoplay loop muted playsinline preload="metadata">
             <source src="hero-bg.mp4" type="video/mp4">
@@ -587,138 +159,147 @@
         <div class="hero-overlay"></div>
         
         <div class="hero-content">
-            <span class="hero-badge">⚡ High Performance Academy • Joinville</span>
-            <br>
-            <img src="imagens/logo.jpeg" alt="Logo Alfa Jiu Jitsu Academy Joinville" class="logo-img-hero">
+            <img src="imagens/logo.jpeg" alt="Logo Alfa Jiu Jitsu Academy Joinville" class="logo-img">
             <h1>ALFA JIU JITSU ACADEMY</h1>
-            <p class="slogan-tag">Disciplina • Respeito • Evolução</p>
-
-            <div class="hero-buttons">
-                <a href="https://wa.me/5547933827050?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20aula%20experimental." 
-                   target="_blank" rel="noopener noreferrer" class="btn-gold">
-                    Agendar Aula Experimental
-                </a>
-                <a href="#turmas" class="btn-outline">Conhecer Programas</a>
-            </div>
+            <p class="slogan">Disciplina • Respeito • Evolução</p>
         </div>
     </section>
 
-    <main style="max-width: 1250px; margin: 0 auto; padding: 0 20px;">
-
-        <!-- SEÇÃO DE TURMAS / PROGRAMAS -->
-        <section id="turmas" style="padding: 90px 0 50px 0;">
-            <div class="section-header">
-                <span class="section-tag">Formação de Elite</span>
-                <h2 class="section-title-premium">Escolha seu Caminho</h2>
-                <p class="section-subtitle-premium">Metodologia adaptada para diferentes idades e metas técnicas nos tatames.</p>
+    <main>
+        <!-- SEÇÃO DE TURMAS -->
+        <section class="container" style="padding: 60px 20px;">
+            <div style="text-align: center; max-width: 600px; margin: 0 auto 30px auto;">
+                <h2 class="section-title">Escolha sua Turma</h2>
+                <p class="section-subtitle">Aulas adaptadas para diferentes idades e objetivos nos tatames.</p>
             </div>
 
-            <div class="grid-turmas-premium">
+            <div class="grid-turmas">
                 
-                <!-- CARD KIDS -->
-                <a href="galeria.html?categoria=kids" class="card-turma-glass">
-                    <div class="card-turma-glass-bg" style="background-image: url('imagens/cardadultos.jpeg');"></div>
-                    <div class="card-turma-glass-overlay"></div>
+                <!-- CARD KIDS (Layout em gradiente pré-definido) -->
+                <a href="galeria.html?categoria=kids" class="card-turma-bg">
+                    <div class="card-turma-img" style="background-image: linear-gradient(135deg, #1e293b, #0f172a);"></div>
+                    <div class="card-turma-overlay"></div>
                     
-                    <div class="card-turma-glass-content">
-                        <h3>Turma Kids</h3>
-                        <div class="card-turma-details">
-                            <span>📅 Ter / Qui</span>
-                            <span>⏰ 19:00</span>
+                    <div class="card-turma-conteudo">
+                        <h3>Kids</h3>
+                        <div class="card-turma-info">
+                            <p><strong>Dias:</strong> Terça e Quinta</p>
+                            <p><strong>Horário:</strong> 19:00</p>
                         </div>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5;">Desenvolvimento motor, foco, autoconfiança e disciplina para crianças.</p>
-                        <div class="btn-card-action">Explorar Turma Kids</div>
+                        <div class="btn-turma">Conhecer Turma</div>
                     </div>
                 </a>
 
-                <!-- CARD ADULTOS -->
-                <a href="galeria.html?categoria=adultos" class="card-turma-glass">
-                    <div class="card-turma-glass-bg" style="background-image: url('imagens/cardadultos.jpeg');"></div>
-                    <div class="card-turma-glass-overlay"></div>
+                <!-- CARD ADULTOS (Foto: imagens/cardadultos.jpeg) -->
+                <a href="galeria.html?categoria=adultos" class="card-turma-bg">
+                    <div class="card-turma-img" style="background-image: url('imagens/cardadultos.jpeg');"></div>
+                    <div class="card-turma-overlay"></div>
                     
-                    <div class="card-turma-glass-content">
-                        <h3>Turma Adultos</h3>
-                        <div class="card-turma-details">
-                            <span>📅 Seg a Sex</span>
-                            <span>⏰ 20:00</span>
-                        </div>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5;">Técnica refinada, condicionamento físico e defesa pessoal de alto nível.</p>
-                        <div class="btn-card-action">Explorar Turma Adultos</div>
+                    <div class="card-turma-conteudo">
+                        <h3>Adultos</h3>
+                        <div class="card-turma-info">
+                            <p><strong>Dias:</strong> Segunda a Sexta</p>
+                            <p><strong>Horário:</strong> 20:00</p>
+                           </div>
+                        <div class="btn-turma">Conhecer Turma</div>
                     </div>
                 </a>
 
             </div>
         </section>
 
-        <!-- SEÇÃO METODOLOGIA -->
-        <section style="padding: 50px 0;">
-            <div class="box-feature-premium">
-                <span class="section-tag">Sistema de Ensino Avançado</span>
-                <h2 class="section-title-premium" style="margin-bottom: 15px;">Nossa Metodologia</h2>
-                <p style="color: var(--text-muted); font-size: 1rem; max-width: 750px; margin: 0 auto 30px auto; line-height: 1.7;">
-                    Dividimos nossos treinos sob um sistema de ensino progressivo, garantindo evolução contínua, refinamento técnico e máxima segurança para iniciantes e competidores.
+        <!-- SEÇÃO METODOLOGIA E PROGRAMAS -->
+        <section id="metodologia" style="max-width: 1100px; margin: 0 auto; text-align: center; padding: 40px 20px;">
+            <h2 class="section-title">Nossa Metodologia</h2>
+            <p class="section-subtitle">
+                Conheça nosso sistema de ensino progressivo focado no desenvolvimento do praticante desde as bases técnicas até o nível avançado e competitivo.
+            </p>
+
+            <div style="background: var(--bg-card); border: 1px solid var(--bg-card-border); border-radius: var(--radius-lg); padding: 40px 30px; max-width: 800px; margin: 0 auto; box-shadow: var(--shadow-md);">
+                <h3 style="font-family: var(--font-head); font-size: 2.2rem; color: var(--text-main); margin-bottom: 10px; letter-spacing: 1px;">Programas de Ensino Estruturados</h3>
+                <p style="color: var(--text-muted); font-size: 1rem; margin-bottom: 25px;">
+                    Dividimos nossos treinos para garantir uma evolução segura, eficiente e contínua para crianças, iniciantes e graduados.
                 </p>
-                <a href="metodologia.html" class="btn-gold" style="display: inline-flex;">
-                    Conhecer Programas Detalhados
-                </a>
+                <a href="metodologia.html" class="botao" style="display: inline-block; padding: 14px 32px;">CONHECER PROGRAMAS E METODOLOGIA</a>
             </div>
         </section>
 
         <!-- SEÇÃO NOSSOS BLACK BELTS -->
-        <section style="padding: 50px 0;">
-            <div class="blackbelt-banner-super">
-                <img src="imagens/vilson.jpeg" alt="Professor Vilson Fajardo - Alfa Jiu Jitsu" class="blackbelt-banner-img">
-                <div class="blackbelt-banner-overlay"></div>
-                
-                <div class="blackbelt-banner-content">
-                    <span class="section-tag">Liderança & Tradição</span>
-                    <h2 class="section-title-premium" style="font-size: 3.2rem; margin-bottom: 15px;">Nossos Black Belts</h2>
-                    <p style="color: var(--text-muted); font-size: 0.98rem; line-height: 1.6; margin-bottom: 28px;">
-                        Aprenda com mestres e professores altamente qualificados que dedicam suas vidas ao ensino do verdadeiro Jiu Jitsu.
-                    </p>
-                    <a href="blackbelts.html" class="btn-gold">
-                        Ver Biografias dos Mestres
-                    </a>
-                </div>
+        <section class="blackbelt-hero-section">
+            <div class="blackbelt-hero-bg">
+                <img src="imagens/vilson.jpeg" alt="Professor Vilson Fajardo - Alfa Jiu Jitsu Academy">
+            </div>
+            <div class="blackbelt-hero-overlay"></div>
+            
+            <div class="blackbelt-hero-content">
+                <h2 class="section-title">🥋 Nossos Black Belts</h2>
+                <p class="section-subtitle">
+                    Conheça os mestres e professores graduados que lideram nossa jornada no Jiu Jitsu.
+                </p>
+                <a href="blackbelts.html" class="botao" style="display: inline-block; padding: 14px 36px; margin-top: 15px;">
+                    VER BIOGRAFIA COMPLETA
+                </a>
             </div>
         </section>
 
-        <!-- CHAMADA FINAL PARA AULA EXPERIMENTAL -->
-        <section style="text-align: center; padding: 80px 20px;">
-            <span class="section-tag">Faça Parte da Família Alfa</span>
-            <h2 class="section-title-premium" style="font-size: 3rem; margin-bottom: 15px;">Pronto para transformar sua vida?</h2>
-            <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 600px; margin: 0 auto 30px auto;">
-                Agende hoje mesmo sua aula experimental gratuita e vivencie o padrão Alfa de ensino.
-            </p>
+        <!-- CHAMADA EXPERIMENTAL -->
+        <section style="text-align: center; padding: 60px 20px;">
+            <h2 class="section-title">Transformando vidas através do Jiu Jitsu</h2>
+            <p class="section-subtitle">Venha fazer parte da nossa equipe e treinar com os melhores instrutores.</p>
 
             <a href="https://wa.me/5547933827050?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20aula%20experimental." 
-               target="_blank" rel="noopener noreferrer" class="btn-gold" style="font-size: 0.95rem; padding: 18px 42px;">
-                🚀 Agendar Aula Experimental Agora
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="btn-whatsapp-hero">
+                AGENDE UMA AULA EXPERIMENTAL
+            </a>
+
+            <br>
+
+            <a href="https://www.instagram.com/alfajiujitsu.joinville/" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="instagram-chamada">
+                📸 Visite nosso Instagram: <u>@alfajiujitsu.joinville</u>
             </a>
         </section>
 
+        <!-- HISTÓRIA -->
+        <section style="background-color: var(--bg-surface); border-top: 1px solid var(--bg-card-border); text-align: center; padding: 50px 20px;">
+            <h2 class="section-title">Nossa História</h2>
+            <p class="section-subtitle" style="margin-bottom: 0;">
+                A Alfa Jiu Jitsu Academy nasceu com o propósito de ensinar Jiu Jitsu,
+                formar atletas e desenvolver valores essenciais como disciplina, respeito e amizade.
+            </p>
+        </section>
     </main>
 
-    <!-- BOTÕES FLUTUANTES REDES SOCIAIS -->
+    <!-- BOTOES FLUTUANTES -->
     <div class="flutuantes-container">
         <a href="https://www.instagram.com/alfajiujitsu.joinville/" 
            class="flutuante-btn instagram" 
-           target="_blank" rel="noopener noreferrer" aria-label="Siga-nos no Instagram">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.47.92 1.01 1.417.548.497 1.02.771 1.546.976.509.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/></svg>
+           target="_blank" 
+           rel="noopener noreferrer"
+           aria-label="Siga-nos no Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.47.92 1.01 1.417.548.497 1.02.771 1.546.976.509.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/>
+            </svg>
         </a>
 
         <a href="https://wa.me/5547933827050?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20aula%20experimental." 
            class="flutuante-btn whatsapp" 
-           target="_blank" rel="noopener noreferrer" aria-label="Fale conosco no WhatsApp">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007s-.346.05-.527.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.17-.477 1.338-.94.165-.463.165-.858.115-.94-.051-.083-.183-.133-.38-.232z"/></svg>
+           target="_blank" 
+           rel="noopener noreferrer"
+           aria-label="Fale conosco no WhatsApp">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007s-.346.05-.527.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.17-.477 1.338-.94.165-.463.165-.858.115-.94-.051-.083-.183-.133-.38-.232z"/>
+            </svg>
         </a>
     </div>
 
-    <!-- FOOTER CLEAN -->
     <footer>
         <h3>ALFA BJJ JLLE</h3>
-        <p>Joinville - Santa Catarina</p>
-        <p style="margin-top: 15px; font-size: 0.8rem; color: #94a3b8;">&copy; 2026 Alfa Jiu Jitsu Academy. Todos os direitos reservados.</p>
+        <p>&copy; 2026 Alfa Jiu Jitsu Academy. Todos os direitos reservados.</p>
     </footer>
 
 </body>
