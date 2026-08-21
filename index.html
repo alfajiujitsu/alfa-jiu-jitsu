@@ -24,65 +24,53 @@
 
     <style>
         :root {
-            --bg-dark: #07090e;
-            --bg-card-glass: rgba(18, 24, 38, 0.65);
-            --gold-primary: #d4af37;
-            --gold-light: #f3e5ab;
-            --gold-glow: rgba(212, 175, 55, 0.35);
-            --border-glass: rgba(255, 255, 255, 0.08);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
+            --bg-light: #f8fafc;
+            --bg-card: #ffffff;
+            --gold-primary: #c59b27;
+            --gold-hover: #b0881e;
+            --gold-soft: rgba(197, 155, 39, 0.12);
+            --border-subtle: #e2e8f0;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
             --font-heading: 'Bebas Neue', sans-serif;
             --font-body: 'Plus Jakarta Sans', sans-serif;
             --font-tech: 'Space Grotesk', sans-serif;
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
+            background-color: var(--bg-light);
+            color: var(--text-dark);
             font-family: var(--font-body);
             overflow-x: hidden;
             margin: 0;
             padding: 0;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Ambient Glow Effect */
+        /* LIGHT AMBIENT GLOW */
         .ambient-glow-1 {
             position: fixed;
             top: -10%;
-            left: 20%;
+            left: 30%;
             width: 600px;
             height: 600px;
-            background: radial-gradient(circle, var(--gold-glow) 0%, rgba(0,0,0,0) 70%);
+            background: radial-gradient(circle, rgba(197, 155, 39, 0.08) 0%, rgba(255,255,255,0) 70%);
             z-index: -1;
             pointer-events: none;
             filter: blur(80px);
-            opacity: 0.6;
         }
 
-        .ambient-glow-2 {
-            position: fixed;
-            bottom: 10%;
-            right: -5%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(30, 58, 138, 0.25) 0%, rgba(0,0,0,0) 70%);
-            z-index: -1;
-            pointer-events: none;
-            filter: blur(90px);
-        }
-
-        /* HEADER & NAVIGATION */
+        /* HEADER & NAVIGATION CLEAN */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             z-index: 1000;
-            background: rgba(7, 9, 14, 0.8);
+            background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border-glass);
+            border-bottom: 1px solid var(--border-subtle);
             transition: all 0.3s ease;
         }
 
@@ -92,26 +80,34 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 18px 24px;
+            padding: 16px 24px;
         }
 
         .logo {
             font-family: var(--font-heading);
-            font-size: 2rem;
-            letter-spacing: 2px;
-            color: #fff;
+            font-size: 2.2rem;
+            letter-spacing: 1.5px;
+            color: var(--text-dark);
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
         }
 
         .logo span { color: var(--gold-primary); }
-        .logo small { font-size: 0.75rem; background: rgba(212, 175, 55, 0.15); color: var(--gold-primary); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--gold-primary); font-family: var(--font-tech); }
+        .logo small { 
+            font-size: 0.75rem; 
+            background: var(--gold-soft); 
+            color: var(--gold-primary); 
+            padding: 2px 8px; 
+            border-radius: 6px; 
+            font-family: var(--font-tech);
+            font-weight: 700;
+        }
 
         nav {
             display: flex;
-            gap: 20px;
+            gap: 22px;
             align-items: center;
         }
 
@@ -121,14 +117,14 @@
             font-size: 0.85rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            transition: all 0.25s ease;
             position: relative;
             padding: 6px 0;
         }
 
         nav a:hover, nav a.active {
-            color: #ffffff;
+            color: var(--text-dark);
         }
 
         nav a::after {
@@ -140,22 +136,23 @@
             height: 2px;
             background: var(--gold-primary);
             transition: width 0.3s ease;
-            box-shadow: 0 0 8px var(--gold-primary);
         }
 
         nav a:hover::after, nav a.active::after {
             width: 100%;
         }
 
-        /* HERO ULTRA ULTRA PREMIUM */
+        /* HERO CLEAN & LUMINOSO */
         .hero {
             position: relative;
-            min-height: 100vh;
+            min-height: 85vh;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            padding: 120px 20px 60px 20px;
+            padding: 140px 20px 80px 20px;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-subtle);
         }
 
         .hero-video {
@@ -167,15 +164,16 @@
             width: auto;
             height: auto;
             z-index: 1;
-            transform: translate(-50%, -50%) scale(1.05);
+            transform: translate(-50%, -50%);
             object-fit: cover;
-            filter: brightness(0.4) contrast(1.1);
+            filter: brightness(0.95) contrast(1.05);
+            opacity: 0.15;
         }
 
         .hero-overlay {
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at center, rgba(7, 9, 14, 0.3) 0%, rgba(7, 9, 14, 0.95) 90%);
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.4) 0%, #ffffff 90%);
             z-index: 2;
         }
 
@@ -183,53 +181,49 @@
             position: relative;
             z-index: 3;
             text-align: center;
-            max-width: 900px;
+            max-width: 850px;
         }
 
         .hero-badge {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 8px 18px;
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid var(--gold-primary);
+            padding: 8px 20px;
+            background: var(--gold-soft);
+            border: 1px solid rgba(197, 155, 39, 0.3);
             border-radius: 50px;
-            color: var(--gold-light);
+            color: var(--gold-primary);
             font-family: var(--font-tech);
             font-size: 0.8rem;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             margin-bottom: 25px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
         }
 
         .logo-img-hero {
-            width: 120px;
-            height: 120px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
-            border: 2px solid var(--gold-primary);
-            box-shadow: 0 0 30px var(--gold-glow);
+            border: 3px solid var(--gold-primary);
+            box-shadow: 0 10px 25px rgba(197, 155, 39, 0.2);
             margin-bottom: 20px;
             object-fit: cover;
         }
 
         .hero h1 {
             font-family: var(--font-heading);
-            font-size: clamp(3.5rem, 8vw, 6.5rem);
+            font-size: clamp(3.2rem, 7vw, 5.5rem);
             line-height: 0.95;
-            letter-spacing: 3px;
-            margin: 0 0 20px 0;
-            background: linear-gradient(180deg, #ffffff 30%, #a1a1aa 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            letter-spacing: 2px;
+            margin: 0 0 15px 0;
+            color: var(--text-dark);
         }
 
         .slogan-tag {
             font-family: var(--font-tech);
             font-size: 1.1rem;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             color: var(--gold-primary);
             text-transform: uppercase;
             margin-bottom: 35px;
@@ -238,23 +232,23 @@
 
         .hero-buttons {
             display: flex;
-            gap: 20px;
+            gap: 16px;
             justify-content: center;
             flex-wrap: wrap;
         }
 
         .btn-gold {
-            background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%);
-            color: #07090e;
+            background: var(--gold-primary);
+            color: #ffffff;
             padding: 16px 36px;
             border-radius: 12px;
-            font-weight: 800;
-            font-size: 0.9rem;
-            letter-spacing: 2px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
             text-decoration: none;
             transition: all 0.3s ease;
-            box-shadow: 0 0 25px var(--gold-glow);
+            box-shadow: 0 8px 20px rgba(197, 155, 39, 0.25);
             border: none;
             display: inline-flex;
             align-items: center;
@@ -262,33 +256,33 @@
         }
 
         .btn-gold:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 35px rgba(212, 175, 55, 0.6);
-            background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 100%);
+            transform: translateY(-2px);
+            background: var(--gold-hover);
+            box-shadow: 0 12px 25px rgba(197, 155, 39, 0.35);
         }
 
         .btn-outline {
-            background: rgba(255, 255, 255, 0.05);
-            color: #ffffff;
+            background: #ffffff;
+            color: var(--text-dark);
             padding: 16px 36px;
             border-radius: 12px;
             font-weight: 700;
-            font-size: 0.9rem;
-            letter-spacing: 2px;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
             text-decoration: none;
             transition: all 0.3s ease;
-            border: 1px solid var(--border-glass);
-            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
         }
 
         .btn-outline:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: #ffffff;
-            transform: translateY(-3px);
+            background: var(--bg-light);
+            border-color: var(--text-dark);
+            transform: translateY(-2px);
         }
 
-        /* SEÇÃO DE DESTAQUES TITULOS */
+        /* SEÇÃO DE TITULOS CLEAN */
         .section-header {
             text-align: center;
             max-width: 700px;
@@ -299,18 +293,19 @@
             font-family: var(--font-tech);
             color: var(--gold-primary);
             font-size: 0.85rem;
-            letter-spacing: 3px;
+            font-weight: 700;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             display: block;
         }
 
         .section-title-premium {
             font-family: var(--font-heading);
             font-size: 3rem;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             text-transform: uppercase;
-            color: #ffffff;
+            color: var(--text-dark);
             margin: 0;
             line-height: 1;
         }
@@ -322,7 +317,7 @@
             line-height: 1.6;
         }
 
-        /* GRID TURMAS PREMIUM */
+        /* GRID TURMAS CLEAN */
         .grid-turmas-premium {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -331,18 +326,18 @@
 
         .card-turma-glass {
             position: relative;
-            background: var(--bg-card-glass);
-            border: 1px solid var(--border-glass);
-            border-radius: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
             overflow: hidden;
-            min-height: 420px;
+            min-height: 400px;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding: 35px;
+            padding: 32px;
             text-decoration: none;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
         }
 
         .card-turma-glass-bg {
@@ -350,15 +345,15 @@
             inset: 0;
             background-size: cover;
             background-position: center;
-            transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: transform 0.6s ease;
             z-index: 1;
-            filter: brightness(0.7) contrast(1.1);
+            filter: brightness(0.9) contrast(1.05);
         }
 
         .card-turma-glass-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, rgba(7, 9, 14, 0.1) 0%, rgba(7, 9, 14, 0.8) 60%, rgba(7, 9, 14, 0.98) 100%);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0.85) 60%, #ffffff 100%);
             z-index: 2;
         }
 
@@ -369,74 +364,72 @@
 
         .card-turma-glass h3 {
             font-family: var(--font-heading);
-            font-size: 2.5rem;
-            letter-spacing: 1.5px;
-            color: #ffffff;
+            font-size: 2.4rem;
+            letter-spacing: 1px;
+            color: var(--text-dark);
             margin: 0 0 10px 0;
             text-transform: uppercase;
         }
 
         .card-turma-details {
             display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin-bottom: 16px;
             font-size: 0.85rem;
-            color: var(--text-muted);
+            color: var(--text-dark);
             font-family: var(--font-tech);
+            font-weight: 600;
         }
 
         .card-turma-details span {
-            background: rgba(255, 255, 255, 0.08);
+            background: var(--bg-light);
             padding: 6px 12px;
             border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-subtle);
         }
-
-        .card-turma-details strong { color: var(--gold-primary); }
 
         .btn-card-action {
             width: 100%;
-            padding: 14px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid var(--border-glass);
-            border-radius: 12px;
-            color: #ffffff;
+            padding: 12px;
+            background: var(--bg-light);
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            color: var(--text-dark);
             font-weight: 700;
             font-size: 0.8rem;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             text-transform: uppercase;
             text-align: center;
             transition: all 0.3s ease;
+            box-sizing: border-box;
         }
 
         .card-turma-glass:hover {
-            transform: translateY(-8px);
+            transform: translateY(-5px);
             border-color: var(--gold-primary);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px var(--gold-glow);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
         }
 
         .card-turma-glass:hover .card-turma-glass-bg {
-            transform: scale(1.08);
-            filter: brightness(0.85) contrast(1.1);
+            transform: scale(1.05);
         }
 
         .card-turma-glass:hover .btn-card-action {
             background: var(--gold-primary);
-            color: #07090e;
+            color: #ffffff;
             border-color: var(--gold-primary);
-            box-shadow: 0 0 15px var(--gold-glow);
         }
 
-        /* METODOLOGIA / PROGRAMAS GLASS */
+        /* METODOLOGIA CARD LIGHT */
         .box-feature-premium {
-            background: linear-gradient(135deg, rgba(18, 24, 38, 0.8) 0%, rgba(7, 9, 14, 0.9) 100%);
-            border: 1px solid var(--border-glass);
-            border-radius: 28px;
-            padding: 50px 40px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            padding: 60px 40px;
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.03);
+            text-align: center;
         }
 
         .box-feature-premium::before {
@@ -445,132 +438,128 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 2px;
+            height: 3px;
             background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
         }
 
-        /* BLACK BELTS BANNER SUPREMO */
+        /* BLACK BELTS BANNER CLEAN */
         .blackbelt-banner-super {
             position: relative;
-            border-radius: 28px;
+            border-radius: 24px;
             overflow: hidden;
-            border: 1px solid var(--border-glass);
-            min-height: 480px;
+            border: 1px solid var(--border-subtle);
+            min-height: 440px;
             display: flex;
             align-items: center;
             padding: 60px;
-            background: #000;
+            background: #ffffff;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.03);
         }
 
         .blackbelt-banner-img {
             position: absolute;
-            inset: 0;
-            width: 100%;
+            right: 0;
+            top: 0;
+            width: 60%;
             height: 100%;
             object-fit: cover;
-            object-position: center top;
-            opacity: 0.45;
-            filter: grayscale(30%) contrast(1.2);
-            transition: transform 0.8s ease;
+            object-position: center;
+            opacity: 0.85;
+            transition: transform 0.6s ease;
         }
 
         .blackbelt-banner-super:hover .blackbelt-banner-img {
             transform: scale(1.03);
-            opacity: 0.55;
         }
 
         .blackbelt-banner-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(90deg, #07090e 20%, rgba(7, 9, 14, 0.7) 60%, transparent 100%);
+            background: linear-gradient(90deg, #ffffff 40%, rgba(255, 255, 255, 0.85) 70%, transparent 100%);
         }
 
         .blackbelt-banner-content {
             position: relative;
             z-index: 3;
-            max-width: 600px;
+            max-width: 550px;
         }
 
-        /* FLOATING ACTION BUTTONS ULTRA */
+        /* FLOATING BUTTONS */
         .flutuantes-container {
             position: fixed;
             bottom: 30px;
             right: 30px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 12px;
             z-index: 9999;
         }
 
         .flutuante-btn {
-            width: 56px;
-            height: 56px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #ffffff;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
         }
 
-        .flutuante-btn svg { width: 24px; height: 24px; fill: currentColor; }
+        .flutuante-btn svg { width: 22px; height: 22px; fill: currentColor; }
 
         .flutuante-btn.instagram {
             background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
         }
 
         .flutuante-btn.whatsapp {
-            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
-            box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
+            background: #25d366;
         }
 
         .flutuante-btn:hover {
-            transform: scale(1.15) translateY(-5px);
+            transform: scale(1.1) translateY(-3px);
         }
 
-        /* FOOTER PREMIUM */
+        /* FOOTER CLEAN */
         footer {
-            border-top: 1px solid var(--border-glass);
-            background: rgba(4, 6, 9, 0.95);
-            padding: 60px 20px;
+            border-top: 1px solid var(--border-subtle);
+            background: #ffffff;
+            padding: 50px 20px;
             text-align: center;
-            position: relative;
         }
 
         footer h3 {
             font-family: var(--font-heading);
             font-size: 2.2rem;
-            letter-spacing: 2px;
-            color: #ffffff;
-            margin-bottom: 10px;
+            letter-spacing: 1.5px;
+            color: var(--text-dark);
+            margin-bottom: 6px;
         }
 
         footer p {
             color: var(--text-muted);
             font-size: 0.9rem;
-            margin: 5px 0;
+            margin: 4px 0;
         }
 
-        /* RESPONSIVIDADE AJUSTES */
+        /* RESPONSIVO */
         @media (max-width: 768px) {
-            .nav-container nav { display: none; } /* Pode ser adaptado para menu mobile */
-            .blackbelt-banner-super { padding: 30px; }
-            .blackbelt-banner-overlay { background: linear-gradient(180deg, rgba(7, 9, 14, 0.4) 0%, #07090e 90%); }
-            .hero h1 { font-size: 3.5rem; }
+            .nav-container nav { display: none; }
+            .blackbelt-banner-super { padding: 35px 25px; }
+            .blackbelt-banner-img { width: 100%; opacity: 0.25; }
+            .blackbelt-banner-overlay { background: rgba(255, 255, 255, 0.9); }
+            .hero h1 { font-size: 3.2rem; }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Luzes de Ambiente de Fundo -->
+    <!-- Glow Suave de Fundo -->
     <div class="ambient-glow-1"></div>
-    <div class="ambient-glow-2"></div>
 
-    <!-- HEADER NAVIGATION GLASS -->
+    <!-- HEADER NAVIGATION GLASS CLEAN -->
     <header>
         <div class="nav-container">
             <a href="index.html" class="logo">ALFA<span>BJJ</span><small>JLLE</small></a>
@@ -589,7 +578,7 @@
         </div>
     </header>
 
-    <!-- HERO SECTION SUPREMA COM VÍDEO -->
+    <!-- HERO SECTION CLEAN COM MÍDIA DE FUNDO LUMINOSA -->
     <section class="hero">
         <video class="hero-video" autoplay loop muted playsinline preload="metadata">
             <source src="hero-bg.mp4" type="video/mp4">
@@ -617,7 +606,7 @@
     <main style="max-width: 1250px; margin: 0 auto; padding: 0 20px;">
 
         <!-- SEÇÃO DE TURMAS / PROGRAMAS -->
-        <section id="turmas" style="padding: 100px 0 60px 0;">
+        <section id="turmas" style="padding: 90px 0 50px 0;">
             <div class="section-header">
                 <span class="section-tag">Formação de Elite</span>
                 <h2 class="section-title-premium">Escolha seu Caminho</h2>
@@ -628,7 +617,7 @@
                 
                 <!-- CARD KIDS -->
                 <a href="galeria.html?categoria=kids" class="card-turma-glass">
-                    <div class="card-turma-glass-bg" style="background-image: linear-gradient(135deg, #1e293b, #0f172a);"></div>
+                    <div class="card-turma-glass-bg" style="background-image: url('imagens/cardadultos.jpeg');"></div>
                     <div class="card-turma-glass-overlay"></div>
                     
                     <div class="card-turma-glass-content">
@@ -637,7 +626,7 @@
                             <span>📅 Ter / Qui</span>
                             <span>⏰ 19:00</span>
                         </div>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">Desenvolvimento motor, foco, autoconfiança e disciplina para crianças.</p>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5;">Desenvolvimento motor, foco, autoconfiança e disciplina para crianças.</p>
                         <div class="btn-card-action">Explorar Turma Kids</div>
                     </div>
                 </a>
@@ -653,7 +642,7 @@
                             <span>📅 Seg a Sex</span>
                             <span>⏰ 20:00</span>
                         </div>
-                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">Técnica refinada, condicionamento físico e defesa pessoal de alto nível.</p>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5;">Técnica refinada, condicionamento físico e defesa pessoal de alto nível.</p>
                         <div class="btn-card-action">Explorar Turma Adultos</div>
                     </div>
                 </a>
@@ -661,12 +650,12 @@
             </div>
         </section>
 
-        <!-- SEÇÃO METODOLOGIA FUTURISTA -->
-        <section style="padding: 60px 0;">
-            <div class="box-feature-premium" style="text-align: center;">
+        <!-- SEÇÃO METODOLOGIA -->
+        <section style="padding: 50px 0;">
+            <div class="box-feature-premium">
                 <span class="section-tag">Sistema de Ensino Avançado</span>
                 <h2 class="section-title-premium" style="margin-bottom: 15px;">Nossa Metodologia</h2>
-                <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 750px; margin: 0 auto 30px auto; line-height: 1.7;">
+                <p style="color: var(--text-muted); font-size: 1rem; max-width: 750px; margin: 0 auto 30px auto; line-height: 1.7;">
                     Dividimos nossos treinos sob um sistema de ensino progressivo, garantindo evolução contínua, refinamento técnico e máxima segurança para iniciantes e competidores.
                 </p>
                 <a href="metodologia.html" class="btn-gold" style="display: inline-flex;">
@@ -675,16 +664,16 @@
             </div>
         </section>
 
-        <!-- SEÇÃO NOSSOS BLACK BELTS (BANNER HEROICO) -->
-        <section style="padding: 60px 0;">
+        <!-- SEÇÃO NOSSOS BLACK BELTS -->
+        <section style="padding: 50px 0;">
             <div class="blackbelt-banner-super">
                 <img src="imagens/vilson.jpeg" alt="Professor Vilson Fajardo - Alfa Jiu Jitsu" class="blackbelt-banner-img">
                 <div class="blackbelt-banner-overlay"></div>
                 
                 <div class="blackbelt-banner-content">
                     <span class="section-tag">Liderança & Tradição</span>
-                    <h2 class="section-title-premium" style="font-size: 3.5rem; margin-bottom: 15px;">Nossos Black Belts</h2>
-                    <p style="color: #d1d5db; font-size: 1rem; line-height: 1.6; margin-bottom: 30px;">
+                    <h2 class="section-title-premium" style="font-size: 3.2rem; margin-bottom: 15px;">Nossos Black Belts</h2>
+                    <p style="color: var(--text-muted); font-size: 0.98rem; line-height: 1.6; margin-bottom: 28px;">
                         Aprenda com mestres e professores altamente qualificados que dedicam suas vidas ao ensino do verdadeiro Jiu Jitsu.
                     </p>
                     <a href="blackbelts.html" class="btn-gold">
@@ -695,15 +684,15 @@
         </section>
 
         <!-- CHAMADA FINAL PARA AULA EXPERIMENTAL -->
-        <section style="text-align: center; padding: 90px 20px;">
+        <section style="text-align: center; padding: 80px 20px;">
             <span class="section-tag">Faça Parte da Família Alfa</span>
-            <h2 class="section-title-premium" style="font-size: 3.2rem; margin-bottom: 20px;">Pronto para transformar sua vida?</h2>
-            <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 35px auto;">
+            <h2 class="section-title-premium" style="font-size: 3rem; margin-bottom: 15px;">Pronto para transformar sua vida?</h2>
+            <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 600px; margin: 0 auto 30px auto;">
                 Agende hoje mesmo sua aula experimental gratuita e vivencie o padrão Alfa de ensino.
             </p>
 
             <a href="https://wa.me/5547933827050?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20aula%20experimental." 
-               target="_blank" rel="noopener noreferrer" class="btn-gold" style="font-size: 1rem; padding: 18px 45px;">
+               target="_blank" rel="noopener noreferrer" class="btn-gold" style="font-size: 0.95rem; padding: 18px 42px;">
                 🚀 Agendar Aula Experimental Agora
             </a>
         </section>
@@ -725,11 +714,11 @@
         </a>
     </div>
 
-    <!-- FOOTER -->
+    <!-- FOOTER CLEAN -->
     <footer>
         <h3>ALFA BJJ JLLE</h3>
         <p>Joinville - Santa Catarina</p>
-        <p style="margin-top: 15px; font-size: 0.8rem; color: #64748b;">&copy; 2026 Alfa Jiu Jitsu Academy. Todos os direitos reservados.</p>
+        <p style="margin-top: 15px; font-size: 0.8rem; color: #94a3b8;">&copy; 2026 Alfa Jiu Jitsu Academy. Todos os direitos reservados.</p>
     </footer>
 
 </body>
