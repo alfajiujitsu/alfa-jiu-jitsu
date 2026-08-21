@@ -40,7 +40,7 @@
     --transition-normal: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Reset Global */
+/* --- RESET GLOBAL --- */
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
@@ -611,19 +611,10 @@ footer p {
     font-size: 1.1rem;
 }
 
-/* Responsividade Geral */
-@media (max-width: 768px) {
-    header { padding: 15px 20px; }
-    .nav-container { flex-direction: column; gap: 15px; }
-    nav { justify-content: center; gap: 12px; }
-    nav a { font-size: 0.75rem; }
-    .turma-card { width: 100%; }
-}
-
-/* Container dos Filtros */
+/* --- FILTROS DE CATEGORIA --- */
 .filtros-container {
     background: #ffffff;
-    border: 1px solid var(--border-color, #e2e8f0);
+    border: 1px solid var(--bg-card-border);
     padding: 16px 24px;
     border-radius: 16px;
     box-shadow: var(--shadow-sm);
@@ -635,7 +626,6 @@ footer p {
     gap: 20px;
 }
 
-/* Estilo dos Botões de Categoria */
 .filtros {
     display: flex;
     flex-wrap: wrap;
@@ -644,7 +634,7 @@ footer p {
 
 .filtros button {
     background: #f8fafc;
-    border: 1px solid var(--border-color, #e2e8f0);
+    border: 1px solid var(--bg-card-border);
     color: var(--text-main);
     padding: 10px 20px;
     border-radius: 100px;
@@ -652,7 +642,7 @@ footer p {
     font-size: 0.85rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: var(--transition-normal);
     outline: none;
 }
 
@@ -669,13 +659,13 @@ footer p {
     box-shadow: var(--shadow-sm);
 }
 
-/* Hover e Efeitos nos Cards da Galeria */
+/* --- GALERIA DE FOTOS --- */
 .galeria .foto {
     position: relative;
     border-radius: 16px;
     overflow: hidden;
     background: #0f172a;
-    border: 1px solid var(--border-color, #e2e8f0);
+    border: 1px solid var(--bg-card-border);
     aspect-ratio: 4 / 3;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -698,9 +688,7 @@ footer p {
     transform: scale(1.05);
 }
 
-/* ==========================================================================
-   DIÁRIO DA HQ - ESTILOS DE VÍDEO & MÍDIAS
-   ========================================================================== */
+/* --- DIÁRIO DA HQ (VÍDEOS & MÍDIAS) --- */
 .diario-etapa video {
     width: 100% !important;
     height: 100% !important;
@@ -712,7 +700,6 @@ footer p {
     background: transparent;
 }
 
-/* Garante a estabilidade do container escuro em vídeos e fotos */
 .diario-etapa div[style*="background: #0f172a"] {
     position: relative;
     overflow: hidden;
@@ -721,4 +708,13 @@ footer p {
     justify-content: center;
     width: 100%;
     min-height: 250px;
+}
+
+/* --- RESPONSIVIDADE GENERALIZADA --- */
+@media (max-width: 768px) {
+    header { padding: 15px 20px; }
+    .nav-container { flex-direction: column; gap: 15px; }
+    nav { justify-content: center; gap: 12px; }
+    nav a { font-size: 0.75rem; }
+    .turma-card { width: 100%; }
 }
