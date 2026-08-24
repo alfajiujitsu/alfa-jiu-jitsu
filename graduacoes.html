@@ -45,26 +45,26 @@
         </div>
     </header>
 
-   <!-- HERO SECTION COM VÍDEO -->
-<section class="hero">
-    <video autoplay muted loop playsinline class="hero-video">
-        <source src="graduado (1).mp4" type="video/mp4">
-        Seu navegador não suporta vídeos em HTML5.
-    </video>
+    <!-- HERO SECTION COM VÍDEO -->
+    <section class="hero">
+        <video autoplay muted loop playsinline class="hero-video">
+            <source src="graduado (1).mp4" type="video/mp4">
+            Seu navegador não suporta vídeos em HTML5.
+        </video>
 
-    <div class="hero-overlay"></div>
+        <div class="hero-overlay"></div>
 
-    <div class="hero-content">
-        <span class="hero-badge">Mural da Honra</span>
-        <h1>Atletas Graduados</h1>
-        <p style="color: #d1d5db;">Conheça a trajetória, dedicação e as conquistas dos alunos e praticantes da Alfa Jiu Jitsu.</p>
-    </div>
-</section>
+        <div class="hero-content">
+            <span class="hero-badge">Mural da Honra</span>
+            <h1>Atletas Graduados</h1>
+            <p class="hero-subtitle">Conheça a trajetória, dedicação e as conquistas dos alunos e praticantes da Alfa Jiu Jitsu.</p>
+        </div>
+    </section>
 
     <!-- CONTEÚDO PRINCIPAL -->
-    <main class="container" style="padding: 60px 20px 100px 20px;">
-        <div id="gridAlunos" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px;">
-            <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-muted); background: #ffffff; border: 1px dashed var(--border-color); border-radius: 20px; font-size: 1.05rem;">
+    <main class="container main-content">
+        <div id="gridAlunos" class="graduados-grid">
+            <div class="status-state">
                 Carregando lista de graduados...
             </div>
         </div>
@@ -74,7 +74,7 @@
     <footer>
         <h2>ALFA BJJ JLLE</h2>
         <p>Disciplina • Respeito • Evolução</p>
-        <p style="margin-top: 15px; color: var(--text-muted); font-size: 0.85rem;">&copy; 2026 Alfa Jiu Jitsu Academy. Todos os direitos reservados.</p>
+        <p class="copyright">&copy; 2026 Alfa Jiu Jitsu Academy. Todos os direitos reservados.</p>
     </footer>
 
     <!-- SCRIPT SUPABASE -->
@@ -93,7 +93,7 @@
 
             if (error) {
                 container.innerHTML = `
-                    <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: #ef4444; background: #ffffff; border: 1px dashed var(--border-color); border-radius: 20px; font-size: 1.05rem;">
+                    <div class="status-state status-error">
                         Erro ao carregar dados: ${error.message}
                     </div>`;
                 return;
@@ -101,7 +101,7 @@
 
             if (!graduacoes || graduacoes.length === 0) {
                 container.innerHTML = `
-                    <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-muted); background: #ffffff; border: 1px dashed var(--border-color); border-radius: 20px; font-size: 1.05rem;">
+                    <div class="status-state">
                         Nenhum atleta graduado cadastrado ainda.
                     </div>`;
                 return;
@@ -110,24 +110,48 @@
             container.innerHTML = "";
 
             graduacoes.forEach(item => {
-                const card = document.createElement("div");
-                card.style.cssText = "background: #ffffff; border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--shadow-sm); transition: transform 0.3s ease, box-shadow 0.3s ease;";
+                const card = document.createElement("article");
+                card.className = "graduado-card";
 
-                const imgFaixaHtml = item.foto_faixa 
-                    ? `<img src="${item.foto_faixa}" alt="Faixa" style="position: absolute; bottom: 12px; right: 12px; width: 75px; height: auto; border-radius: 6px; border: 1px solid var(--accent-gold); background-color: rgba(255, 255, 255, 0.9); padding: 4px; box-shadow: var(--shadow-sm);">`
-                    : '';
+                const imageWrapper = document.createElement("div");
+                imageWrapper.className = "card-img-wrapper";
 
-                card.innerHTML = `
-                    <div style="position: relative; width: 100%; height: 280px; background-color: #f1f5f9; overflow: hidden;">
-                        <img src="${item.foto_aluno}" alt="${item.nome}" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
-                        ${imgFaixaHtml}
-                    </div>
-                    <div style="padding: 25px; display: flex; flex-direction: column; gap: 8px; flex: 1;">
-                        <h3 style="color: var(--text-main); font-size: 1.25rem; font-weight: 700; line-height: 1.2;">${item.nome}</h3>
-                        <span style="color: var(--accent-gold); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">Faixa ${item.faixa} • Graduado em ${item.ano}</span>
-                        <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.5; margin-top: 6px; white-space: pre-line;">${item.historia}</p>
-                    </div>
-                `;
+                const imgAluno = document.createElement("img");
+                imgAluno.src = item.foto_aluno;
+                imgAluno.alt = `Atleta ${item.nome}`;
+                imgAluno.className = "img-aluno";
+                imgAluno.loading = "lazy";
+                imageWrapper.appendChild(imgAluno);
+
+                if (item.foto_faixa) {
+                    const imgFaixa = document.createElement("img");
+                    imgFaixa.src = item.foto_faixa;
+                    imgFaixa.alt = `Faixa de ${item.nome}`;
+                    imgFaixa.className = "img-faixa-badge";
+                    imageWrapper.appendChild(imgFaixa);
+                }
+
+                const cardContent = document.createElement("div");
+                cardContent.className = "card-content";
+
+                const nomeEl = document.createElement("h3");
+                nomeEl.className = "aluno-nome";
+                nomeEl.textContent = item.nome;
+
+                const gradInfo = document.createElement("span");
+                gradInfo.className = "aluno-grad-info";
+                gradInfo.textContent = `Faixa ${item.faixa} • Graduado em ${item.ano}`;
+
+                const historiaEl = document.createElement("p");
+                historiaEl.className = "aluno-historia";
+                historiaEl.textContent = item.historia;
+
+                cardContent.appendChild(nomeEl);
+                cardContent.appendChild(gradInfo);
+                cardContent.appendChild(historiaEl);
+
+                card.appendChild(imageWrapper);
+                card.appendChild(cardContent);
 
                 container.appendChild(card);
             });
