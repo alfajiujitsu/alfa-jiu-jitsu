@@ -18,8 +18,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
- 
-<body style="background-color: #0a0a0c; color: #ffffff; font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; padding: 0;">
+
+<body style="background-color: #f8fafc; color: #1e293b; font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; padding: 0;">
 
     <div class="glow-bg"></div>
 
@@ -42,181 +42,180 @@
         </div>
     </header>
 
-    <!-- HERO SECTION COM VÍDEO EM BACKGROUND -->
-    <section class="hero" style="position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 450px; text-align: center; color: #ffffff;">
-        <video autoplay muted loop playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;">
+    <!-- HERO SECTION COM VÍDEO -->
+    <section class="hero" style="position: relative; overflow: hidden; background: #0f172a; text-align: center; padding: 100px 20px 80px 20px; color: #ffffff;">
+        <video autoplay muted loop playsinline class="hero-video" style="position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: 0; transform: translate(-50%, -50%); opacity: 0.35; object-fit: cover;">
             <source src="historia.mp4" type="video/mp4">
             Seu navegador não suporta vídeos em HTML5.
         </video>
 
-        <!-- SOBREPOSIÇÃO ESCURA PARA CONTRASTE DO TEXTO -->
-        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10, 10, 12, 0.75) 0%, rgba(10, 10, 12, 0.90) 100%); z-index: 2;"></div>
+        <div class="hero-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(15, 23, 42, 0.6) 0%, rgba(248, 250, 252, 1) 100%); z-index: 1;"></div>
 
-        <div class="hero-content" style="position: relative; z-index: 3; max-width: 800px; padding: 40px 20px;">
-            <span class="hero-badge" style="display: inline-block; background: rgba(255, 255, 255, 0.12); padding: 6px 16px; border-radius: 100px; font-size: 0.85rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; border: 1px solid rgba(255, 255, 255, 0.2);">Alfa Jiu Jitsu Academy</span>
-            <h1 style="font-family: 'Bebas Neue', sans-serif; font-size: 3.8rem; letter-spacing: 2px; margin-bottom: 16px; color: #ffffff; text-transform: uppercase; line-height: 1;">Nossa Trajetória</h1>
-            <p style="font-size: 1.1rem; color: rgba(255, 255, 255, 0.85); line-height: 1.6; font-weight: 400; margin: 0 auto; max-width: 680px;">Uma história moldada no tatame, forjada na disciplina e movida pela busca constante do propósito.</p>
+        <div class="hero-content" style="position: relative; z-index: 2; max-width: 800px; margin: 0 auto;">
+            <span class="hero-badge" style="display: inline-block; background: rgba(217, 119, 6, 0.15); color: #d97706; padding: 6px 16px; border-radius: 100px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 16px; border: 1px solid rgba(217, 119, 6, 0.3);">Alfa Jiu Jitsu Academy</span>
+            <h1 style="font-family: 'Bebas Neue', sans-serif; font-size: 4rem; letter-spacing: 2px; margin-bottom: 16px; color: #0f172a; text-transform: uppercase;">Nossa Trajetória</h1>
+            <p class="hero-subtitle" style="font-size: 1.15rem; color: #475569; line-height: 1.6; margin: 0 auto; max-width: 650px;">Uma história moldada no tatame, forjada na disciplina e movida pela busca constante do propósito.</p>
         </div>
     </section>
 
     <!-- CONTEÚDO PRINCIPAL -->
-    <main class="container main-content" style="max-width: 1200px; margin: 60px auto; padding: 0 20px;">
+    <main class="container main-content" style="max-width: 1200px; margin: 0 auto; padding: 0 20px 80px 20px;">
 
         <!-- METRICS COUNTER -->
         <div class="metrics-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 60px;">
-            <div class="metric-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 24px; border-radius: 16px; text-align: center;">
+            <div class="metric-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
                 <div class="val" style="font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: #d97706; line-height: 1;">50+</div>
-                <div class="lbl" style="font-size: 0.9rem; color: #94a3b8; margin-top: 8px;">Atletas Ativos</div>
+                <div class="lbl" style="font-size: 0.9rem; font-weight: 600; color: #64748b; margin-top: 6px; text-transform: uppercase;">Atletas Ativos</div>
             </div>
-            <div class="metric-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 24px; border-radius: 16px; text-align: center;">
+            <div class="metric-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
                 <div class="val" style="font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: #d97706; line-height: 1;">04</div>
-                <div class="lbl" style="font-size: 0.9rem; color: #94a3b8; margin-top: 8px;">Professores HQ</div>
+                <div class="lbl" style="font-size: 0.9rem; font-weight: 600; color: #64748b; margin-top: 6px; text-transform: uppercase;">Professores HQ</div>
             </div>
-            <div class="metric-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 24px; border-radius: 16px; text-align: center;">
+            <div class="metric-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
                 <div class="val" style="font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: #d97706; line-height: 1;">2015</div>
-                <div class="lbl" style="font-size: 0.9rem; color: #94a3b8; margin-top: 8px;">Fundação Joinville</div>
+                <div class="lbl" style="font-size: 0.9rem; font-weight: 600; color: #64748b; margin-top: 6px; text-transform: uppercase;">Fundação Joinville</div>
             </div>
-            <div class="metric-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); padding: 24px; border-radius: 16px; text-align: center;">
+            <div class="metric-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
                 <div class="val" style="font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: #d97706; line-height: 1;">100%</div>
-                <div class="lbl" style="font-size: 0.9rem; color: #94a3b8; margin-top: 8px;">Foco em Propósito</div>
+                <div class="lbl" style="font-size: 0.9rem; font-weight: 600; color: #64748b; margin-top: 6px; text-transform: uppercase;">Foco em Propósito</div>
             </div>
         </div>
 
         <!-- SPLIT SECTION 1: ORIGEM -->
         <div class="split-section" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; align-items: center; margin-bottom: 60px;">
             <div>
-                <h2 class="section-title-large" style="font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; line-height: 1.1; letter-spacing: 1px;">
+                <h2 class="section-title-large" style="font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: #0f172a; line-height: 1.1; margin: 0;">
                     O Legado &<br> <span class="highlight-gold" style="color: #d97706;">A Filosofia</span>
                 </h2>
             </div>
-            <div class="card-box" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); padding: 32px; border-radius: 20px; line-height: 1.7; color: #cbd5e1;">
-                <p style="margin-bottom: 16px;">
+            <div class="card-box" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 32px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+                <p style="color: #475569; font-size: 1.05rem; line-height: 1.7; margin-bottom: 16px;">
                     A história da Alfa Jiu Jitsu Academy transcende treinos e conquistas de campeonatos. É uma jornada fundamentada na superação diária e na formação de um caráter inabalável.
                 </p>
-                <p style="margin: 0;">
-                    Nossa essência carrega os ensinamentos do <strong style="color: #ffffff;">Mestre Marcos Giusti</strong>. Campeão Sul-Americano, pentacampeão catarinense e destaque no cenário mundial, ele consolidou um método que enxerga a arte suave como a maior ferramenta de transformação humana.
+                <p style="color: #475569; font-size: 1.05rem; line-height: 1.7; margin: 0;">
+                    Nossa essência carrega os ensinamentos do <strong style="color: #0f172a;">Mestre Marcos Giusti</strong>. Campeão Sul-Americano, pentacampeão catarinense e destaque no cenário mundial, ele consolidou um método que enxerga a arte suave como a maior ferramenta de transformação humana.
                 </p>
             </div>
         </div>
 
         <!-- SPLIT SECTION 2: JOINVILLE -->
         <div class="split-section" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; align-items: center; margin-bottom: 60px;">
-            <div class="card-box" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); padding: 32px; border-radius: 20px; line-height: 1.7; color: #cbd5e1;">
-                <p style="margin-bottom: 16px;">
-                    Em 2015, a Alfa established raízes em Joinville através da visão do <strong style="color: #ffffff;">Professor Vilson Fajardo</strong>, liderando a expansão da equipe na região.
+            <div class="card-box" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 32px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+                <p style="color: #475569; font-size: 1.05rem; line-height: 1.7; margin-bottom: 16px;">
+                    Em 2015, a Alfa estabeleceu raízes em Joinville através da visão do <strong style="color: #0f172a;">Professor Vilson Fajardo</strong>, liderando a expansão da equipe na região.
                 </p>
-                <p style="margin: 0;">
+                <p style="color: #475569; font-size: 1.05rem; line-height: 1.7; margin: 0;">
                     Ao longo dos anos, construímos mais do que uma equipe de competição: edificamos uma comunidade. Acreditamos que a maior vitória acontece fora do tatame, na vida cotidiana de cada aluno.
                 </p>
             </div>
             <div>
-                <h2 class="section-title-large" style="font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; line-height: 1.1; letter-spacing: 1px;">
+                <h2 class="section-title-large" style="font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: #0f172a; line-height: 1.1; margin: 0;">
                     Expansão<br> <span class="highlight-gold" style="color: #d97706;">Em Joinville</span>
                 </h2>
             </div>
         </div>
 
         <!-- MISSION STATEMENT -->
-        <div class="mission-box" style="background: linear-gradient(135deg, rgba(217, 119, 6, 0.15) 0%, rgba(15, 23, 42, 0.6) 100%); border: 1px solid rgba(217, 119, 6, 0.3); padding: 40px; border-radius: 20px; text-align: center; margin-bottom: 80px;">
-            <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: #d97706; margin-bottom: 12px; letter-spacing: 1px;">Nossa Missão Maior</h3>
-            <p style="font-size: 1.25rem; font-style: italic; color: #f8fafc; margin: 0; font-weight: 500;">"Formar atletas de excelência e, acima de tudo, cidadãos exemplares para o mundo."</p>
+        <div class="mission-box" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border-radius: 20px; padding: 40px 30px; text-align: center; color: #ffffff; margin-bottom: 80px; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.1);">
+            <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: #d97706; letter-spacing: 1px; margin-bottom: 12px;">Nossa Missão Maior</h3>
+            <p style="font-size: 1.25rem; font-style: italic; color: #f8fafc; max-width: 800px; margin: 0 auto; line-height: 1.6;">"Formar atletas de excelência e, acima de tudo, cidadãos exemplares para o mundo."</p>
         </div>
 
         <!-- TIMELINE -->
         <section class="section-block" style="margin-bottom: 80px;">
             <div class="section-header" style="text-align: center; margin-bottom: 40px;">
-                <h2 style="font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; letter-spacing: 1px; margin: 0;">Marcos da Nossa História</h2>
+                <h2 style="font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: #0f172a; letter-spacing: 1px;">Marcos da Nossa História</h2>
             </div>
             <div class="cards-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
-                <div class="card-item" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); padding: 32px; border-radius: 20px; position: relative;">
-                    <div class="step-number" style="font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: rgba(217, 119, 6, 0.4); margin-bottom: 12px;">01</div>
-                    <h3 style="font-size: 1.3rem; margin-bottom: 12px; color: #ffffff;">Fundamentação</h3>
-                    <p style="color: #94a3b8; font-size: 0.95rem; line-height: 1.6; margin: 0;">Criação da filosofia sob supervisão do Mestre Marcos Giusti, unindo performance de alto nível e desenvolvimento pessoal.</p>
+                <div class="card-item" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 32px; position: relative; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+                    <div class="step-number" style="font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: #d97706; opacity: 0.8; margin-bottom: 8px;">01</div>
+                    <h3 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; margin-bottom: 12px;">Fundamentação</h3>
+                    <p style="color: #64748b; font-size: 0.95rem; line-height: 1.6; margin: 0;">Criação da filosofia sob supervisão do Mestre Marcos Giusti, unindo performance de alto nível e desenvolvimento pessoal.</p>
                 </div>
-                <div class="card-item" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); padding: 32px; border-radius: 20px; position: relative;">
-                    <div class="step-number" style="font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: rgba(217, 119, 6, 0.4); margin-bottom: 12px;">02</div>
-                    <h3 style="font-size: 1.3rem; margin-bottom: 12px; color: #ffffff;">Chegada em Joinville</h3>
-                    <p style="color: #94a3b8; font-size: 0.95rem; line-height: 1.6; margin: 0;">O Professor Vilson Fajardo estabelece a Alfa na cidade de Joinville/SC, iniciando a formação da equipe local.</p>
+                <div class="card-item" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 32px; position: relative; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+                    <div class="step-number" style="font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: #d97706; opacity: 0.8; margin-bottom: 8px;">02</div>
+                    <h3 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; margin-bottom: 12px;">Chegada em Joinville</h3>
+                    <p style="color: #64748b; font-size: 0.95rem; line-height: 1.6; margin: 0;">O Professor Vilson Fajardo estabelece a Alfa na cidade de Joinville/SC, iniciando a formação da equipe local.</p>
                 </div>
-                <div class="card-item" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); padding: 32px; border-radius: 20px; position: relative;">
-                    <div class="step-number" style="font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: rgba(217, 119, 6, 0.4); margin-bottom: 12px;">03</div>
-                    <h3 style="font-size: 1.3rem; margin-bottom: 12px; color: #ffffff;">Evolução da Estrutura</h3>
-                    <p style="color: #94a3b8; font-size: 0.95rem; line-height: 1.6; margin: 0;">Consolidação do espaço com expansão de tatames, melhoria da infraestrutura e criação de novos horários.</p>
+                <div class="card-item" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 32px; position: relative; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+                    <div class="step-number" style="font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; color: #d97706; opacity: 0.8; margin-bottom: 8px;">03</div>
+                    <h3 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; margin-bottom: 12px;">Evolução da Estrutura</h3>
+                    <p style="color: #64748b; font-size: 0.95rem; line-height: 1.6; margin: 0;">Consolidação do espaço com expansão de tatames, melhoria da infraestrutura e criação de novos horários.</p>
                 </div>
             </div>
         </section>
 
         <!-- DIÁRIO DA HQ -->
-        <section class="section-block" style="margin-bottom: 60px;">
-            <div class="section-header" style="text-align: center; margin-bottom: 50px;">
-                <h2 style="font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; letter-spacing: 1px; margin-bottom: 8px;">Diário da HQ</h2>
-                <p style="color: #94a3b8; font-size: 1.05rem;">Acompanhe passo a passo a transformação do nosso Centro de Treinamento.</p>
+        <section class="section-block">
+            <div class="section-header" style="text-align: center; margin-bottom: 40px;">
+                <h2 style="font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: #0f172a; letter-spacing: 1px; margin-bottom: 8px;">Diário da HQ</h2>
+                <p style="color: #64748b; font-size: 1.05rem;">Acompanhe passo a passo a transformação do nosso Centro de Treinamento.</p>
             </div>
 
-            <div class="diario-container" style="display: flex; flex-direction: column; gap: 60px;">
+            <div class="diario-container" style="display: flex; flex-direction: column; gap: 40px;">
 
                 <!-- ETAPA 1: AS ORIGENS -->
-                <div class="diario-etapa" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); padding: 32px; border-radius: 20px;">
+                <div class="diario-etapa" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 36px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
                     <div class="diario-header" style="margin-bottom: 24px;">
-                        <span class="step-label" style="display: inline-block; background: rgba(217, 119, 6, 0.2); color: #f59e0b; padding: 4px 12px; border-radius: 100px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 12px;">Passo 01</span>
-                        <h3 style="font-size: 1.6rem; margin-bottom: 12px; color: #ffffff;">As Origens - Onde tudo começou</h3>
-                        <p style="color: #94a3b8; line-height: 1.6; margin: 0;">Foi aqui que a nossa jornada no Jiu-Jitsu começou. Um espaço simples, construído em madeira, mas carregado de história, desafios e conquistas. Entre essas paredes nasceu e foi fortalecido o verdadeiro espírito do Jiu-Jitsu: respeito, união, disciplina e superação.</p>
+                        <span class="step-label" style="display: inline-block; background: rgba(217, 119, 6, 0.1); color: #d97706; font-size: 0.8rem; font-weight: 700; padding: 4px 12px; border-radius: 100px; text-transform: uppercase; margin-bottom: 12px;">Passo 01</span>
+                        <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: #0f172a; margin-bottom: 12px;">As Origens - Onde tudo começou</h3>
+                        <p style="color: #475569; font-size: 1rem; line-height: 1.6; margin: 0;">Foi aqui que a nossa jornada no Jiu-Jitsu começou. Um espaço simples, construído em madeira, mas carregado de história, desafios e conquistas. Entre essas paredes nasceu e foi fortalecido o verdadeiro espírito do Jiu-Jitsu: respeito, união, disciplina e superação.</p>
                     </div>
 
                     <div class="media-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-                        <div class="media-frame" style="border-radius: 12px; overflow: hidden; height: 260px; border: 1px solid rgba(255, 255, 255, 0.1);">
-                            <img src="imagens/antigo01.jpeg" alt="Estrutura antiga em madeira da Alfa BJJ" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="media-frame" style="border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0;">
+                            <img src="imagens/antigo01.jpeg" alt="Estrutura antiga em madeira da Alfa BJJ" style="width: 100%; height: 260px; object-fit: cover; display: block;">
                         </div>
-                        <div class="media-frame" style="border-radius: 12px; overflow: hidden; height: 260px; border: 1px solid rgba(255, 255, 255, 0.1);">
-                            <img src="imagens/antigo02.jpeg" alt="Área de treino inicial da Alfa BJJ" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="media-frame" style="border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0;">
+                            <img src="imagens/antigo02.jpeg" alt="Área de treino inicial da Alfa BJJ" style="width: 100%; height: 260px; object-fit: cover; display: block;">
                         </div>
                     </div>
                 </div>
 
                 <!-- ETAPA 2: PRIMEIRA REFORMA -->
-                <div class="diario-etapa" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); padding: 32px; border-radius: 20px;">
+                <div class="diario-etapa" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 36px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
                     <div class="diario-header" style="margin-bottom: 24px;">
-                        <span class="step-label" style="display: inline-block; background: rgba(217, 119, 6, 0.2); color: #f59e0b; padding: 4px 12px; border-radius: 100px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 12px;">Passo 02</span>
-                        <h3 style="font-size: 1.6rem; margin-bottom: 12px; color: #ffffff;">Primeira Reforma - Hora de evoluir</h3>
-                        <p style="color: #94a3b8; line-height: 1.6; margin: 0;">Depois de anos vivendo e construindo nossa história na academia de madeira, chegou o momento de encerrar um ciclo. Não para deixar nossa história para trás, mas para abrir espaço para algo maior. A antiga estrutura deu lugar a um novo sonho, preparado para receber os alunos que chegariam e para continuar escrevendo a nossa história no Jiu-Jitsu.</p>
+                        <span class="step-label" style="display: inline-block; background: rgba(217, 119, 6, 0.1); color: #d97706; font-size: 0.8rem; font-weight: 700; padding: 4px 12px; border-radius: 100px; text-transform: uppercase; margin-bottom: 12px;">Passo 02</span>
+                        <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: #0f172a; margin-bottom: 12px;">Primeira Reforma - Hora de evoluir</h3>
+                        <p style="color: #475569; font-size: 1rem; line-height: 1.6; margin: 0;">Depois de anos vivendo e construindo nossa história na academia de madeira, chegou o momento de encerrar um ciclo. Não para deixar nossa história para trás, mas para abrir espaço para algo maior. A antiga estrutura deu lugar a um novo sonho, preparado para receber os alunos que chegariam e para continuar escrevendo a nossa história no Jiu-Jitsu.</p>
                     </div>
 
                     <div class="media-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-                        <div class="media-frame" style="border-radius: 12px; overflow: hidden; height: 320px; border: 1px solid rgba(255, 255, 255, 0.1);">
-                            <img src="imagens/primeira-reforma.jpg" alt="Inicio dos trabalhos de reforma da academia" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="media-frame" style="border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0;">
+                            <img src="imagens/primeira-reforma.jpg" alt="Inicio dos trabalhos de reforma da academia" style="width: 100%; height: 260px; object-fit: cover; display: block;">
                         </div>
                     </div>
                 </div>
 
                 <!-- ETAPA 3: PLANEJAMENTO DO NOVO CT -->
-                <div class="diario-etapa" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); padding: 32px; border-radius: 20px;">
+                <div class="diario-etapa" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 36px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
                     <div class="diario-header" style="margin-bottom: 24px;">
-                        <span class="step-label" style="display: inline-block; background: rgba(217, 119, 6, 0.2); color: #f59e0b; padding: 4px 12px; border-radius: 100px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 12px;">Passo 03</span>
-                        <h3 style="font-size: 1.6rem; margin-bottom: 12px; color: #ffffff;">O planejamento de uma nova fase</h3>
-                        <p style="color: #94a3b8; line-height: 1.6; margin: 0;">Depois de 15 anos, chegou o momento de planejar uma grande transformação. Através da nova planta baixa, começamos a dar forma à reforma que irá renovar o CT, otimizar os espaços e elevar ainda mais o nível da nossa academia.</p>
+                        <span class="step-label" style="display: inline-block; background: rgba(217, 119, 6, 0.1); color: #d97706; font-size: 0.8rem; font-weight: 700; padding: 4px 12px; border-radius: 100px; text-transform: uppercase; margin-bottom: 12px;">Passo 03</span>
+                        <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: #0f172a; margin-bottom: 12px;">O planejamento de uma nova fase</h3>
+                        <p style="color: #475569; font-size: 1rem; line-height: 1.6; margin: 0;">Depois de 15 anos, chegou o momento de planejar uma grande transformação. Através da nova planta baixa, começamos a dar forma à reforma que irá renovar o CT, otimizar os espaços e elevar ainda mais o nível da nossa academia.</p>
                     </div>
 
                     <div class="media-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-                        <div class="media-frame" style="border-radius: 12px; overflow: hidden; height: 260px; border: 1px solid rgba(255, 255, 255, 0.1);">
-                            <img src="imagens/planta.jpg" alt="Planta baixa do projeto do novo CT Alfa" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="media-frame" style="border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0;">
+                            <img src="imagens/planta.jpg" alt="Planta baixa do projeto do novo CT Alfa" style="width: 100%; height: 260px; object-fit: cover; display: block;">
                         </div>
-                        <div class="media-frame" style="border-radius: 12px; overflow: hidden; height: 260px; border: 1px solid rgba(255, 255, 255, 0.1);">
-                            <img src="imagens/planta01.jpg" alt="Detalhe técnico da planta baixa do CT Alfa" style="width: 100%; height 100%; object-fit: cover;">
+                        <div class="media-frame" style="border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0;">
+                            <img src="imagens/planta01.jpg" alt="Detalhe técnico da planta baixa do CT Alfa" style="width: 100%; height: 260px; object-fit: cover; display: block;">
                         </div>
                     </div>
                 </div>
 
                 <!-- ETAPA 4: EXECUÇÃO DO PROJETO -->
-                <div class="diario-etapa" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); padding: 32px; border-radius: 20px;">
+                <div class="diario-etapa" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 36px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
                     <div class="diario-header" style="margin-bottom: 24px;">
-                        <span class="step-label" style="display: inline-block; background: rgba(217, 119, 6, 0.2); color: #f59e0b; padding: 4px 12px; border-radius: 100px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 12px;">Passo 04</span>
-                        <h3 style="font-size: 1.6rem; margin-bottom: 12px; color: #ffffff;">Execução do Projeto</h3>
-                        <p style="color: #94a3b8; line-height: 1.6; margin: 0;">Com o projeto pronto, professores e alunos se uniram para tirar do papel o novo CT Alfa Legacy Academy Jlle. Muito trabalho, união e dedicação para transformar esse sonho em realidade. Acompanhe essa jornada!</p>
+                        <span class="step-label" style="display: inline-block; background: rgba(217, 119, 6, 0.1); color: #d97706; font-size: 0.8rem; font-weight: 700; padding: 4px 12px; border-radius: 100px; text-transform: uppercase; margin-bottom: 12px;">Passo 04</span>
+                        <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: #0f172a; margin-bottom: 12px;">Execução do Projeto</h3>
+                        <p style="color: #475569; font-size: 1rem; line-height: 1.6; margin: 0;">Com o projeto pronto, professores e alunos se uniram para tirar do papel o novo CT Alfa Legacy Academy Jlle. Muito trabalho, união e dedicação para transformar esse sonho em realidade. Acompanhe essa jornada!</p>
                     </div>
 
                     <div class="video-container">
-                        <div class="media-frame" style="border-radius: 12px; overflow: hidden; max-width: 800px; margin: 0 auto; border: 1px solid rgba(255, 255, 255, 0.1);">
-                            <video controls muted playsinline poster="imagens/planta.jpg" style="width: 100%; height: auto; display: block;">
+                        <div class="media-frame" style="border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; background: #000000;">
+                            <video controls muted playsinline poster="imagens/planta.jpg" style="width: 100%; max-height: 450px; display: block; border-radius: 12px;">
                                 <source src="execucao.mp4" type="video/mp4">
                                 Seu navegador não suporta a exibição de vídeos.
                             </video>
@@ -225,16 +224,16 @@
                 </div>
 
                 <!-- ETAPA 5: 90% FINALIZADO -->
-                <div class="diario-etapa" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); padding: 32px; border-radius: 20px;">
+                <div class="diario-etapa" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 36px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
                     <div class="diario-header" style="margin-bottom: 24px;">
-                        <span class="step-label" style="display: inline-block; background: rgba(217, 119, 6, 0.2); color: #f59e0b; padding: 4px 12px; border-radius: 100px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 12px;">Passo 05</span>
-                        <h3 style="font-size: 1.6rem; margin-bottom: 12px; color: #ffffff;">90% Finalizado</h3>
-                        <p style="color: #94a3b8; line-height: 1.6; margin: 0;">Tatames instalados e ambiente preparado para os treinos de alto nível.</p>
+                        <span class="step-label" style="display: inline-block; background: rgba(217, 119, 6, 0.1); color: #d97706; font-size: 0.8rem; font-weight: 700; padding: 4px 12px; border-radius: 100px; text-transform: uppercase; margin-bottom: 12px;">Passo 05</span>
+                        <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: #0f172a; margin-bottom: 12px;">90% Finalizado</h3>
+                        <p style="color: #475569; font-size: 1rem; line-height: 1.6; margin: 0;">Tatames instalados e ambiente preparado para os treinos de alto nível.</p>
                     </div>
 
                     <div class="media-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-                        <div class="media-frame" style="border-radius: 12px; overflow: hidden; height: 350px; border: 1px solid rgba(255, 255, 255, 0.1);">
-                            <img src="imagens/projeto-90-porcento.jpg" alt="Tatames novos montados no CT Alfa BJJ Joinville" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="media-frame" style="border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0;">
+                            <img src="imagens/projeto-90-porcento.jpg" alt="Tatames novos montados no CT Alfa BJJ Joinville" style="width: 100%; height: 300px; object-fit: cover; display: block;">
                         </div>
                     </div>
                 </div>
@@ -247,8 +246,8 @@
     <!-- FOOTER -->
     <footer style="text-align: center; padding: 40px 20px; background: #0f172a; color: #ffffff; margin-top: 60px;">
         <h2 style="font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 2px; margin-bottom: 5px;">ALFA BJJ JLLE</h2>
-        <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 10px;">Disciplina • Respeito • Evolução</p>
-        <p class="copyright" style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">&copy; 2026 Alfa Jiu Jitsu Academy. Todos os direitos reservados.</p>
+        <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 6px;">Disciplina • Respeito • Evolução</p>
+        <p class="copyright" style="color: rgba(255,255,255,0.5); font-size: 0.8rem; margin: 0;">&copy; 2026 Alfa Jiu Jitsu Academy. Todos os direitos reservados.</p>
     </footer>
 
 </body>
