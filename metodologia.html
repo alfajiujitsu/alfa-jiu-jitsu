@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alfa Legacy Academy | Metodologia</title>
+    <title>Alfa Jiu Jitsu Academy | Metodologia</title>
     
     <meta name="description" content="Conheça a metodologia de ensino da Alfa Jiu Jitsu Academy em Joinville. Programas para Kids, Iniciantes e Avançados.">
     
@@ -42,82 +42,81 @@
         </div>
     </header>
 
-    <!-- HERO / BANNER SECTION COM VÍDEO -->
-    <section class="hero">
-        <video autoplay muted loop playsinline class="hero-video hero-video-top">
+    <!-- HERO SECTION COM VÍDEO EM BACKGROUND -->
+    <section class="hero" style="position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 420px; text-align: center; color: #ffffff;">
+        <video autoplay muted loop playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;">
             <source src="metodo.mp4" type="video/mp4">
-            Seu navegador não suporta vídeos em HTML5.
         </video>
 
-        <div class="hero-overlay"></div>
+        <!-- SOBREPOSIÇÃO ESCURA PARA CONTRASTE DO TEXTO -->
+        <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10, 10, 12, 0.75) 0%, rgba(10, 10, 12, 0.85) 100%); z-index: 2;"></div>
 
-        <div class="hero-content">
-            <span class="hero-badge">Alfa Jiu Jitsu Academy</span>
-            <h1>Nossa Metodologia</h1>
-            <p class="hero-subtitle">O ensino é estruturado em módulos progressivos. Desenvolvemos desde a base técnica e defesa pessoal até o mais alto nível de performance competitiva.</p>
+        <div class="hero-content" style="position: relative; z-index: 3; max-width: 800px; padding: 40px 20px;">
+            <span class="hero-badge" style="display: inline-block; background: rgba(255, 255, 255, 0.12); padding: 6px 16px; border-radius: 100px; font-size: 0.85rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; border: 1px solid rgba(255, 255, 255, 0.2);">Alfa Jiu Jitsu Academy</span>
+            <h1 style="font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; letter-spacing: 2px; margin-bottom: 16px; color: #ffffff; text-transform: uppercase; line-height: 1;">Nossa Metodologia</h1>
+            <p style="font-size: 1.1rem; color: rgba(255, 255, 255, 0.85); line-height: 1.6; font-weight: 400; margin: 0 auto; max-width: 680px;">O ensino é estruturado em módulos progressivos. Desenvolvemos desde a base técnica e defesa pessoal até o mais alto nível de performance competitiva.</p>
         </div>
     </section>
 
-    <!-- CONTEÚDO PRINCIPAL -->
-    <main class="container main-content">
+    <!-- CONTEÚDO PRINCIPAL (PROGRAMAS) -->
+    <main class="container" style="max-width: 1200px; margin: 60px auto; padding: 0 20px;">
 
-        <!-- GRID DE PROGRAMAS -->
-        <section class="programas-grid">
+        <div class="programas-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
             
             <!-- PROGRAMA KIDS -->
-            <article class="programa-card">
-                <div class="card-body">
-                    <span class="badge-tag">4 a 12 anos</span>
-                    <h3 class="card-title">👶 Programa Alfa Kids</h3>
-                    <ul class="diferenciais-list">
-                        <li>Foco em disciplina, respeito e autocontrole.</li>
-                        <li>Desenvolvimento da coordenação motora e agilidade.</li>
-                        <li>Prevenção e postura contra o Bullying.</li>
-                        <li>Aulas dinâmicas e lúdicas com fundamentos reais do Jiu Jitsu.</li>
+            <article class="programa-card" style="background: #ffffff; border: 1px solid var(--border-color, #e2e8f0); border-radius: 20px; padding: 32px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                <div>
+                    <span style="display: inline-block; background: #e0f2fe; color: #0284c7; padding: 6px 14px; border-radius: 100px; font-size: 0.8rem; font-weight: 700; margin-bottom: 20px;">4 a 12 anos</span>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; color: #0f172a; display: flex; align-items: center; gap: 8px;">👶 Programa Alfa Kids</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0 0 30px 0; display: flex; flex-direction: column; gap: 12px;">
+                        <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.95rem; color: #475569; line-height: 1.5;"><span style="color: #10b981; font-weight: bold;">✓</span> Foco em disciplina, respeito e autocontrole.</li>
+                        <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.95rem; color: #475569; line-height: 1.5;"><span style="color: #10b981; font-weight: bold;">✓</span> Desenvolvimento da coordenação motora e agilidade.</li>
+                        <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.95rem; color: #475569; line-height: 1.5;"><span style="color: #10b981; font-weight: bold;">✓</span> Prevenção e postura contra o Bullying.</li>
+                        <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.95rem; color: #475569; line-height: 1.5;"><span style="color: #10b981; font-weight: bold;">✓</span> Aulas dinâmicas e lúdicas com fundamentos reais do Jiu Jitsu.</li>
                     </ul>
                 </div>
-                <a href="https://wa.me/5547933827050?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20a%20turma%20Kids." target="_blank" rel="noopener noreferrer" class="btn-primary">Agendar Aula Kids</a>
+                <a href="https://wa.me/5547933827050?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20a%20turma%20Kids." target="_blank" rel="noopener noreferrer" style="display: block; width: 100%; text-align: center; background: #0f172a; color: #ffffff; padding: 14px 20px; border-radius: 12px; font-weight: 600; text-decoration: none; transition: background 0.3s ease;">Agendar Aula Kids</a>
             </article>
 
             <!-- PROGRAMA FUNDAMENTOS -->
-            <article class="programa-card">
-                <div class="card-body">
-                    <span class="badge-tag">Faixa Branca / Iniciantes</span>
-                    <h3 class="card-title">🥋 Fundamentos</h3>
-                    <ul class="diferenciais-list">
-                        <li>Construção sólida de bases, posturas e amortecimento de quedas.</li>
-                        <li>Técnicas fundamentais de defesa pessoal e saídas de sufoco.</li>
-                        <li>Entendimento das posições de domínio (Guarda, Montada, Costas).</li>
-                        <li>Ambiente seguro e progressivo para evitar lesões.</li>
+            <article class="programa-card" style="background: #ffffff; border: 1px solid var(--border-color, #e2e8f0); border-radius: 20px; padding: 32px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                <div>
+                    <span style="display: inline-block; background: #fef3c7; color: #d97706; padding: 6px 14px; border-radius: 100px; font-size: 0.8rem; font-weight: 700; margin-bottom: 20px;">Faixa Branca / Iniciantes</span>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; color: #0f172a; display: flex; align-items: center; gap: 8px;">🥋 Fundamentos</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0 0 30px 0; display: flex; flex-direction: column; gap: 12px;">
+                        <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.95rem; color: #475569; line-height: 1.5;"><span style="color: #10b981; font-weight: bold;">✓</span> Construção sólida de bases, posturas e amortecimento de quedas.</li>
+                        <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.95rem; color: #475569; line-height: 1.5;"><span style="color: #10b981; font-weight: bold;">✓</span> Técnicas fundamentais de defesa pessoal e saídas de sufoco.</li>
+                        <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.95rem; color: #475569; line-height: 1.5;"><span style="color: #10b981; font-weight: bold;">✓</span> Entendimento das posições de domínio (Guarda, Montada, Costas).</li>
+                        <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.95rem; color: #475569; line-height: 1.5;"><span style="color: #10b981; font-weight: bold;">✓</span> Ambiente seguro e progressivo para evitar lesões.</li>
                     </ul>
                 </div>
-                <a href="https://wa.me/5547933827050?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20o%20programa%20Iniciantes." target="_blank" rel="noopener noreferrer" class="btn-primary">Começar do Zero</a>
+                <a href="https://wa.me/5547933827050?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20o%20programa%20Iniciantes." target="_blank" rel="noopener noreferrer" style="display: block; width: 100%; text-align: center; background: #0f172a; color: #ffffff; padding: 14px 20px; border-radius: 12px; font-weight: 600; text-decoration: none; transition: background 0.3s ease;">Começar do Zero</a>
             </article>
 
             <!-- PROGRAMA AVANÇADO -->
-            <article class="programa-card">
-                <div class="card-body">
-                    <span class="badge-tag">Graduados & Competidores</span>
-                    <h3 class="card-title">⚔️ Avançado & Competição</h3>
-                    <ul class="diferenciais-list">
-                        <li>Refinamento técnico e estratégias avançadas de combate.</li>
-                        <li>Transições complexas, raspagens e finalizações de alto nível.</li>
-                        <li>Preparação física específica, ritmo de luta e mentalidade.</li>
-                        <li>Treinos específicos de sparring e situações de campeonato.</li>
+            <article class="programa-card" style="background: #ffffff; border: 1px solid var(--border-color, #e2e8f0); border-radius: 20px; padding: 32px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                <div>
+                    <span style="display: inline-block; background: #f3e8ff; color: #9333ea; padding: 6px 14px; border-radius: 100px; font-size: 0.8rem; font-weight: 700; margin-bottom: 20px;">Graduados & Competidores</span>
+                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; color: #0f172a; display: flex; align-items: center; gap: 8px;">⚔️ Avançado & Competição</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0 0 30px 0; display: flex; flex-direction: column; gap: 12px;">
+                        <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.95rem; color: #475569; line-height: 1.5;"><span style="color: #10b981; font-weight: bold;">✓</span> Refinamento técnico e estratégias avançadas de combate.</li>
+                        <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.95rem; color: #475569; line-height: 1.5;"><span style="color: #10b981; font-weight: bold;">✓</span> Transições complexas, raspagens e finalizações de alto nível.</li>
+                        <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.95rem; color: #475569; line-height: 1.5;"><span style="color: #10b981; font-weight: bold;">✓</span> Preparação física específica, ritmo de luta e mentalidade.</li>
+                        <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.95rem; color: #475569; line-height: 1.5;"><span style="color: #10b981; font-weight: bold;">✓</span> Treinos específicos de sparring e situações de campeonato.</li>
                     </ul>
                 </div>
-                <a href="https://wa.me/5547933827050?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20o%20treino%20Avan%C3%A7ado." target="_blank" rel="noopener noreferrer" class="btn-primary">Treinar no Avançado</a>
+                <a href="https://wa.me/5547933827050?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20o%20treino%20Avan%C3%A7ado." target="_blank" rel="noopener noreferrer" style="display: block; width: 100%; text-align: center; background: #0f172a; color: #ffffff; padding: 14px 20px; border-radius: 12px; font-weight: 600; text-decoration: none; transition: background 0.3s ease;">Treinar no Avançado</a>
             </article>
 
-        </section>
+        </div>
 
     </main>
 
     <!-- FOOTER -->
-    <footer>
-        <h2>ALFA BJJ JLLE</h2>
-        <p>Disciplina • Respeito • Evolução</p>
-        <p class="copyright">&copy; 2026 Alfa Jiu Jitsu Academy. Todos os direitos reservados.</p>
+    <footer style="text-align: center; padding: 40px 20px; background: #0f172a; color: #ffffff; margin-top: 60px;">
+        <h2 style="font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 2px; margin-bottom: 5px;">ALFA BJJ JLLE</h2>
+        <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 10px;">Disciplina • Respeito • Evolução</p>
+        <p style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">&copy; 2026 Alfa Jiu Jitsu Academy. Todos os direitos reservados.</p>
     </footer>
 
 </body>
